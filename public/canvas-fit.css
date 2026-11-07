@@ -1,0 +1,4 @@
+#fitCanvasPhoto{white-space:nowrap;color:var(--copper)}
+.canvas-fit-compact{display:none}
+.toolbar:has(#fitCanvasPhoto:not([hidden])) #textEditHint,.toolbar:has(#fitCanvasPhoto:not([hidden])) #toolHint{display:none}
+@media(max-width:1500px){#fitCanvasPhoto{font-size:12px;padding:6px 8px}.canvas-fit-full{display:none}.canvas-fit-compact{display:inline}.toolbar:has(#fitCanvasPhoto:not([hidden])) kbd{display:none}.toolbar:has(#fitCanvasPhoto:not([hidden])) #textSize{width:50px}.toolbar:has(#fitCanvasPhoto:not([hidden])) #zoomValue{min-width:52px}}

@@ -1,0 +1,53 @@
+.header #generationQueueButton{display:inline-flex;align-items:center;justify-content:center;gap:7px;flex:none;min-height:36px;padding:7px 10px;font-size:12px;line-height:1.3;border:1px solid var(--line)}
+#generationQueueButton .generation-queue-symbol{font-size:18px;line-height:1}
+#generationQueueButton[data-active=true]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-text)}
+.generation-queue-count{display:inline-grid;place-items:center;min-width:19px;height:19px;padding-inline:4px;border-radius:12px;background:var(--accent);color:#fff;font-size:10px;font-weight:700;font-variant-numeric:tabular-nums}
+#generationQueueButton[data-error=true] .generation-queue-count{background:var(--danger)}
+#generationQueueDialog{width:min(920px,calc(100vw - 36px));max-width:none;max-height:92dvh;padding:0;border:1px solid var(--line);border-radius:16px;background:var(--panel);color:var(--text);overflow:hidden}
+#generationQueueDialog[open]{display:flex;flex-direction:column}
+#generationQueueDialog::backdrop{background:#0c1116a6;backdrop-filter:blur(3px)}
+.generation-queue-heading{display:flex;gap:20px;align-items:flex-start;justify-content:space-between;padding:23px 25px 17px}
+.generation-queue-heading h2{margin:0 0 6px;font-size:25px;line-height:1.2}
+.generation-queue-heading p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+#generationQueueClose{min-height:38px;border:1px solid var(--line);font-size:12px;flex:none}
+.generation-queue-toolbar{display:flex;gap:9px;align-items:center;padding:0 25px 17px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.generation-queue-toolbar button,.generation-queue-toolbar a{font-size:12px;min-height:36px;display:inline-flex;align-items:center;padding:8px 12px;line-height:1.4;border-radius:6px;border:1px solid var(--line);text-decoration:none;color:var(--text)}
+.generation-queue-toolbar .primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.generation-queue-toolbar a{margin-left:auto;color:var(--accent-text)}
+.generation-queue-status{font-size:12px;line-height:1.5;padding:12px 25px;margin:0;color:var(--muted);flex:none;overflow-wrap:anywhere}
+.generation-queue-status.is-error{color:var(--danger)}
+.generation-queue-list{overflow:auto;min-height:100px;padding:0 25px 20px;overscroll-behavior:contain;scrollbar-gutter:stable}
+.generation-queue-group+.generation-queue-group{margin-top:24px}
+.generation-queue-group-title{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin:0 0 9px}
+.generation-queue-card{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:15px 17px;min-width:0}
+.generation-queue-card+.generation-queue-card{margin-top:10px}
+.generation-queue-card[data-status=running]{border-color:var(--accent)}
+.generation-queue-card-top{display:flex;align-items:center;gap:12px;justify-content:space-between;margin-bottom:7px}
+.generation-queue-kind{font-size:11px;color:var(--muted)}
+.generation-queue-state{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:20px;padding:3px 9px;font-size:11px;color:var(--muted)}
+.generation-queue-state[data-status=running]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-text)}
+.generation-queue-state[data-status=completed]{color:var(--success)}
+.generation-queue-state[data-status=failed]{color:var(--danger)}
+.generation-queue-card h3{font-size:16px;font-weight:650;line-height:1.4;margin:0 0 12px;overflow-wrap:anywhere}
+.generation-queue-meta{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1.3fr) minmax(60px,.5fr) minmax(70px,.5fr);gap:10px 20px;margin:0}
+.generation-queue-meta dt{color:var(--muted);font-size:10px;margin:0 0 3px}
+.generation-queue-meta dd{font-size:12px;margin:0;line-height:1.5;overflow-wrap:anywhere}
+.generation-queue-description{font-size:12px;line-height:1.5;margin:12px 0 4px;overflow-wrap:anywhere}
+.generation-queue-card[data-status=failed] .generation-queue-description{color:var(--danger)}
+.generation-queue-date{margin:0;color:var(--muted);font-size:10px}
+.generation-queue-actions{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-top:12px}
+.generation-queue-actions:empty{display:none}
+.generation-queue-actions button{font-size:11px;line-height:1.35;min-height:34px;padding:7px 10px;border:1px solid var(--line)}
+.generation-queue-actions .primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.generation-queue-actions .generation-queue-cancel{margin-left:auto;color:var(--muted)}
+.generation-queue-note{margin:0;padding:13px 25px 17px;border-top:1px solid var(--line);font-size:11px;line-height:1.5;color:var(--muted);flex:none}
+.generation-queue-empty{text-align:center;padding:36px 20px;color:var(--muted)}
+.generation-queue-empty>span{font-size:36px;color:var(--accent-text)}
+.generation-queue-empty h3{font-size:17px;color:var(--text);margin:9px 0}
+.generation-queue-empty p{font-size:12px;margin:0}
+.generation-queue-spinner{width:12px;height:12px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:generation-queue-spin 1s linear infinite}
+@keyframes generation-queue-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.generation-queue-spinner{animation:none}}
+@media(max-width:1450px){.header.has-generation-queue #openProject>span,.header.has-generation-queue #saveProject>span,.header.has-generation-queue #copyReferencesTop>span{display:none}.header.has-generation-queue #openProject,.header.has-generation-queue #saveProject,.header.has-generation-queue #copyReferencesTop{min-width:34px;padding-inline:8px}.header.has-generation-queue #projectName{min-width:0;max-width:100px}.header.has-generation-queue nav{flex-shrink:0}}
+@media(max-width:1100px){.header.has-generation-queue{gap:5px;padding-inline:9px}.header.has-generation-queue #projectName{max-width:60px}.header.has-generation-queue .divider{margin-inline:0}.header.has-generation-queue nav button{font-size:12px;padding-inline:7px}.header.has-generation-queue #drawSketchReference{font-size:10px;max-width:100px}.header.has-generation-queue #characterItemSheet{font-size:11px;max-width:110px}.header.has-generation-queue #generationQueueButton{font-size:11px;padding-inline:7px;gap:5px}.header.has-generation-queue #generationQueueButton .generation-queue-symbol{display:none}}
+@media(max-width:620px){.generation-queue-meta{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.generation-queue-heading{padding:18px 17px 14px;gap:12px}.generation-queue-heading h2{font-size:22px}.generation-queue-toolbar{padding-inline:17px}.generation-queue-toolbar a{margin-left:0}.generation-queue-status{padding-inline:17px}.generation-queue-list{padding-inline:17px}.generation-queue-note{padding-inline:17px}.generation-queue-card{padding:13px}.generation-queue-actions .generation-queue-cancel{margin-left:0}}

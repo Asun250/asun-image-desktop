@@ -1,0 +1,60 @@
+import {test,before,after} from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdir,writeFile} from 'node:fs/promises';
+import path from 'node:path';
+import {chromium} from 'playwright';
+import {createServer} from '../server.mjs';
+
+const qa=path.resolve('qa','blockout-review-display'), report={paidCalls:0,cases:[]};
+const id='11111111-1111-4111-8111-111111111111', sourceHash='a'.repeat(64), candidateHash='b'.repeat(64);
+const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j7fQAAAAASUVORK5CYII=','base64');
+const settings={model:'gpt-image-2.5-sunburst',quality:'max',size:'1536x1024',prompt:'Original prompt unchanged.',inputs:[],review:{source:{name:'Original Blender blockout.png',width:1536,height:1024,sha256:sourceHash},authorizedChanges:'Change the materials only.'}};
+const failed={id,kind:'image',mode:'image',status:'failed',phase:'needs_review',attempt:2,sourceName:'Blockout scene',createdAt:'2026-10-26T20:00:00Z',finishedAt:'2026-10-26T20:04:00Z',sourceProjectAvailable:true,outputAvailable:true,output:{width:1536,height:1024,name:'Candidate.png'},settings,message:'The image did not pass its blockout review. No further attempt was made.',review:{enabled:true,model:'gpt-6-astra',effort:'max',status:'rejected',maxAttempts:2,sourceSha256:sourceHash,candidateSha256:candidateHash,assetId:'source',summary:'The foreground tower is too wide.'},attempts:[{number:1,status:'rejected',settings,review:{model:'gpt-6-astra',effort:'max',sourceSha256:sourceHash,candidateSha256:candidateHash,verdict:{decision:'reject',summary:'Tower width exceeds the blockout.',checks:[{id:'scale',status:'fail',evidence:'Tower spans beyond the blockout edges.',correction:'Restore the original projected width.'}],corrections:[{checkId:'scale',instruction:'Restore the original projected width.'}],limitations:['World dimensions cannot be measured from this raster.']},request:{model:'gpt-6-astra',reasoning:{effort:'max'}}},candidate:{sha256:candidateHash}},{number:2,status:'failed',settings:{...settings,prompt:'Corrective prompt restoring original width.'},reviewModel:'gpt-6-astra',reviewEffort:'max',reviewRequest:{model:'gpt-6-astra',reasoning:{effort:'max'},imageManifest:[{sha256:candidateHash}]},candidate:{sha256:candidateHash}}]};
+let server,browser,base;
+before(async()=>{await mkdir(qa,{recursive:true});server=createServer({images:{dispose(){}},sheets:{dispose(){}},detection:{dispose(){}}});await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));base=`http://127.0.0.1:${server.address().port}`;browser=await chromium.launch({headless:true});});
+after(async()=>{await writeFile(path.join(qa,'report.json'),JSON.stringify(report,null,2));await browser?.close();if(server)await new Promise(resolve=>server.close(resolve));});
+async function setup(t,{fixture=true}={}){
+  const context=await browser.newContext({viewport:{width:1100,height:900}});t.after(()=>context.close());const page=await context.newPage(),errors=[],requests=[];
+  page.on('pageerror',error=>errors.push(error.message));t.after(()=>assert.deepEqual(errors,[]));
+  await context.route('**/*',async route=>{const url=new URL(route.request().url());if(url.origin!==base){errors.push('Unexpected external request: '+url.origin);return route.abort();}requests.push({path:url.pathname,method:route.request().method()});if(fixture&&url.pathname==='/review-fixture')return route.fulfill({contentType:'text/html',body:'<!doctype html><html data-theme="dark"><head><link rel="stylesheet" href="editor.css"><link rel="stylesheet" href="appearance.css"><link rel="stylesheet" href="generation-details.css"><style>#app{display:block;height:0;min-height:0;min-width:0}.header{display:none}body{overflow:auto}#details{padding:8px}</style></head><body><div id="app"><header class="header"></header></div><main id="details"></main></body></html>'});return route.continue();});
+  return {page,context,requests};
+}
+test('review details preserve actual attempts, source and prompts without claiming exact 3D approval',async t=>{
+  const {page,requests}=await setup(t);await page.goto(base+'/review-fixture');
+  await page.evaluate(async record=>{const {renderGenerationDetails}=await import('./generation-details.mjs');window.detailMount=renderGenerationDetails(document.getElementById('details'),record);await window.detailMount.ready;},failed);
+  assert.equal(await page.locator('.blockout-review-result>h4').textContent(),'Needs review — not approved');
+  assert.match(await page.locator('.blockout-review-meta').textContent(),/gpt-6-astra.*max.*2 of 2/);
+  assert.equal(await page.locator('.generation-detail-prompt').inputValue(),settings.prompt);
+  await page.locator('.blockout-review-source>summary').click();assert.match(await page.locator('.blockout-review-source').textContent(),/Original Blender blockout.png/);assert.match(await page.locator('.blockout-review-source').textContent(),new RegExp(sourceHash));
+  const first=page.locator('[data-attempt="1"]');await first.locator(':scope>summary').click();assert.match(await first.textContent(),/Restore the original projected width/);assert.match(await first.textContent(),/Tower spans beyond/);
+  assert.match(await page.locator('[data-attempt="2"]').textContent(),/Corrective prompt restoring original width/);
+  assert.match(await page.locator('[data-attempt="2"]').textContent(),/Recorded reviewer request \(review did not complete\)/);
+  assert.match(await page.locator('[data-attempt="2"]').textContent(),/imageManifest/);
+  assert.match(await page.locator('.blockout-review-limit').first().textContent(),/does not certify exact 3D dimensions/);
+  await page.screenshot({path:path.join(qa,'rejected-attempt-details.png'),fullPage:true});
+  for (const width of [700,390]) {await page.setViewportSize({width,height:900});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));}
+  const labels=await page.evaluate(async record=>{const {blockoutReviewDisplay}=await import('./generation-details.mjs');return [blockoutReviewDisplay({...record,status:'completed',review:{...record.review,status:'accepted'}}).label,blockoutReviewDisplay({...record,status:'completed',review:{...record.review,status:'pending'}}).label,blockoutReviewDisplay({...record,status:'running',phase:'reviewing',review:{...record.review,status:'reviewing'}}).label,blockoutReviewDisplay({status:'completed'})];},failed);
+  assert.deepEqual(labels,['Visual match passed','Needs review — not approved','Reviewing blockout match',null]);assert(!requests.some(item=>item.method==='POST'));report.cases.push({name:t.name,status:'passed'});
+});
+test('queue exposes rejected candidates and keeps review phase honest',async t=>{
+  const {page,context,requests}=await setup(t);const reviewing={...failed,id:'22222222-2222-4222-8222-222222222222',status:'running',phase:'reviewing',outputAvailable:false,attempt:1,message:'Astra is checking the original blockout against attempt 1.',review:{...failed.review,status:'reviewing'}};
+  await context.route(base+'/api/**',route=>{const url=new URL(route.request().url());return route.fulfill({contentType:'application/json',body:JSON.stringify(url.pathname.endsWith('/status')&&url.pathname.includes('generation-queue')?{items:[failed,reviewing],counts:{running:1,queued:0}}:{token:'test-token'})});});
+  await page.goto(base+'/review-fixture');await page.evaluate(async()=>{const {mountGenerationQueue}=await import('./generation-queue.mjs');window.opened=[];window.queue=mountGenerationQueue({onOpenResult:value=>window.opened.push(value.id)});await window.queue.refresh();window.queue.open();});
+  const rejected=page.locator(`[data-job-id="${id}"]`);assert.equal(await rejected.locator('.generation-queue-state').textContent(),'Needs review — not approved');assert.equal(await rejected.locator('[data-queue-action="open"]').textContent(),'Inspect unapproved image');
+  const checking=page.locator(`[data-job-id="${reviewing.id}"]`);assert.equal(await checking.locator('.generation-queue-state').textContent(),'Reviewing blockout match');assert.equal(await checking.locator('.generation-queue-description').textContent(),reviewing.message);assert.equal(await checking.locator('[data-queue-action="open"]').count(),0);
+  await page.screenshot({path:path.join(qa,'queue-review-state.png')});await rejected.locator('[data-queue-action="open"]').click();assert.deepEqual(await page.evaluate(()=>window.opened),[id]);assert(!requests.some(item=>item.method==='POST'));report.cases.push({name:t.name,status:'passed'});
+});
+test('generation history keeps failed review image inspectable and labels it unapproved',async t=>{
+  const {page,context,requests}=await setup(t,{fixture:false});const full={...failed,image:{source:`data:image/png;base64,${png.toString('base64')}`,width:1,height:1,name:'Candidate.png'}};
+  await context.route(base+'/api/**',route=>{const url=new URL(route.request().url());if(url.pathname.endsWith('/output'))return route.fulfill({contentType:'image/png',body:png});const body=url.pathname.endsWith('/status')?{token:'test-token'}:url.pathname.endsWith('/history')?{items:url.pathname.startsWith('/api/images')?[failed]:[],nextCursor:null}:full;return route.fulfill({contentType:'application/json',body:JSON.stringify(body)});});
+  await page.goto(base+'/generation-history.html');await page.locator('.generation-history-card').waitFor();assert.equal(await page.locator('.history-card-state').textContent(),'Needs review — not approved');await page.locator('.generation-history-card').click();await page.locator('#generationHistoryOutputFrame').waitFor({state:'visible'});
+  assert.match(await page.locator('#generationHistoryDetailStatus').textContent(),/^Needs review — not approved/);assert.equal(await page.locator('#generationHistorySave').isEnabled(),true);assert.equal(await page.locator('#generationHistoryInspect').isEnabled(),true);assert.equal(await page.locator('#generationHistoryEditOutput').getAttribute('aria-disabled'),'false');assert.match(await page.locator('#generationHistoryRedo').getAttribute('href'),/action=redo/);
+  assert(!requests.some(item=>item.method==='POST'));report.cases.push({name:t.name,status:'passed'});
+});
+test('accepted review is labeled as a visual match, with its limits still visible',async t=>{
+  const {page}=await setup(t);await page.goto(base+'/review-fixture');
+  const accepted={...failed,status:'completed',phase:'completed',attempt:1,message:'Mocked review completed for UI verification.',review:{...failed.review,status:'accepted',summary:'Visible composition matches in this mocked test.'},attempts:[{number:1,status:'accepted',settings,candidate:{width:1536,height:1024,sha256:candidateHash},returned:{model:'gpt-image-2.5-sunburst',quality:'max',size:'1536x1024'},review:{model:'gpt-6-astra',effort:'max',sourceSha256:sourceHash,candidateSha256:candidateHash,verdict:{decision:'accept',summary:'Visible composition matches in this mocked test.',checks:['framing','camera','placement','scale','orientation','occlusion','content','appearance'].map(id=>({id,status:'pass',evidence:'No visible deviation identified in this test fixture.',correction:''})),corrections:[],limitations:['Exact 3D dimensions remain unverified.']}}}]};
+  await page.evaluate(async record=>{const {renderGenerationDetails}=await import('./generation-details.mjs');await renderGenerationDetails(document.getElementById('details'),record).ready;},accepted);
+  assert.equal(await page.locator('.blockout-review-result>h4').textContent(),'Visual match passed');assert.equal(await page.locator('.blockout-review-result').getAttribute('data-review-state'),'accepted');assert.match(await page.locator('.blockout-review-limit').first().textContent(),/does not certify exact 3D dimensions/);assert.equal(await page.locator('[data-check-status="pass"]').count(),8);
+  await page.locator('.blockout-review-attempt>summary').click();await page.screenshot({path:path.join(qa,'accepted-review-details-mock.png'),fullPage:true});report.cases.push({name:t.name,status:'passed'});
+});

@@ -1,0 +1,36 @@
+/* Main composer: image creation shares the desktop model catalog. */
+.workspace{grid-template-rows:minmax(0,1fr) 168px}
+.composer{grid-template-columns:170px minmax(120px,1fr) 220px 145px;grid-template-rows:auto 25px;row-gap:5px}
+.model-section select{font-size:13px;padding-inline:10px}
+.image-quality-row{display:flex;align-items:center;gap:8px;margin-top:6px;min-width:0}
+.image-quality-row label{font-size:12px;flex:none;color:var(--muted)}
+.image-quality-row select{min-width:0;flex:1;height:29px;min-height:29px;padding:3px 7px;font-size:12px}
+#imageQualityMessage{flex:1;min-width:0;font-size:11px;line-height:1.4;color:var(--danger);overflow-wrap:anywhere}
+.generation-history-link{display:inline-flex;align-items:center;padding:4px 7px;font-size:11px;flex:none;border:1px solid var(--line);color:var(--text);background:var(--surface);border-radius:5px;text-decoration:none}
+.generation-history-link:hover,.generation-history-link:focus-visible{border-color:var(--accent);outline-offset:2px}
+#imageConnectionState[data-connected="true"]{color:var(--success)}
+.generate-section #generate{gap:8px;justify-content:center}
+.generate-section #generate>span{font-size:14px}
+.image-generation-footer{grid-column:1/-1;display:flex;align-items:center;gap:14px;min-width:0;font-size:11px;line-height:1.4}
+#imageGenerationStatus{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted)}
+#imageGenerationStatus.is-error{color:var(--danger)}
+.image-generation-footer button{padding:4px 7px;font-size:11px;flex:none;border:1px solid var(--line);color:var(--text);background:var(--surface);border-radius:5px}
+.image-api-note{color:var(--muted);flex:none;font-size:10px}
+.image-generation-spinner{width:17px;height:17px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:image-generation-spin .9s linear infinite;flex:none}
+@keyframes image-generation-spin{to{transform:rotate(360deg)}}
+#desktopImageResultDialog{width:min(1200px,calc(100vw - 40px));max-width:none;max-height:94dvh;padding:20px;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:16px;overflow:auto}
+.image-result-header{display:flex;align-items:flex-start;gap:20px;justify-content:space-between}
+.image-result-header h2{margin:0 0 7px;font-size:23px}
+.image-result-header p{margin:0 0 16px;color:var(--muted);overflow-wrap:anywhere;font-size:12px}
+.image-result-header button{font-size:24px;line-height:1;min-width:42px;min-height:42px;border:1px solid var(--line)}
+.image-result-preview{display:block;position:relative;width:100%;background:var(--stage);border-radius:10px;padding:10px;border:1px solid var(--line);cursor:zoom-in;color:var(--text)}
+.image-result-preview img{display:block;width:100%;height:min(62vh,700px);object-fit:contain}
+.image-result-preview:hover,.image-result-preview:focus-visible{border-color:var(--accent)}
+.image-result-expand{position:absolute;right:18px;bottom:18px;padding:9px 13px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--text);font-size:13px;box-shadow:0 2px 10px #0003;pointer-events:none}
+.image-result-help,[data-image-result-status]{font-size:13px;line-height:1.5;color:var(--muted)}
+.image-result-actions{display:flex;justify-content:flex-start;flex-wrap:wrap;gap:9px;position:sticky;bottom:-20px;margin:0 -20px -20px;padding:14px 20px;background:var(--panel);border-top:1px solid var(--line);z-index:2}
+.image-result-actions button{min-height:40px;border:1px solid var(--line);font-size:13px}
+@media(max-width:1250px){.composer{grid-template-columns:130px minmax(120px,1fr) 200px 128px;column-gap:12px}.image-generation-footer{gap:7px}.image-api-note{font-size:9px}}
+@media(max-width:1050px){.composer{grid-template-columns:110px minmax(110px,1fr) 190px 122px}.model-section select{font-size:12px}.reference-section #referenceList{max-width:48px}#referenceCount{display:none}}
+@media(max-height:820px){.workspace{grid-template-rows:minmax(0,1fr) 164px}}
+@media(prefers-reduced-motion:reduce){.image-generation-spinner{animation-duration:1.8s}}

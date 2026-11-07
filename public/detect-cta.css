@@ -1,0 +1,297 @@
+/* The detection action owns the exact horizontal center of the app toolbar. */
+:root {
+  --detect-toolbar-height: 82px;
+  --detect-header-height: 64px;
+  --detect-statusbar-height: 22px;
+}
+
+#app,
+#app:has(#textOptions:not([hidden])),
+#app:has(#brushOptions:not([hidden])) {
+  grid-template-rows: var(--detect-header-height) var(--detect-toolbar-height) minmax(0, 1fr) var(--detect-statusbar-height);
+}
+
+#app > .toolbar,
+#app > .toolbar:has(#textOptions:not([hidden])),
+#app > .toolbar:has(#brushOptions:not([hidden])) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 184px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 12px;
+  row-gap: 2px;
+  align-items: center;
+  padding: 6px 15px;
+  overflow: visible;
+}
+
+#app > .toolbar > .toolbar-left {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  height: 100%;
+}
+
+.toolbar-left > .context-options:has(#textOptions:not([hidden])),
+.toolbar-left > .context-options:has(#brushOptions:not([hidden])) {
+  min-width: 0;
+}
+
+.toolbar-left:not(:has(#textOptions:not([hidden]), #brushOptions:not([hidden]))) > .context-options,
+.toolbar-left > .divider,
+#app > .toolbar > .spacer,
+#app > .toolbar > .divider {
+  display: none;
+}
+
+#app > .toolbar > .toolbar-left:has(#textOptions:not([hidden]), #brushOptions:not([hidden])) {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 5px;
+  row-gap: 2px;
+}
+
+#app > .toolbar .toolbar-left > .toolbar-history,
+#app > .toolbar:has(#textOptions:not([hidden])) .toolbar-left > .toolbar-history,
+#app > .toolbar:has(#brushOptions:not([hidden])) .toolbar-left > .toolbar-history {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+}
+
+#app > .toolbar .toolbar-left > .canvas-options,
+#app > .toolbar:has(#textOptions:not([hidden])) .toolbar-left > .canvas-options,
+#app > .toolbar:has(#brushOptions:not([hidden])) .toolbar-left > .canvas-options {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: start;
+  min-width: 0;
+}
+
+#app > .toolbar .toolbar-left > .context-options,
+#app > .toolbar:has(#textOptions:not([hidden])) .toolbar-left > .context-options,
+#app > .toolbar:has(#brushOptions:not([hidden])) .toolbar-left > .context-options {
+  grid-column: 1 / 3;
+  grid-row: 2;
+  justify-self: start;
+  width: 100%;
+}
+
+#app > .toolbar #detectionOptions,
+#app > .toolbar:has(#textOptions:not([hidden])) #detectionOptions,
+#app > .toolbar:has(#brushOptions:not([hidden])) #detectionOptions {
+  display: contents;
+  grid-column: auto;
+  grid-row: auto;
+  justify-self: stretch;
+}
+
+#app > .toolbar .detection-launch {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1 / 3;
+  justify-self: center;
+  align-self: center;
+  width: 184px;
+  height: 68px;
+  isolation: isolate;
+}
+
+#app > .toolbar #autoDetect,
+#app > .toolbar #detectMarkedArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 184px;
+  height: 68px;
+  min-height: 68px;
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid #75b4e9;
+  border-radius: 12px;
+  background: #b5dcff;
+  color: #173f66;
+  font-size: 26px;
+  font-weight: 650;
+  line-height: 1.15;
+  box-shadow: 0 2px 6px #32648c12;
+  transition: background-color .16s, border-color .16s, box-shadow .16s;
+}
+
+#app > .toolbar #autoDetect:hover:not(:disabled),
+#app > .toolbar #detectMarkedArea:hover:not(:disabled) {
+  background: #c3e4ff;
+  border-color: #65ace9;
+  box-shadow: 0 3px 10px #32648c20;
+}
+
+#app > .toolbar #autoDetect:active:not(:disabled),
+#app > .toolbar #detectMarkedArea:active:not(:disabled) {
+  background: #a7d3f8;
+}
+
+#app > .toolbar #autoDetect:disabled,
+#app > .toolbar #detectMarkedArea:disabled {
+  background: #bad7ee;
+  border-color: #a0bfd9;
+  color: #58758e;
+  box-shadow: none;
+  opacity: 1;
+}
+
+#app > .toolbar #autoDetect[aria-busy="true"],
+#app > .toolbar #detectMarkedArea[aria-busy="true"] {
+  color: #345f84;
+}
+
+#app > .toolbar #autoDetect:focus-visible,
+#app > .toolbar #detectMarkedArea:focus-visible {
+  outline: 3px solid #248ae0;
+  outline-offset: 4px;
+}
+
+#app > .toolbar #detectMarkedArea {
+  font-size: 18px;
+  line-height: 1.2;
+  white-space: normal;
+}
+
+#app > .toolbar #detectMarkedArea .guided-label-full {
+  display: block;
+  max-width: 140px;
+  white-space: normal;
+}
+
+#app > .toolbar #detectMarkedArea .guided-label-compact {
+  display: none;
+}
+
+.detection-launch .detect-glow {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 184px;
+  height: 68px;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.detection-launch:has(#autoDetect:not([hidden]):enabled, #detectMarkedArea:not([hidden]):enabled) .detect-glow {
+  display: block;
+}
+
+.detect-glow rect {
+  fill: none;
+  stroke-dasharray: 14 86;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: detect-perimeter-light 7s linear infinite;
+}
+
+.detect-glow .detect-glow-soft {
+  stroke: #9cdcff;
+  stroke-width: 7;
+  opacity: .8;
+  filter: blur(3px);
+}
+
+.detect-glow .detect-glow-edge {
+  stroke: #eefaff;
+  stroke-width: 1.8;
+  opacity: .95;
+}
+
+.detection-launch:has([aria-busy="true"]) .detect-glow rect,
+body.busy .detection-launch .detect-glow rect {
+  animation-play-state: paused;
+}
+
+@keyframes detect-perimeter-light {
+  to { stroke-dashoffset: -100; }
+}
+
+#app > .toolbar > .view-controls,
+#app > .toolbar:has(#textOptions:not([hidden])) > .view-controls,
+#app > .toolbar:has(#brushOptions:not([hidden])) > .view-controls {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+  min-width: 0;
+  max-width: 100%;
+  gap: 4px;
+}
+
+#app > .toolbar #zoomValue { margin-inline: 0; }
+
+#app > .toolbar .detection-details {
+  grid-column: 3;
+  grid-row: 2;
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+#app > .toolbar #detectionStatus {
+  min-width: 0;
+  max-width: min(300px, 100%);
+  font-size: 12px;
+}
+
+#app > .toolbar #detectAgain {
+  flex: none;
+  min-height: 28px;
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+@media (max-width: 1320px) {
+  :root { --detect-toolbar-height: 84px; }
+  #app > .toolbar,
+  #app > .toolbar:has(#textOptions:not([hidden])),
+  #app > .toolbar:has(#brushOptions:not([hidden])) { padding-inline: 12px; column-gap: 10px; }
+  #app > .toolbar #detectionStatus { max-width: 240px; }
+  #app > .toolbar #compareSplit { width: 55px; }
+}
+
+@media (max-width: 1180px) {
+  :root { --detect-toolbar-height: 96px; }
+  #app:has(#textOptions:not([hidden])),
+  #app:has(#brushOptions:not([hidden])) {
+    --detect-header-height: 58px;
+    --detect-statusbar-height: 20px;
+  }
+  #app > .toolbar,
+  #app > .toolbar:has(#textOptions:not([hidden])),
+  #app > .toolbar:has(#brushOptions:not([hidden])) { padding-inline: 10px; column-gap: 10px; }
+  #app > .toolbar #textOptions { gap: 5px; }
+  #app > .toolbar #textOptions label { gap: 4px; font-size: 12px; }
+  #app > .toolbar #textSize { width: 48px; }
+  #app > .toolbar #textColorWheel,
+  #app > .toolbar #linkReference { padding-inline: 5px; font-size: 11px; }
+  #app > .toolbar #textColorWheel { gap: 5px; }
+  #app > .toolbar #textColorWheel .color-wheel-icon { width: 16px; height: 16px; }
+  #app > .toolbar > .view-controls { gap: 3px; }
+  #app > .toolbar #compare { padding-inline: 6px; font-size: 11px; }
+  #app > .toolbar #fit { padding-inline: 7px; }
+  #app > .toolbar #zoomValue { min-width: 52px; }
+  #app > .toolbar #compareSplit { width: 46px; }
+  #app > .toolbar #detectionStatus { max-width: 230px; font-size: 11px; }
+}
+
+@media (max-height: 820px) {
+  :root { --detect-header-height: 58px; --detect-statusbar-height: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detect-glow rect { animation: none; }
+  #app > .toolbar #autoDetect,
+  #app > .toolbar #detectMarkedArea { transition: none; }
+}

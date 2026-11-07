@@ -1,0 +1,48 @@
+/* Add one bounded row; preserve the editor's existing viewport and flexible canvas. */
+body.has-workflow-tabs #app,
+body.has-workflow-tabs #app:has(#brushOptions:not([hidden])),
+body.has-workflow-tabs #app:has(#textOptions:not([hidden])){grid-template-rows:var(--detect-header-height) 56px var(--detect-toolbar-height) minmax(0,1fr) var(--detect-statusbar-height)}
+body.has-workflow-tabs.sketch-workspace #app,
+body.has-workflow-tabs.sketch-workspace #app:has(#brushOptions:not([hidden])),
+body.has-workflow-tabs.sketch-workspace #app:has(#textOptions:not([hidden])){grid-template-rows:var(--detect-header-height) 56px auto var(--detect-toolbar-height) minmax(0,1fr) var(--detect-statusbar-height)}
+body.has-workflow-tabs.image-edit-workspace #app,
+body.has-workflow-tabs.image-edit-workspace #app:has(#brushOptions:not([hidden])),
+body.has-workflow-tabs.image-edit-workspace #app:has(#textOptions:not([hidden])){grid-template-rows:var(--detect-header-height) 56px auto 48px minmax(0,1fr) var(--detect-statusbar-height)}
+#workflowTabStrip{grid-row:2;display:flex;align-items:center;gap:10px;min-width:0;height:56px;box-sizing:border-box;padding:5px 14px;border-block-end:1px solid var(--line);background:var(--surface-muted);color:var(--text)}
+#workflowTabStrip [hidden]{display:none!important}
+.workflow-tabs-scroll{display:flex;align-items:center;flex:1;gap:5px;min-width:0;height:100%;overflow:hidden}
+#workflowTabList{display:flex;gap:5px;flex:1;min-width:0;height:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scrollbar-width:none}
+#workflowTabList::-webkit-scrollbar{display:none}
+#workflowTabStrip button{font-family:inherit;color:var(--text);cursor:pointer;line-height:1.25;box-sizing:border-box}
+.workflow-tab{flex:0 0 202px;display:flex;align-items:center;gap:1px;min-width:0;height:44px;padding:0 5px 0 1px;border:1px solid var(--line);border-radius:8px;background:var(--panel);box-sizing:border-box}
+.workflow-tab.is-active{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 -2px 0 var(--accent)}
+#workflowTabStrip .workflow-tab-select{display:flex;flex-direction:column;justify-content:center;gap:3px;flex:1;min-width:0;height:40px;min-height:0;text-align:left;border:0;border-radius:6px;padding:4px 7px;background:transparent}
+.workflow-tab-title{display:flex;align-items:center;gap:5px;width:100%;min-width:0;font-size:12px;font-weight:650}
+.workflow-tab-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.workflow-tab-dirty{font-size:7px;line-height:1;color:var(--accent);flex:none}
+.workflow-tab-subtitle{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted);white-space:nowrap}
+.workflow-tab-indicator{width:5px;height:5px;background:var(--muted);border-radius:50%;flex:none}
+.workflow-tab[data-status=ready] .workflow-tab-indicator{background:var(--success)}
+.workflow-tab[data-status=failed] .workflow-tab-indicator{background:var(--danger)}
+.workflow-tab[data-status=queued] .workflow-tab-indicator{background:var(--accent)}
+.workflow-tab[data-status=running] .workflow-tab-indicator{width:8px;height:8px;box-sizing:border-box;background:transparent;border:1.5px solid var(--line-strong);border-top-color:var(--accent);animation:workflow-tab-spin 1s linear infinite}
+#workflowTabStrip .workflow-tab-close,#workflowTabStrip .workflow-tab-result{flex:0 0 24px;width:24px;height:28px;min-width:0;min-height:0;padding:0;border:0;border-radius:5px;background:transparent;color:var(--muted);font-size:18px;text-align:center}
+#workflowTabStrip .workflow-tab-result{color:var(--accent-text);font-size:17px}
+#workflowTabStrip .workflow-tab-close:hover:not(:disabled){background:var(--danger-soft);color:var(--danger)}
+#workflowTabStrip .workflow-tab-result:hover:not(:disabled){background:var(--accent-soft);color:var(--accent)}
+.workflow-tabs-actions{flex:none;display:flex;flex-direction:column;justify-content:center;gap:2px;max-width:224px;min-width:0;height:100%}
+.workflow-tabs-actions>div{display:flex;align-items:center;gap:6px}
+#workflowTabStrip .workflow-tabs-actions button{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:30px;padding:5px 9px;border:1px solid var(--line-strong);border-radius:7px;background:var(--panel);font-size:12px;white-space:nowrap}
+#workflowTabStrip #newWorkflowTab{border-color:var(--accent-border);color:var(--accent-text)}
+#workflowTabStrip .workflow-tabs-actions button:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft)}
+#workflowTabStrip #workflowQueueCount{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;border-radius:9px;padding-inline:3px;box-sizing:border-box;background:var(--accent-soft);color:var(--accent-text);font-size:10px;font-variant-numeric:tabular-nums}
+#workflowSaveStatus{display:block;max-width:224px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right;color:var(--muted);font-size:9px;line-height:11px}
+#workflowTabStrip #workflowScrollLeft,#workflowTabStrip #workflowScrollRight{flex:0 0 23px;width:23px;height:32px;min-width:0;min-height:0;padding:0;border:1px solid var(--line);border-radius:6px;background:var(--panel);font-size:23px}
+#workflowTabStrip button:disabled{cursor:not-allowed;opacity:.5}
+#workflowTabStrip button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+/* Sheet creation portals the same strip outside the inert main editor. */
+body.has-workflow-tabs.sheet-creator-open>#workflowTabStrip{position:fixed;inset:0 0 auto;z-index:10001}
+body.has-workflow-tabs.sheet-creator-open>#asunSheetCreator.sheet-creator{top:56px}
+@keyframes workflow-tab-spin{to{transform:rotate(360deg)}}
+@media(max-width:1150px){#workflowTabStrip{padding-inline:10px;gap:7px}.workflow-tab{flex-basis:188px}.workflow-tabs-actions{max-width:210px}#workflowTabStrip .workflow-tabs-actions button{padding-inline:7px}}
+@media(prefers-reduced-motion:reduce){.workflow-tab[data-status=running] .workflow-tab-indicator{animation:none}}

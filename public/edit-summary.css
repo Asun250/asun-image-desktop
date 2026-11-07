@@ -1,0 +1,39 @@
+/* A readable live review beside the canvas, in the existing studio palette. */
+#editSummaryPanel{background:#202628;color:var(--text,#dde3e5);min-width:0;min-height:0;border-right:1px solid var(--line,#414a4e);display:flex;flex-direction:column;overflow:hidden;user-select:text}
+.edit-summary-heading{display:flex;align-items:center;gap:8px;min-height:43px;padding:0 12px;border-bottom:1px solid var(--line,#414a4e);flex:none}
+.edit-summary-heading h2{font-size:14px;font-weight:600;margin:0;flex:1;line-height:1.25}
+#toggleEditSummary{min-width:28px;padding:4px 6px;line-height:1.2;font-size:17px;color:#b5c0c5}
+#editSummaryContent{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:10px;scrollbar-gutter:stable}
+#editSummaryCount{font-size:11px;line-height:1.55;white-space:pre-wrap;color:#a9b7bd;margin:0 1px 10px}
+#editSummaryList{display:flex;flex-direction:column;gap:10px;min-width:0}
+.edit-summary-empty{margin:9px 1px;font-size:13px;line-height:1.6;color:#a6b5bc}
+.edit-summary-card{padding:10px;background:#282f32;border:1px solid #485358;border-radius:6px;cursor:pointer;min-width:0;outline:none}
+.edit-summary-card:hover{border-color:#74858d;background:#2c3437}
+.edit-summary-card:focus-visible{outline:2px solid #efad73;outline-offset:2px}
+.edit-summary-card.is-selected{border-color:#eeaa6d;background:#34312d;box-shadow:inset 0 0 0 1px #eeaa6d33}
+.edit-summary-card[data-status="excluded"]{background:#252b2e;border-style:dashed}
+.edit-summary-card[data-status="conflict"]{border-color:#db9c6a}
+.edit-summary-card-heading{display:flex;gap:9px;align-items:center;min-width:0}
+.edit-summary-card-title{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
+.edit-summary-label{font-size:17px;font-weight:600;line-height:1.25;color:#efad73;white-space:pre-wrap;overflow-wrap:anywhere}
+.edit-summary-status{font-size:10px;line-height:1.45;color:#b8c5cb}
+.edit-summary-origin{font-size:10px;line-height:1.3;color:#8fa3ad}
+.edit-summary-preview{position:relative;background:#171c1f;border:1px solid #4b555b;border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex:none}
+.edit-summary-source-preview{width:66px;height:54px}
+.edit-summary-preview img{width:100%;height:100%;object-fit:contain;position:absolute;inset:0}
+.edit-summary-preview-placeholder{color:#8b9ba4;font-size:23px;line-height:1}
+.edit-summary-preview.has-preview .edit-summary-preview-placeholder{visibility:hidden}
+.edit-summary-card section{margin-top:10px;min-width:0}
+.edit-summary-card h3,#editSummaryPrompt h3{font-size:10px;color:#9fb1ba;font-weight:600;margin:0 0 5px;line-height:1.4}
+.edit-summary-comment,.edit-summary-global-prompt{font-size:12px;line-height:1.55;color:#e0e5e7;margin:0;white-space:pre-wrap;overflow-wrap:anywhere;cursor:text}
+.edit-summary-references{border-top:1px solid #49545a;padding-top:9px}
+.edit-summary-reference{display:flex;gap:7px;align-items:flex-start;margin-top:8px;min-width:0}
+.edit-summary-reference-preview{width:43px;height:43px}
+.edit-summary-reference-description{flex:1;min-width:0}
+.edit-summary-reference-name{display:block;font-size:11px;color:#d7dfe3;line-height:1.45;overflow-wrap:anywhere}
+.edit-summary-reference-note{font-size:11px;color:#c0cdd3;line-height:1.5;margin:3px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;cursor:text}
+.edit-summary-reference-annotations{display:block;font-size:10px;line-height:1.5;color:#a6bac5;margin-top:4px}
+.edit-summary-pending{font-size:11px;line-height:1.5;color:#adbac0;margin:10px 0 0}
+.edit-summary-warning{font-size:11px;line-height:1.5;color:#edba90;margin:9px 0 0;overflow-wrap:anywhere}
+#editSummaryPrompt{border-top:1px solid #4a545a;padding:12px 1px 4px;margin-top:14px;min-width:0}
+#editSummaryPrompt[hidden]{display:none}

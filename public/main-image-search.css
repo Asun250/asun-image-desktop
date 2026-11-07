@@ -1,0 +1,41 @@
+#emptyState .main-start-search{width:min(490px,100%);text-align:left;margin:4px 0}
+.main-start-search label{display:block;margin-bottom:8px;color:var(--text);font-size:13px;font-weight:600}
+.main-start-search>div,.main-search-form>div,.main-search-address form>div{display:flex;gap:8px;min-width:0}
+.main-start-search input,.main-search-form input,.main-search-address input{flex:1;min-width:0;width:100%;background:var(--field);color:var(--text);border:1px solid var(--line-strong);border-radius:9px;padding:11px 12px;font-size:14px}
+#emptyState .main-start-search .primary{padding:10px 14px}
+.main-start-actions{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap}
+.main-start-actions .quiet{border-color:var(--line-strong);font-size:14px;padding:10px 15px}
+#emptyState .main-start-detection{max-width:400px;line-height:1.6;color:var(--muted)}
+.document-bar #searchMainImages{margin-left:auto;border-color:var(--line);background:var(--panel)}
+.document-bar #importTop{margin-left:0}
+#mainImageSearchDialog{width:min(920px,calc(100vw - 40px));max-width:none;max-height:calc(100dvh - 40px);padding:24px;overflow:auto}
+.main-search-heading{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
+.main-search-heading h2{font-size:24px;margin:0 0 8px}
+.main-search-heading p{font-size:13px;line-height:1.6;color:var(--muted);margin:0 0 20px;max-width:650px}
+#closeMainImageSearch{font-size:24px;line-height:1;border:1px solid var(--line);border-radius:9px;padding:8px 12px;position:sticky;top:0;background:var(--panel);z-index:1}
+.main-search-form label,.main-search-address label{display:block;font-weight:600;font-size:13px;margin-bottom:8px}
+.main-search-form button,.main-search-address button{flex:none;font-size:14px}
+.main-search-options{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.main-search-options button{min-height:38px}
+.main-search-address{border-top:1px solid var(--line);padding-top:12px;margin:14px 0;color:var(--muted)}
+.main-search-address summary{cursor:pointer;padding:4px 0}
+.main-search-address form{margin-top:12px}
+#mainImageSearchStatus{font-size:13px;color:var(--muted);line-height:1.6;margin:14px 0}
+#mainImageSearchError{background:var(--field);border:1px solid var(--danger);color:var(--danger);border-radius:9px;padding:12px;line-height:1.6}
+#mainImageSearchResults{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.main-search-result{border:1px solid var(--line);background:var(--field);border-radius:12px;overflow:hidden;min-width:0;padding-bottom:12px}
+.main-search-result>button{display:flex;flex-direction:column;align-items:stretch;width:100%;padding:0;border:0;border-radius:0;text-align:left;background:var(--stage);overflow:hidden}
+.main-search-result img{width:100%;height:155px;object-fit:contain;display:block}
+.main-search-result>button>span{display:block;padding:9px 12px;font-weight:600;background:var(--accent-soft);color:var(--accent-text)}
+.main-search-result .preview-unavailable:before{content:'Preview unavailable';height:155px;display:grid;place-items:center;color:var(--muted)}
+.main-search-result strong{display:block;padding:10px 12px 5px;overflow-wrap:anywhere;line-height:1.5;font-size:13px}
+.main-search-result>a{display:block;padding:0 12px;color:var(--muted);font-size:12px;overflow-wrap:anywhere}
+#mainImageSearchMore{display:block;margin:18px auto 0;font-size:14px;min-height:40px}
+.main-search-footer{border-top:1px solid var(--line);margin-top:18px;padding-top:14px;font-size:12px;line-height:1.6;color:var(--muted)}
+#mainImageSearchDialog.is-dragover{outline:3px solid var(--accent-text);outline-offset:-4px}
+#mainImageSearchDialog[aria-busy=true] #mainImageSearchStatus:before{content:'';display:inline-block;width:12px;height:12px;border:2px solid var(--line);border-top-color:var(--accent-text);border-radius:50%;margin-right:8px;vertical-align:-2px;animation:main-search-spin .8s linear infinite}
+@keyframes main-search-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){#mainImageSearchDialog[aria-busy=true] #mainImageSearchStatus:before{animation:none}}
+@media(max-width:1250px){#emptyState .main-start-search>div{flex-direction:column}#emptyState{gap:9px;padding:15px}#emptyState .empty-mark{width:42px;height:42px}.document-bar #searchMainImages{font-size:11px;padding-inline:5px}}
+@media(max-height:820px){#emptyState{overflow:auto;justify-content:safe center}#emptyState>*{flex-shrink:0}#emptyState h1{margin:0;font-size:22px}#emptyState p{margin:0;font-size:12px}#emptyState .empty-mark{display:none}#emptyState .main-start-detection{font-size:10px}}
+@media(max-width:650px){#mainImageSearchResults{grid-template-columns:repeat(2,minmax(0,1fr))}#mainImageSearchDialog{padding:16px}.main-search-form>div,.main-search-address form>div{flex-direction:column}}

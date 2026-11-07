@@ -1,0 +1,446 @@
+/* Reference Studio: a warm, orderly home for finding and annotating photos.
+   Layout only; the source images and editable annotation coordinates are unchanged. */
+:root {
+  --reference-shell: #fffaf4;
+  --reference-paper: #fffefd;
+  --reference-soft: #f8f2e9;
+  --reference-peach: #fff0e1;
+  --reference-peach-border: #edc7a2;
+  --reference-green: #eef5ed;
+  --reference-green-border: #cbdcc8;
+  --reference-line: #e4dace;
+  --reference-line-strong: #cbbdae;
+  --reference-ink: #4e4137;
+  --reference-muted: #7d6b5b;
+  --reference-accent: #c56c31;
+  --reference-accent-hover: #ac5724;
+  --reference-accent-soft: #ffe7d2;
+  --reference-focus: #ce8147;
+}
+:root[data-theme="dark"] {
+  --reference-shell: #292b30;
+  --reference-paper: #303239;
+  --reference-soft: #35363c;
+  --reference-peach: #42382f;
+  --reference-peach-border: #74563e;
+  --reference-green: #303d38;
+  --reference-green-border: #4c6658;
+  --reference-line: #4b4844;
+  --reference-line-strong: #6b6258;
+  --reference-ink: #f2e6d8;
+  --reference-muted: #c3b2a2;
+  --reference-accent: #e9a26f;
+  --reference-accent-hover: #f4b683;
+  --reference-accent-soft: #4d3c2e;
+  --reference-focus: #eda775;
+}
+
+#referenceDialog {
+  width: min(1120px, calc(100vw - 32px));
+  max-width: calc(100vw - 32px);
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  overflow: hidden;
+  color: var(--reference-ink);
+  background: var(--reference-shell);
+  border: 1px solid var(--reference-line-strong);
+  border-radius: 20px;
+  scroll-padding-block: 20px 85px;
+}
+#referenceDialog #referenceLinkForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: calc(100dvh - 34px);
+  min-width: 0;
+  padding: 22px 22px 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  scroll-padding-block: 20px 88px;
+}
+#referenceDialog #referenceLinkForm > * { flex-shrink: 0; min-width: 0; }
+#referenceDialog [hidden] { display: none !important; }
+#referenceDialog button:focus-visible,
+#referenceDialog input:focus-visible,
+#referenceDialog select:focus-visible,
+#referenceDialog textarea:focus-visible {
+  outline: 2px solid var(--reference-focus);
+  outline-offset: 3px;
+}
+#referenceDialog button { font-size: 13px; min-height: 36px; border-radius: 9px; }
+#referenceDialog button:hover:not(:disabled) { background: var(--reference-soft); }
+#referenceDialog button:disabled { color: var(--disabled-text); cursor: not-allowed; }
+#referenceDialog .reference-dialog-header { padding-bottom: 1px; }
+#referenceDialog .dialog-heading { gap: 16px; margin: 0; }
+#referenceDialog .reference-title-group { display: flex; align-items: center; gap: 12px; min-width: 0; }
+#referenceDialog #referenceDialogTitle { margin: 0; color: var(--reference-ink); font-size: 26px; font-weight: 650; letter-spacing: -.5px; }
+#referenceDialog .reference-title-group > .reference-section-icon { width: 38px; height: 38px; }
+#referenceDialog .reference-area-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 9px;
+  color: var(--reference-muted);
+  background: var(--reference-soft);
+  border: 1px solid var(--reference-line);
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+#referenceDialog #closeReferenceDialog {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  min-width: 34px;
+  height: 34px;
+  padding: 0;
+  color: var(--reference-muted);
+  border: 1px solid var(--reference-line);
+  background: var(--reference-paper);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 1;
+}
+.reference-section-icon { display: inline-flex; align-items: center; justify-content: center; width: 23px; height: 23px; flex: none; line-height: 0; }
+.reference-section-icon svg { display: block; width: 100%; height: 100%; overflow: visible; }
+#referenceDialog .reference-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: var(--reference-ink);
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.3;
+}
+#referenceDialog .reference-section-title .reference-section-icon { width: 24px; height: 24px; }
+#referenceDialog .dialog-note { margin: 0; color: var(--reference-muted); font-size: 12px; line-height: 1.5; }
+
+/* Searching comes first, with quieter local import options below it. */
+#referenceDialog .reference-finder {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px 17px;
+  background: var(--reference-peach);
+  border: 1px solid var(--reference-peach-border);
+  border-radius: 14px;
+}
+#referenceDialog .reference-web-tools { display: flex; gap: 10px; align-items: flex-end; margin: 0; min-width: 0; }
+#referenceDialog .reference-web-tools label { display: flex; flex: 1; flex-direction: column; align-items: stretch; gap: 5px; min-width: 0; color: var(--reference-muted); font-size: 12px; white-space: normal; }
+#referenceDialog #referenceWebQuery {
+  display: block;
+  width: 100%;
+  height: 40px;
+  min-width: 0;
+  padding: 9px 12px;
+  background: var(--reference-paper);
+  border: 1px solid var(--reference-line-strong);
+  border-radius: 9px;
+  color: var(--reference-ink);
+  font-size: 14px;
+}
+#referenceDialog #searchReferenceWeb {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 8px 15px;
+  color: #fff;
+  background: var(--reference-accent);
+  border: 1px solid var(--reference-accent);
+  font-weight: 600;
+}
+#referenceDialog #searchReferenceWeb:hover:not(:disabled) { background: var(--reference-accent-hover); border-color: var(--reference-accent-hover); }
+:root[data-theme="dark"] #referenceDialog #searchReferenceWeb { color: #302316; }
+#referenceDialog .reference-web-help { font-size: 12px !important; }
+#referenceDialog .reference-import-tools { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px; padding-top: 9px; border-top: 1px solid var(--reference-peach-border); }
+#referenceDialog .reference-import-tools > button { display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px; background: var(--reference-paper); border: 1px solid var(--reference-line); }
+#referenceDialog .reference-import-tools .reference-section-icon { width: 21px; height: 21px; }
+#referenceDialog .reference-existing { display: flex; flex-direction: column; align-items: stretch; gap: 5px; min-width: 0; margin: 0 0 0 auto; color: var(--reference-muted); font-size: 12px; }
+#referenceDialog #referenceChoice { width: 215px; max-width: 100%; min-width: 0; min-height: 36px; padding: 7px 28px 7px 10px; color: var(--reference-ink); background: var(--reference-paper); border: 1px solid var(--reference-line); border-radius: 8px; text-overflow: ellipsis; font-size: 12px; }
+
+/* A contained photo shelf beside the full-size editor. */
+#referenceDialog .reference-workspace { display: grid; grid-template-columns: 216px minmax(0, 1fr); align-items: start; gap: 17px; min-width: 0; }
+#referenceDialog .reference-library { display: flex; flex-direction: column; gap: 10px; min-width: 0; padding: 14px 12px; background: var(--reference-green); border: 1px solid var(--reference-green-border); border-radius: 14px; }
+#referenceDialog .reference-gallery-heading { display: flex; align-items: center; gap: 7px; margin-top: -4px; padding-left: 32px; color: var(--reference-muted); font-size: 12px; }
+#referenceDialog #referenceGalleryCount { font-variant-numeric: tabular-nums; }
+#referenceDialog #referenceGallery {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  max-height: min(430px, 48dvh);
+  min-height: 0;
+  padding: 2px 3px 3px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+}
+#referenceDialog #referenceGallery:empty { display: none; }
+#referenceDialog #referenceGallery .reference-gallery-card { position: relative; flex: none; width: 100%; min-width: 0; }
+#referenceDialog #referenceGallery .reference-gallery-photo {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  padding: 7px;
+  border: 1px solid var(--reference-line);
+  border-radius: 10px;
+  background: var(--reference-paper);
+  color: var(--reference-ink);
+  text-align: left;
+  box-shadow: 0 2px 5px #50382006;
+}
+#referenceDialog #referenceGallery .reference-gallery-photo:hover:not(:disabled) { background: var(--reference-paper); border-color: var(--reference-line-strong); box-shadow: 0 2px 8px #50382012; }
+#referenceDialog #referenceGallery .reference-gallery-photo.selected { border: 1px solid var(--reference-accent); padding: 7px; background: var(--reference-peach); box-shadow: 0 0 0 2px var(--reference-accent-soft); }
+#referenceDialog #referenceGallery .reference-gallery-photo img { display: block; width: 100%; height: 102px; object-fit: contain; pointer-events: none; background: var(--reference-soft); border-radius: 6px; }
+#referenceDialog #referenceGallery .reference-gallery-photo span { width: auto; min-width: 0; font-size: 12px; }
+#referenceDialog #referenceGallery .reference-photo-caption { display: flex; align-items: center; gap: 7px; overflow: hidden; }
+#referenceDialog #referenceGallery .reference-gallery-photo .reference-photo-number { display: inline-grid; place-items: center; flex: none; width: 23px; min-width: 23px; height: 23px; border: 1px solid var(--reference-peach-border); border-radius: 6px; background: var(--reference-peach); color: var(--reference-accent); font-size: 11px; font-weight: 700; }
+#referenceDialog #referenceGallery .reference-photo-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
+#referenceDialog #referenceGallery .reference-gallery-remove { top: 9px; right: 9px; display: grid; place-items: center; width: 25px; min-width: 25px; height: 25px; min-height: 25px; padding: 0; border: 1px solid var(--reference-line); border-radius: 7px; color: var(--reference-muted); background: var(--reference-paper); font-size: 20px; line-height: 1; box-shadow: 0 2px 4px #2b20131a; }
+#referenceDialog #referenceGallery .reference-gallery-remove:hover:not(:disabled) { color: var(--danger); background: var(--danger-soft); border-color: var(--danger); }
+#referenceDialog #referencePreviewInfo { margin: 0; color: var(--reference-muted); font-size: 11px; line-height: 1.45; }
+#referenceDialog .reference-library-empty { margin:0; padding:12px 0; color:var(--reference-muted); font-size:12px; line-height:1.5; }
+#referenceDialog #removeLinkedPhoto { min-height: 32px; width: 100%; padding: 6px 8px; color: var(--reference-muted); background: var(--reference-paper); border: 1px solid var(--reference-line); font-size: 12px; }
+#referenceDialog #removeLinkedPhoto:hover:not(:disabled) { color: var(--danger); background: var(--danger-soft); }
+#referenceDialog .reference-detail { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+#referenceDialog #referenceDropZone { position: relative; display: block; min-width: 0; min-height: 270px; padding: 10px 10px 33px; border: 1px dashed var(--reference-line-strong); border-radius: 14px; background: var(--reference-paper); overflow: hidden; }
+#referenceDialog #referenceDropZone.is-dragover { border: 1px dashed var(--reference-accent); background: var(--reference-peach); box-shadow: inset 0 0 0 3px var(--reference-accent-soft); }
+#referenceDialog #referenceDropZone:has(#referenceEditorHost:not([hidden])) { padding: 0; border: 1px solid var(--reference-line); min-height: 0; }
+#referenceDialog #referencePreview { display: block; width: 100%; max-width: 100%; height: 310px; max-height: 38dvh; object-fit: contain; }
+#referenceDialog #referencePreviewEmpty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 250px; padding: 24px; color: var(--reference-muted); text-align: center; }
+#referenceDialog #referencePreviewEmpty .reference-empty-icon { display: block; width: 67px; height: 67px; margin-bottom: 3px; }
+#referenceDialog #referencePreviewEmpty .reference-empty-icon svg { width: 100%; height: 100%; }
+#referenceDialog #referencePreviewEmpty strong { color: var(--reference-ink); font-size: 17px; font-weight: 600; }
+#referenceDialog #referencePreviewEmpty small { max-width: 290px; font-size: 12px; line-height: 1.5; }
+#referenceDialog .reference-drop-hint { position: absolute; left: 50%; bottom: 7px; max-width: calc(100% - 20px); padding: 3px 8px; color: var(--reference-muted); background: var(--reference-soft); border-radius: 6px; font-size: 11px; text-align: center; white-space: normal; }
+#referenceDialog #referenceDropZone:has(#referenceEditorHost:not([hidden])) > .reference-drop-hint { display: none; }
+#referenceDialog .reference-source-details { display: flex; flex-wrap: wrap; align-items: baseline; gap: 3px 10px; padding: 0 3px; }
+#referenceDialog #referenceName { margin: 0; color: var(--reference-ink); font-size: 13px; font-weight: 600; overflow-wrap: anywhere; }
+#referenceDialog #referenceName:empty { display: none; }
+#referenceDialog #referenceOriginalInfo { color: var(--reference-muted); font-size: 11px; }
+
+/* Wrap the controls naturally; keep the canvas coordinate surface border-free. */
+#referenceDialog #referenceEditorHost { width: 100%; min-width: 0; margin: 0; border: 0; border-radius: 13px; background: var(--reference-paper); color: var(--reference-ink); }
+#referenceDialog #referenceAnnotationToolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; padding: 10px; border-bottom: 1px solid var(--reference-line); background: var(--reference-soft); }
+#referenceDialog #referenceAnnotationToolbar .ref-tools,
+#referenceDialog #referenceAnnotationToolbar .ref-style,
+#referenceDialog #referenceAnnotationToolbar .ref-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; min-width: 0; }
+#referenceDialog #referenceAnnotationToolbar .ref-tools { flex: 1 1 auto; }
+#referenceDialog #referenceAnnotationToolbar .ref-style { flex: 1 1 100%; padding-top: 8px; border-top: 1px solid var(--reference-line); order: 3; }
+#referenceDialog #referenceAnnotationToolbar .ref-actions { flex: 0 1 auto; margin-left: auto; }
+#referenceDialog #referenceAnnotationToolbar button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-height: 32px; padding: 5px 8px; border: 1px solid transparent; border-radius: 7px; font-size: 12px; }
+#referenceDialog #referenceAnnotationToolbar button:hover:not(:disabled) { background: var(--reference-paper); border-color: var(--reference-line); }
+#referenceDialog #referenceAnnotationToolbar button.active { color: var(--reference-ink); background: var(--reference-peach); border-color: var(--reference-peach-border); box-shadow: 0 1px 2px #4a322010; }
+#referenceDialog #referenceAnnotationToolbar .reference-section-icon { width: 21px; height: 21px; }
+#referenceDialog #referenceAnnotationToolbar .reference-icon { display: block; width: 21px; height: 21px; flex: none; overflow: visible; }
+#referenceDialog #referenceAnnotationToolbar label { display: flex; align-items: center; gap: 6px; padding-right: 7px; color: var(--reference-muted); font-size: 12px; }
+#referenceDialog #referenceAnnotationToolbar input { color: var(--reference-ink); background: var(--reference-paper); border-color: var(--reference-line-strong); border-radius: 6px; }
+#referenceDialog #referenceAnnotationToolbar input[type="number"] { width: 58px; min-height: 29px; padding: 4px 6px; font-size: 12px; }
+#referenceDialog #referenceAnnotationToolbar input[type="color"] { width: 31px; height: 29px; padding: 2px; }
+#referenceDialog #refCanvasStage { width: 100%; height: clamp(220px, 32dvh, 340px); min-height: 220px; padding: 0; border: 0; border-radius: 0; background: repeating-conic-gradient(var(--checker-light) 0 25%, var(--checker-dark) 0 50%) 0 / 20px 20px; }
+#referenceDialog #refCanvasStage:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--reference-focus); }
+#referenceDialog #refAnnotationHint { margin: 0; padding: 8px 11px; color: var(--reference-muted); background: var(--reference-paper); border-top: 1px solid var(--reference-line); font-size: 11px; line-height: 1.45; }
+#referenceDialog #refCanvasEmpty { color: var(--reference-muted); }
+
+/* Photo notes and area comments share a calm, readable rhythm. */
+#referenceDialog #referenceNotesField,
+#referenceDialog #labelCommentField { display: flex; flex-direction: column; gap: 7px; margin: 0; padding: 12px 14px; background: var(--reference-paper); border: 1px solid var(--reference-line); border-radius: 12px; color: var(--reference-ink); font-size: 13px; }
+#referenceDialog #labelCommentField { background: var(--reference-soft); }
+#referenceDialog .reference-notes-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-width: 0; }
+#referenceDialog .reference-notes-heading strong { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; }
+#referenceDialog .reference-notes-heading .reference-section-icon { width: 21px; height: 21px; }
+#referenceDialog #labelCommentCount,
+#referenceDialog #referenceNotesCount { margin-left: auto; color: var(--reference-muted); font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+#referenceDialog #labelComment,
+#referenceDialog #referenceNotes { display: block; width: 100%; min-width: 0; min-height: 62px; max-height: 180px; margin: 0; padding: 9px 11px; color: var(--reference-ink); background: var(--reference-paper); border: 1px solid var(--reference-line-strong); border-radius: 8px; font-size: 13px; line-height: 1.5; resize: vertical; }
+#referenceDialog #labelComment::placeholder,
+#referenceDialog #referenceNotes::placeholder,
+#referenceDialog #referenceWebQuery::placeholder { color: var(--reference-muted); }
+#referenceDialog #labelCommentHelp,
+#referenceDialog #referenceNotesHelp { color: var(--reference-muted); font-size: 11px; line-height: 1.45; }
+#referenceDialog #referenceDialogError { margin: 0; color: var(--danger); font-size: 12px; line-height: 1.5; }
+#referenceDialog #referenceDialogError:empty { display: none; }
+#referenceDialog .reference-share-hint { margin:0; padding:0 2px; color:var(--reference-muted); font-size:11px; line-height:1.5; }
+#referenceDialog .dialog-actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 9px;
+  margin: 0 -22px;
+  padding: 13px 22px 15px;
+  background: var(--reference-shell);
+  border-top: 1px solid var(--reference-line);
+  box-shadow: 0 -5px 14px #58443005;
+}
+#referenceDialog .dialog-actions button { min-height: 38px; padding: 8px 14px; font-size: 13px; }
+#referenceDialog #cancelReferenceLink { color: var(--reference-ink); background: var(--reference-paper); border: 1px solid var(--reference-line); }
+#referenceDialog #saveReferenceLink { color: #fff; background: var(--reference-accent); border: 1px solid var(--reference-accent); font-weight: 600; }
+#referenceDialog #saveReferenceLink:hover:not(:disabled) { background: var(--reference-accent-hover); border-color: var(--reference-accent-hover); }
+:root[data-theme="dark"] #referenceDialog #saveReferenceLink { color: #302316; }
+#referenceDialog #saveReferenceLink:disabled { color: var(--disabled-text); background: var(--disabled-bg); border-color: var(--line); box-shadow: none; }
+#referenceDialog #unlinkReference { margin-right: auto; color: var(--reference-muted); font-size: 12px; }
+
+/* The main composer's reference cards share the same baseline and warm accents. */
+.composer .reference-section { min-width: 0; }
+.composer .reference-section .composer-label { display: flex; align-items: center; justify-content: space-between; gap: 8px; height: 19px; margin-bottom: 7px; color: var(--reference-ink); font-size: 12px; }
+.composer .reference-strip-title { display: inline-flex; align-items: center; gap: 5px; min-width: 0; color: var(--reference-ink); font-size: 12px; }
+.composer .reference-strip-title .reference-section-icon { width: 19px; height: 19px; }
+.composer #referenceCount { color: var(--reference-muted); font-size: 10px; font-weight: 400; white-space: nowrap; }
+.composer .reference-strip { display: flex; align-items: stretch; gap: 7px; min-width: 0; height: 57px; }
+.composer #referenceList { display: flex; align-items: stretch; flex: 0 1 auto; gap: 6px; width: auto; max-width: calc(100% - 62px); min-width: 0; padding: 0; overflow-x: auto; overflow-y: hidden; scrollbar-width: thin; }
+.composer #referenceList:empty { display: none; }
+.composer .reference-card { flex: 0 0 55px; width: 55px; height: 57px; margin: 0; padding: 3px; border: 1px solid var(--reference-line); border-radius: 8px; background: var(--reference-soft); }
+.composer .reference-card img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 4px; }
+.composer .reference-card button { top: 1px; right: 1px; display: grid; place-items: center; width: 18px; min-height: 18px; height: 18px; padding: 0; border: 1px solid var(--reference-line); background: var(--reference-paper); color: var(--reference-muted); border-radius: 5px; font-size: 14px; line-height: 1; }
+.composer .reference-card button:hover:not(:disabled) { color: var(--danger); background: var(--danger-soft); }
+.composer .reference-label-badge { bottom: 2px; left: 2px; right: 2px; padding: 1px 3px; background: #704522dc; color: #fff4e9; font-size: 9px; font-weight: 600; border-radius: 3px; }
+.composer #addReference { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 0 0 55px; width: 55px; height: 57px; min-height: 57px; margin: 0; padding: 3px; gap: 2px; color: var(--reference-accent); background: var(--reference-peach); border: 1px dashed var(--reference-peach-border); border-radius: 8px; font-size: 22px; line-height: 1; }
+.composer #addReference:hover:not(:disabled) { color: var(--reference-accent-hover); background: var(--reference-accent-soft); border-color: var(--reference-accent); }
+.composer #addReference .reference-section-icon { width: 25px; height: 25px; }
+.composer #addReference > span:not(.reference-section-icon) { color: var(--reference-ink); font-size: 9px; line-height: 1.2; }
+
+/* The page chooser uses the same visual rhythm as the photo window. */
+#referenceExportDialog { padding:0; background:var(--reference-shell); color:var(--reference-ink); border:1px solid var(--reference-line-strong); border-radius:16px; }
+#referenceExportDialog .reference-export-body { gap:16px; padding:22px; }
+#referenceExportDialog .reference-title-group { display:flex; align-items:center; gap:10px; }
+#referenceExportDialog .reference-title-group > .reference-section-icon { width:32px; height:32px; }
+#referenceExportDialog h2 { margin:0; color:var(--reference-ink); }
+#referenceExportDialog .dialog-note, #referenceExportDialog #referenceExportStatus { color:var(--reference-muted); font-size:13px; line-height:1.5; }
+#referenceExportDialog .dialog-field { gap:6px; margin:0; font-size:13px; }
+#referenceExportDialog select { background:var(--reference-paper); color:var(--reference-ink); border-color:var(--reference-line-strong); border-radius:8px; }
+#referenceExportDialog .dialog-actions { display:flex; flex-wrap:wrap; align-items:stretch; gap:8px; margin:0; }
+#referenceExportDialog .dialog-actions button { display:inline-flex; align-items:center; justify-content:center; gap:6px; flex:1 1 auto; min-height:40px; padding:8px 10px; font-size:12px; border-radius:8px; background:var(--reference-paper); border:1px solid var(--reference-line); color:var(--reference-ink); }
+#referenceExportDialog .dialog-actions .primary { background:var(--reference-peach); border-color:var(--reference-peach-border); color:var(--reference-accent); }
+#referenceExportDialog .dialog-actions .reference-section-icon { width:21px; height:21px; }
+
+@media (max-width: 1180px) {
+  .composer .reference-card { flex-basis: 48px; width: 48px; }
+  #referenceDialog #referenceLinkForm { padding-inline: 18px; gap: 14px; }
+  #referenceDialog .dialog-actions { margin-inline: -18px; padding-inline: 18px; }
+  #referenceDialog .reference-workspace { grid-template-columns: 198px minmax(0, 1fr); gap: 14px; }
+}
+@media (max-width: 900px) {
+  #referenceDialog .reference-workspace { grid-template-columns: minmax(0, 1fr); }
+  #referenceDialog .reference-library { display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; padding: 12px; }
+  #referenceDialog .reference-gallery-heading { justify-content: flex-end; margin: 0; padding: 0; }
+  #referenceDialog #referenceGallery { grid-column: 1 / -1; flex-direction: row; max-height: none; width: 100%; padding: 2px 2px 5px; overflow-x: auto; overflow-y: hidden; scrollbar-gutter: auto; }
+  #referenceDialog #referenceGallery .reference-gallery-card { flex: 0 0 145px; width: 145px; }
+  #referenceDialog #referenceGallery .reference-gallery-photo img { height: 78px; }
+  #referenceDialog #referencePreviewInfo { align-self: center; }
+  #referenceDialog #removeLinkedPhoto { width: auto; padding-inline: 10px; }
+  #referenceDialog .reference-existing { margin-left: 0; flex: 1 1 220px; }
+  #referenceDialog #referenceChoice { width: 100%; flex: 1; }
+  #referenceDialog #referenceAnnotationToolbar .ref-actions { margin-left: 0; }
+}
+@media (max-width: 580px) {
+  #referenceDialog { width: calc(100vw - 16px); max-width: calc(100vw - 16px); max-height: calc(100dvh - 16px); border-radius: 14px; }
+  #referenceDialog #referenceLinkForm { max-height: calc(100dvh - 18px); padding: 14px 12px 0; gap: 12px; scrollbar-gutter: auto; }
+  #referenceDialog #referenceDialogTitle { font-size: 23px; }
+  #referenceDialog .reference-title-group { flex-wrap: wrap; gap: 7px; }
+  #referenceDialog .reference-title-group > .reference-section-icon { width: 31px; height: 31px; }
+  #referenceDialog .reference-area-badge { padding: 4px 6px; font-size: 10px; }
+  #referenceDialog .reference-finder { padding: 12px; }
+  #referenceDialog .reference-web-tools { flex-wrap: wrap; }
+  #referenceDialog .reference-web-tools label { flex-basis: 100%; }
+  #referenceDialog #searchReferenceWeb { width: 100%; }
+  #referenceDialog .reference-import-tools > button { flex: 1; justify-content: center; }
+  #referenceDialog .reference-existing { flex-basis: 100%; }
+  #referenceDialog #referenceAnnotationToolbar .ref-tools { flex-basis: 100%; }
+  #referenceDialog #refCanvasStage { height: 250px; min-height: 210px; }
+  #referenceDialog .dialog-actions { margin-inline: -12px; padding: 10px 12px 12px; gap: 7px; }
+  #referenceDialog .dialog-actions button { padding-inline: 11px; }
+  #referenceDialog #unlinkReference { width: 100%; margin-right: 0; text-align: left; }
+}
+@media (max-height: 820px) {
+  #referenceDialog #referenceLinkForm { gap: 12px; padding-top: 17px; }
+  #referenceDialog .reference-finder { gap: 8px; padding-block: 12px; }
+  #referenceDialog #referenceDialogTitle { font-size: 24px; }
+  #referenceDialog #refCanvasStage { height: 240px; min-height: 220px; }
+  #referenceDialog #referencePreviewEmpty { min-height: 230px; }
+  #referenceDialog #referenceDropZone { min-height: 250px; }
+  #referenceDialog #referenceDropZone:has(#referenceEditorHost:not([hidden])) { min-height: 0; }
+  .composer .reference-strip,
+  .composer .reference-card { height: 55px; }
+  .composer #addReference { height: 55px; min-height: 55px; }
+}
+
+/* The selected photo keeps the same editable canvas and tools while taking
+   over the reference window. Back restores the gallery and its draft notes. */
+#referenceDialog.reference-photo-expanded {
+  width: calc(100vw - 24px);
+  max-width: calc(100vw - 24px);
+  height: calc(100dvh - 24px);
+  max-height: calc(100dvh - 24px);
+}
+#referenceDialog.reference-photo-expanded #referenceLinkForm {
+  height: 100%;
+  max-height: 100%;
+  box-sizing: border-box;
+  padding: 14px;
+  gap: 10px;
+  overflow: hidden;
+  scrollbar-gutter: auto;
+}
+#referenceDialog.reference-photo-expanded .reference-finder,
+#referenceDialog.reference-photo-expanded .reference-library,
+#referenceDialog.reference-photo-expanded #referenceNotesField,
+#referenceDialog.reference-photo-expanded #labelCommentField,
+#referenceDialog.reference-photo-expanded .reference-share-hint,
+#referenceDialog.reference-photo-expanded .dialog-actions { display: none; }
+#referenceDialog.reference-photo-expanded .reference-workspace {
+  display: flex;
+  flex: 1 1 0;
+  min-height: 0;
+  align-items: stretch;
+}
+#referenceDialog.reference-photo-expanded .reference-detail {
+  flex: 1;
+  min-height: 0;
+  gap: 6px;
+}
+#referenceDialog.reference-photo-expanded #referenceDropZone {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+#referenceDialog.reference-photo-expanded #referenceEditorHost {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+#referenceDialog.reference-photo-expanded #referenceAnnotationToolbar { flex-shrink: 0; }
+#referenceDialog.reference-photo-expanded #referenceViewToolbar { order: -1; flex-shrink: 0; }
+#referenceDialog.reference-photo-expanded #refCanvasStage {
+  flex: 1 1 0;
+  height: auto;
+  min-height: 80px;
+}
+#referenceDialog.reference-photo-expanded #refAnnotationHint { flex-shrink: 0; }
+#referenceDialog.reference-photo-expanded .reference-source-details {
+  flex: none;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+#referenceDialog.reference-photo-expanded #referenceName { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+#referenceDialog.reference-photo-expanded #referenceOriginalInfo { flex: none; }
+#referenceDialog.reference-photo-expanded #referenceDialogError { max-height: 44px; overflow: auto; }
+@media (max-width: 580px), (max-height: 580px) {
+  #referenceDialog.reference-photo-expanded { width: calc(100vw - 8px); max-width: calc(100vw - 8px); height: calc(100dvh - 8px); max-height: calc(100dvh - 8px); border-radius: 10px; }
+  #referenceDialog.reference-photo-expanded #referenceLinkForm { padding: 8px; gap: 6px; }
+  #referenceDialog.reference-photo-expanded .reference-source-details { flex-wrap: wrap; gap: 2px 8px; }
+  #referenceDialog.reference-photo-expanded .reference-area-badge { white-space: normal; }
+}

@@ -1,0 +1,25 @@
+#app>.toolbar #rotateView{display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;min-width:0;border:1px solid var(--line);background:var(--surface);color:var(--text);padding-inline:9px;flex:none}
+#app>.toolbar #rotateView[aria-expanded=true],#app>.toolbar #rotateView[data-rotated=true]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-text)}
+.rotation-trigger-icon{font-size:19px;line-height:1}
+#viewRotationReadout{font-size:11px;font-variant-numeric:tabular-nums;min-width:20px;text-align:right}
+#viewRotationPanel{position:fixed;z-index:65;width:292px;max-width:calc(100vw - 16px);padding:14px;background:var(--panel);color:var(--text);border:1px solid var(--line-strong);border-radius:12px;box-shadow:0 12px 36px #0004}
+#viewRotationPanel>header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}
+#viewRotationPanel h2{font-size:15px;margin:0;line-height:1.4}
+#viewRotationPanel #closeViewRotation{font-size:22px;line-height:1;min-width:28px;min-height:28px;padding:2px 5px;color:var(--muted)}
+#viewRotationPanel p,#layerRotationControls p{color:var(--muted);font-size:11px;line-height:1.55;margin:0 0 12px}
+.rotation-value-row{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;margin-bottom:8px}
+.rotation-number{display:inline-flex;align-items:center;gap:2px;min-width:0;border:1px solid var(--line-strong);border-radius:6px;padding:3px 5px;background:var(--field);color:var(--muted)}
+.rotation-number input{width:61px;min-width:0;border:0;outline-offset:3px;background:transparent;color:var(--text);font-size:12px;text-align:right;padding:2px;font-variant-numeric:tabular-nums}
+#viewRotation,#layerRotation{display:block;width:100%;height:20px;margin:0;accent-color:var(--accent)}
+.rotation-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-top:10px}
+#viewRotationPanel .rotation-actions button,#layerRotationControls .rotation-actions button{border:1px solid var(--line);background:var(--surface);color:var(--text);min-height:32px;white-space:nowrap;padding:5px;font-size:11px;border-radius:6px}
+#viewRotationPanel .rotation-actions button:hover:not(:disabled),#layerRotationControls .rotation-actions button:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft)}
+#viewRotationPanel input:disabled,#viewRotationPanel button:disabled,#layerRotationFields:disabled button,#layerRotationFields:disabled input{color:var(--disabled-text);cursor:not-allowed}
+#layerRotationControls{border-top:1px solid var(--line);padding-top:12px;margin-top:14px;min-width:0}
+#layerRotationControls h3{margin:0 0 6px;font-size:12px;line-height:1.5;font-weight:650}
+#layerRotationControls #layerRotationFields{border:0;padding:0;margin:0;min-width:0}
+#layerRotationControls .rotation-actions{gap:4px}
+/* Resize handles are canvas controls, not full-height form buttons. */
+#resizeHandle{min-width:10px;min-height:10px}
+@media(max-width:1320px){#app>.toolbar #rotateView{gap:4px;padding-inline:6px}.rotation-trigger-label{display:none}#app>.toolbar #rotateView .rotation-trigger-icon{font-size:17px}#viewRotationReadout{font-size:10px}}
+@media(prefers-reduced-motion:reduce){#rotateView{transition:none}}

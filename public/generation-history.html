@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Generation history — Asun IMG</title><meta name="application-name" content="Asun IMG"><link rel="icon" href="asun-img-husky.ico"><link rel="stylesheet" href="generation-history.css"><link rel="stylesheet" href="generation-details.css"><script type="module" src="generation-history.mjs"></script></head>
+<body>
+  <header class="history-header"><img src="main-logo-transparent.gif" width="160" height="64" alt="Asun IMG"><div class="history-header-actions"><button type="button" id="generationHistoryTheme">Dark mode</button><button type="button" id="generationHistoryBack">← Back to editor</button></div></header>
+  <main class="history-main">
+    <div class="history-intro"><div><span class="history-eyebrow">YOUR LOCAL STUDIO</span><h1>Generation history</h1><p>Find your images, sheets and the exact settings used to create them.</p></div><a id="generationHistoryOpenEditor" href="./" target="_blank" rel="noopener" hidden>Open editor in a new tab ↗</a></div>
+    <div class="history-toolbar"><label for="generationHistoryFilter">Show <select id="generationHistoryFilter"><option value="all">All generations</option><option value="image">Images</option><option value="sheet">Character / item sheets</option></select></label><button id="generationHistoryRefresh" type="button">↻ Refresh history</button></div>
+    <p id="generationHistoryStatus" class="history-status" role="status" aria-live="polite">Loading your generation history…</p>
+    <div id="generationHistoryList" class="generation-history-list" aria-label="Generated images and sheets"></div>
+    <div class="history-pagination"><button id="generationHistoryMore" type="button" hidden>View more ↓</button></div>
+  </main>
+  <dialog id="generationHistoryDetail" aria-labelledby="generationHistoryTitle">
+    <div class="history-detail-header"><div><span id="generationHistoryKind" class="history-eyebrow"></span><h2 id="generationHistoryTitle">Generation</h2></div><button id="generationHistoryClose" type="button" aria-label="Close generation details">Close ×</button></div>
+    <p id="generationHistoryDetailStatus" class="history-status" role="status" aria-live="polite"></p>
+    <div id="generationHistoryOutputFrame" class="history-output-frame" hidden><button id="generationHistoryInspect" class="history-output-inspect" type="button" aria-label="Enlarge and inspect saved image" disabled><img id="generationHistoryOutput" alt="Selected generated image"><span>⛶ Enlarge / inspect</span></button></div>
+    <div class="history-detail-actions"><button id="generationHistoryDetailRefresh" type="button">Refresh this result</button><button id="generationHistorySave" class="history-primary" type="button" disabled>Save image</button></div>
+    <div id="generationHistoryDetails"></div>
+    <section class="history-result-edit-actions" aria-label="Continue editing this result"><div><a id="generationHistoryEditOutput" class="history-action-link history-primary" target="_blank" rel="noopener" aria-disabled="true" tabindex="-1">Edit output image</a><a id="generationHistoryRedo" class="history-action-link" target="_blank" rel="noopener" aria-disabled="true" aria-describedby="generationHistoryRestoreHelp" tabindex="-1">Redo with all references</a></div><p>Opens a new editor tab so your current work stays open. Neither action starts a generation.</p><p id="generationHistoryRestoreHelp"></p></section>
+  </dialog>
+</body></html>

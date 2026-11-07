@@ -1,0 +1,6 @@
+/* Separate transparent animation retains the native artwork and frame timing. */
+.header .brand { height: 56px; padding: 0; gap: 0; flex: none; background: transparent; }
+.header .brand .brand-animation { display: block; width: auto; height: 56px; max-height: 100%; flex: none; object-fit: contain; background: transparent; border: 0; border-radius: 0; user-select: none; }
+@media (max-width: 1180px), (max-height: 820px) {
+  .header .brand, .header .brand .brand-animation { height: 50px; }
+}

@@ -1,0 +1,19 @@
+#drawSketchReference{border:1px solid var(--line);white-space:normal;max-width:165px;line-height:1.25;min-height:38px}
+body.sketch-workspace #app,body.sketch-workspace #app:has(#brushOptions:not([hidden])),body.sketch-workspace #app:has(#textOptions:not([hidden])){grid-template-rows:var(--detect-header-height) auto var(--detect-toolbar-height) minmax(0,1fr) var(--detect-statusbar-height)}
+body.sketch-workspace #app>.toolbar .detection-launch{display:flex;flex-direction:column;justify-content:center;gap:4px;height:68px}
+body.sketch-workspace #app>.toolbar #autoDetect,body.sketch-workspace #app>.toolbar #detectMarkedArea{height:32px;min-height:32px;font-size:14px;padding:5px 8px;flex:1}
+body.sketch-workspace .detect-glow{display:none}
+#sketchWorkspaceBar{padding:12px 22px;background:var(--panel);border-bottom:1px solid var(--line)}
+.sketch-workspace-heading,.sketch-workspace-actions{display:flex;align-items:center;gap:14px;min-width:0}
+.sketch-workspace-heading h1{font-size:18px;line-height:1.3;margin:0 0 3px}
+.sketch-workspace-heading p{font-size:12px;color:var(--muted);margin:0;line-height:1.5}
+#sketchBack{border:1px solid var(--line);flex:none;min-height:38px}
+.sketch-workspace-actions{margin-top:10px;gap:8px;flex-wrap:wrap}
+.sketch-workspace-actions button{border:1px solid var(--line);min-height:34px}
+.sketch-workspace-actions button[aria-pressed=true]{border-color:var(--copper);background:color-mix(in srgb,var(--copper) 15%,transparent)}
+.sketch-workspace-actions>span{color:var(--muted);font-size:11px;margin-left:auto}
+body.sketch-workspace #board{background:#fff;background-image:none}
+body.sketch-workspace .toolrail [data-tool=crop],body.sketch-workspace #fitCanvasPhoto{display:none}
+body.sketch-workspace #compare,body.sketch-workspace #compareSplit{display:none}
+@media(max-width:1300px){#drawSketchReference{font-size:11px;max-width:112px}.header #savedState,.header .local{display:none}.header #projectName{max-width:100px}.header{gap:7px;padding-inline:12px}.header nav{margin-left:0;gap:4px}.header .brand{flex-shrink:1}#sketchWorkspaceBar{padding:9px 16px}}
+@media(max-height:850px){#sketchWorkspaceBar{padding-block:7px}.sketch-workspace-actions{margin-top:6px}.sketch-workspace-heading h1{font-size:16px}.sketch-workspace-actions>span{display:none}}

@@ -1,0 +1,20 @@
+/* Annotation controls share the existing studio layout. */
+#brushOptions,#textOptions{display:flex;align-items:center;gap:10px;flex:none}
+#brushColorOption,#textOptions label{display:flex;align-items:center;gap:6px;font-size:13px}
+#brushColor,#textColor{width:32px;height:29px;padding:2px;background:#24292b;border:1px solid #596165;border-radius:4px;cursor:pointer}
+#textSize{width:62px;height:29px;border:1px solid #596165;border-radius:4px;background:#24292b;color:var(--text);padding:3px 5px}
+#textOptions>span{font-size:12px;color:var(--muted)}
+#textColorWheel{display:flex;align-items:center;gap:7px;border:1px solid #596165;font-size:13px;padding:4px 8px;min-height:29px}
+.color-wheel-icon{display:block;position:relative;width:18px;height:18px;flex:none;border-radius:50%;background:conic-gradient(#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000)}
+.color-wheel-icon::after{content:'';position:absolute;inset:5px;border-radius:50%;background:var(--picked-color,#eba76f);box-shadow:0 0 0 1px #2228}
+.document-bar #pasteTop{margin-left:0;border-color:#596165}
+.toolrail{gap:5px;padding:10px 0;overflow-y:auto}.toolrail button{flex:none;padding:7px 6px;gap:4px}.toolrail svg{width:26px;height:26px}
+#textEditor{position:absolute;z-index:8;margin:0;resize:none;overflow:hidden;border:0;border-radius:0;outline:calc(1px * var(--inverse-zoom,1)) dashed var(--copper);outline-offset:0;background:#171c1e33;font-weight:600;transform-origin:0 0;white-space:pre;box-shadow:0 0 0 calc(2px * var(--inverse-zoom,1)) #171c1e66;user-select:text;touch-action:auto}
+#textEditor::placeholder{color:#ccc;opacity:.7}
+#drawingPreview{z-index:7}
+.annotation-thumb{width:42px;height:38px;flex:none;display:grid;place-items:center;font:bold 24px Arial;background:#191e20;border:1px solid #566065;border-radius:3px}
+#imageMenu{position:fixed;z-index:90;min-width:285px;padding:6px;border:1px solid #65625b;border-radius:7px;background:#282d2f;box-shadow:0 10px 30px #0008;display:flex;flex-direction:column}
+#imageMenu button{text-align:left;padding:11px 12px;font-size:14px;display:flex;justify-content:space-between;gap:18px}
+#imageMenu kbd{color:var(--muted);font:11px 'Segoe UI',sans-serif;align-self:center}
+@media(max-width:1300px){#textOptions>span{display:none}.toolbar #compare{font-size:12px;padding:6px}#brushSize{width:75px}#brushOptions,#textOptions{gap:7px}.toolbar .segmented{gap:1px}}
+@media(max-height:820px){.toolrail{gap:1px;padding:5px 0}.toolrail button{padding:5px 6px;gap:2px}.toolrail svg{width:24px;height:24px}}

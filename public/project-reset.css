@@ -1,0 +1,4 @@
+.layer-actions{gap:3px;padding:4px 6px}
+.layer-actions button{padding:3px 6px;min-width:26px}
+.layer-actions #deleteAllLayers{margin-right:auto;min-width:74px;font-size:10px;font-weight:600;padding:5px 7px;border-color:#71594b;color:var(--copper)}
+.layer-actions #deleteAllLayers:hover:not(:disabled){background:#46362b;border-color:var(--copper)}

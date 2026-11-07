@@ -1,0 +1,55 @@
+.reference-editor{margin:12px 0;border:1px solid #566065;border-radius:6px;overflow:hidden;background:#1b2226;color:#e8edf0}
+#referenceAnnotationToolbar{display:flex;flex-wrap:wrap;align-items:center;gap:7px;padding:9px;border-bottom:1px solid #566065}
+#referenceAnnotationToolbar .ref-tools,#referenceAnnotationToolbar .ref-style,#referenceAnnotationToolbar .ref-actions{display:flex;flex-wrap:wrap;align-items:center;gap:5px}
+#referenceAnnotationToolbar .ref-actions{margin-left:auto}
+#referenceAnnotationToolbar [hidden]{display:none!important}
+#referenceAnnotationToolbar button{font-size:12px;padding:6px 9px;min-height:30px}
+#referenceAnnotationToolbar button.active{background:#594632;border-color:#eba76f;color:#ffd3a8}
+#referenceAnnotationToolbar label{display:flex;align-items:center;gap:5px;font-size:12px;white-space:nowrap}
+#referenceAnnotationToolbar input[type=number]{width:57px;padding:4px 5px;min-height:28px}
+#referenceAnnotationToolbar input{background:#1c2225;border:1px solid #596165;border-radius:4px;color:#e5e5e5}
+#referenceAnnotationToolbar input[type=color]{width:30px;height:29px;padding:2px}
+#referenceViewToolbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:7px 9px;border-bottom:1px solid var(--reference-line,#566065);background:var(--reference-paper,#1b2226);color:var(--reference-ink,#e8edf0)}
+#referenceViewToolbar [hidden]{display:none!important}
+#referenceViewToolbar button{display:inline-flex;align-items:center;justify-content:center;min-height:32px;gap:5px;padding:5px 9px;border:1px solid var(--reference-line-strong,#596165);border-radius:6px;color:var(--reference-ink,#e8edf0);background:var(--reference-soft,#252d31);font-size:12px;line-height:1.3;white-space:nowrap}
+#referenceViewToolbar button:hover:not(:disabled){border-color:var(--reference-accent,#eba76f)}
+#referenceViewToolbar button:focus-visible{outline:2px solid var(--reference-accent,#eba76f);outline-offset:2px}
+#referenceViewToolbar button:disabled{opacity:.45;cursor:default}
+#referenceViewToolbar .ref-zoom-controls{display:flex;align-items:center;gap:4px;margin-left:auto}
+#referenceViewToolbar #refZoomPercent{min-width:62px;font-variant-numeric:tabular-nums}
+#referenceViewToolbar #refFit[aria-pressed=true]{background:var(--reference-accent-soft,#594632);border-color:var(--reference-accent,#eba76f)}
+#referenceViewToolbar #refExpandPhoto,#referenceViewToolbar #refBackToReferences{font-weight:600}
+#refCanvasStage{position:relative;height:min(300px,30vh);min-height:180px;overflow:hidden;touch-action:none;outline:none;background:repeating-conic-gradient(#2d363a 0 25%,#252d31 0 50%) 0/20px 20px}
+#refCanvasStage:focus-visible{box-shadow:inset 0 0 0 2px #eba76f}
+#refCanvasBoard{position:absolute;inset:0 auto auto 0;transform-origin:0 0;overflow:hidden;box-shadow:0 2px 12px #0008}
+#refCanvas,#refDrawingPreview{position:absolute;inset:0;display:block;width:100%;height:100%}
+#refDrawingPreview,#refSelection{pointer-events:none}
+#refDrawingPreview[hidden],#refSelection[hidden],#refTextEditor[hidden],#refCanvasBoard[hidden],#refCanvasEmpty[hidden]{display:none!important}
+#refSelection{position:absolute;box-sizing:border-box;border:calc(1px * var(--ref-inverse-zoom,1)) solid #eba76f;box-shadow:0 0 0 calc(1px * var(--ref-inverse-zoom,1)) #1118}
+#refTextEditor{position:absolute;z-index:2;margin:0;border:0;border-radius:0;outline:calc(1px * var(--ref-inverse-zoom,1)) dashed #eba76f;resize:none;overflow:hidden;font-weight:600;background:#171c1e33;transform-origin:0 0;white-space:pre;box-sizing:border-box;touch-action:auto;user-select:text}
+#refCanvasEmpty{position:absolute;inset:0;display:grid;place-items:center;font-size:13px;color:#b4c0c7;pointer-events:none}
+#refAnnotationHint{margin:0;padding:7px 10px;font-size:12px;color:#b4c0c7;border-top:1px solid #566065}
+#referenceEditorColorDialog{z-index:100;width:390px;max-width:90vw;max-height:90dvh;overflow:auto;background:#252a2c;border-color:#596165;color:#e5e5e5}
+#referenceEditorColorDialog .color-picker-body{padding:21px 23px}
+#referenceEditorColorDialog .dialog-heading{margin-bottom:9px}
+#referenceEditorColorDialog .dialog-heading h2{font-size:20px}
+#referenceEditorColorDialog .color-picker-help{font-size:12px;line-height:1.5;color:#aeb8bc;margin:0 0 8px}
+#referenceEditorColorDialog .color-picker-wheel{display:flex;justify-content:center}
+#referenceEditorColorDialog .color-picker-wheel canvas{width:240px;max-width:100%;height:auto;aspect-ratio:1;touch-action:none;border-radius:50%;cursor:crosshair}
+#referenceEditorColorDialog .color-picker-sliders{display:flex;flex-direction:column;gap:11px;margin:9px 0 17px}
+#referenceEditorColorDialog .color-picker-sliders label{display:grid;grid-template-columns:77px minmax(0,1fr) 36px;gap:8px;align-items:center;font-size:12px}
+#referenceEditorColorDialog .color-picker-sliders input{width:100%;min-width:0;margin:0}
+#referenceEditorColorDialog .color-picker-sliders output{font-size:11px;text-align:right}
+#referenceEditorColorDialog .color-picker-color{display:flex;gap:12px;align-items:center}
+#referenceEditorColorDialog .color-picker-color label{display:flex;align-items:center;gap:9px;font-size:13px;flex:1;min-width:0}
+#referenceEditorColorDialog .color-picker-color input{width:100%;min-width:0;background:#1c2225;border:1px solid #596165;border-radius:5px;padding:8px 10px;color:#e5e5e5;font-family:Consolas,monospace}
+#referenceEditorColorDialog .color-picker-error{color:#f1b5a2;font-size:12px;margin:8px 0 0}
+#referenceEditorColorDialog .color-picker-swatches{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px}
+#referenceEditorColorDialog .color-picker-swatches button{width:26px;height:26px;border:1px solid #889196;padding:0;border-radius:4px;flex:none}
+#referenceEditorColorDialog .color-picker-swatches button[aria-pressed=true]{outline:2px solid #e5e5e5;outline-offset:2px}
+#referenceEditorColorDialog .dialog-actions{margin-top:21px}
+#refcolorHue{background:linear-gradient(to right,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)}
+#refcolorSaturation{background:linear-gradient(to right,var(--saturation-base,#fff),var(--saturation-color,#f00))}
+#refcolorBrightness{background:linear-gradient(to right,#000,var(--brightness-color,#fff))}
+#refcolorPreview{width:48px;height:39px;flex:none;border-radius:5px;border:1px solid #9aa2a6}
+@media(max-width:1300px){#referenceAnnotationToolbar{gap:5px;padding:7px}#referenceAnnotationToolbar button{padding:5px 7px}#referenceAnnotationToolbar .ref-actions{margin-left:0}}
