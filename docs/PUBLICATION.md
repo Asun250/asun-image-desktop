@@ -1,19 +1,11 @@
-# Code-only publication policy
+# Publication policy
 
-Publish the ASUN desktop application source, dependency manifests, synthetic test code, launchers and concise setup/legal documentation only.
+The owner authorizes publishing ASUN Image Desktop source, artwork/images, recorded prompts, reference material, editable saved projects and generated results. This replaces the earlier code-only restriction.
 
-Do not publish images (including branding), personal prompts, reference packs, saved projects, generated outputs, credentials, runtime data or logs. Generic prompt-building functions are part of the application source and are distinct from user prompt records.
+Never publish API keys, credentials, authentication/session data, private account details, active queue controls, runtime environments or unrelated personal files. Preserve original image and editable-project bytes; sanitize operational fields in exported job metadata.
 
-The code-only Git history starts from a clean root commit. The local working desktop installation is separate and retains its private assets and projects. Source publishing must not move, restart or overwrite that installation.
+After each completed app iteration, synchronize the intended tested changes into this checkout, preserve its portability adjustments, inspect the staged diff, run npm run check:public, commit and push to the designated repository. Keep the installed app intact and preserve repository visibility.
 
-For every completed iteration:
+Large project collections belong in downloadable GitHub releases, with a catalog and recorded prompt files in project-library/. The exporter snapshots finished/cancelled/failed jobs, preserves missing legacy fields as not recorded and rejects active work or detected credentials. Do not copy the active data/ directory wholesale or restore runtime queue markers from an archive.
 
-1. Synchronize only the intended source changes into this checkout, preserving its portability adjustments.
-2. Run appropriate local/mocked checks. Paid generation tests require separate authorization.
-3. Inspect the staged diff and run npm run check:public.
-4. Commit and push to the designated GitHub repository, preserving its visibility.
-5. Report the commit and validation, or the specific authentication/access blocker.
-
-The public-source check enforces allowed file types and private-data directory exclusions. Human/agent review remains necessary to detect private prompt text within otherwise permitted source files.
-
-Optional SAM setup is opt-in. Its full provisioning sequence still needs validation on a clean Windows machine; no model downloads or GPU inference were performed for publication.
+The optional SAM runtime is installed separately. No model downloads, GPU inference or paid generation calls were needed for publication.

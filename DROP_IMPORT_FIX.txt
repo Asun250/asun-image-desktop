@@ -1,0 +1,33 @@
+ASUN IMG DESKTOP 1.6.7 - DRAG-AND-DROP IMPORT FIX
+2026-10-23
+
+Normal file import could work while dragging the same photo failed with
+"choose an image under 50 MB". The drop handler trusted FileList first, even
+when it contained an empty placeholder and the drag had another readable image
+representation. The size validation also used the same error for zero bytes,
+missing size, and genuinely oversized files.
+
+The updated drop reader captures drag data before the browser protects it and
+recovers the original file from its item or asynchronous filesystem entry.
+Main canvas, image search and sheet drops can also recover embedded image bytes
+or a direct web-image URL from an otherwise empty drag. Existing web import
+validation and limits apply. There is no automatic image compression or resize.
+
+Folder drops are identified explicitly. Empty, unavailable and oversized files
+have separate messages. Oversized errors include the actual file size. The
+existing 50 MiB limit is unchanged. Invalid mixed drops do not partially change
+the canvas. A delayed drop cannot land on a project changed while it was loading.
+
+Canvas, References, main image search, and both sheet photo drop zones were
+tested using isolated browser profiles and fake providers. Original image bytes,
+editable project state, reference notes and Undo were checked after importing
+and rejecting drops. No production jobs or open user windows were altered.
+
+Tests: tests/image-import-validation.test.mjs,
+tests/image-import-errors.ui.mjs, tests/main-image-search.ui.mjs,
+tests/sheet-photos.ui.mjs, and original import validation in render.browser.mjs.
+Evidence: qa/image-import-errors*, qa/image-drop-*-regression.log,
+qa/image-import-validation-unit.log, qa/image-import-original-regression.log.
+Backup: [local backup omitted from public source]
+
+Save open projects, then press Ctrl+R once to load the updated drop handling.

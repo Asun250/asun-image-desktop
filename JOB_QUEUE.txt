@@ -1,0 +1,59 @@
+Asun IMG desktop 1.6.7 - background generation queue
+2026-10-23
+
+GENERATE AND KEEP WORKING
+1. Prepare the image, references, numbered areas, instructions and model settings.
+2. Press Generate (or Generate sheet / Remove & fill).
+3. After "Adding job" finishes, continue editing or choose New tab for a new project.
+   Each accepted job has its own saved setup. Later edits never change that job.
+4. Open Job queue in the header to see its progress and results.
+
+QUEUE ACTIONS
+- New project: start an independent blank workflow tab.
+- Open workflow: return to the latest live draft, or reopen the submitted setup
+  in a new tab if its original tab was closed.
+- Reopen setup: open the exact saved original project and settings in a new tab.
+- Cancel queued job: stop a waiting job before it sends a provider request.
+- Open result: inspect the finished image and exact generation details.
+- Download / Edit output image / Redo with references: use the selected result.
+- Full generation history: find older results beyond the recent jobs shown here.
+
+Images, object removal/fill and character/item sheets share a FIFO queue with
+one provider generation at a time. Finished jobs do not interrupt another project.
+The active-job badge and real queued/generating/ready/failed/canceled states update
+automatically. No invented percentage or completion estimate is shown.
+
+SAVED WORK AND RECOVERY
+The immutable project, input images and exact API options are saved before a job
+is accepted. Generated output is kept separately. Original sources remain editable.
+Refresh or close the browser without losing accepted jobs; processing still needs
+the PC and local Asun service to remain running. Queued jobs resume on service start.
+Already-submitted requests are never automatically repeated after an uncertain
+interruption. Provider errors and unsupported quality/model settings remain visible.
+If an upload response is interrupted, the same request ID is recovered rather than
+submitting a duplicate. Open workflow tabs also save their latest drafts locally;
+keep a normal .asun save as a portable backup. See WORKFLOW_TABS.txt.
+Existing local history/storage limits are retained; files are not silently discarded.
+
+IMPLEMENTATION / VERIFICATION
+Source: .
+Backups: [local backup omitted from public source]
+Isolated checks use temporary job storage and fake providers, with no paid API calls.
+Evidence is stored under qa/generation-queue and qa/job-queue*.
+
+VERIFIED 2026-10-23
+- Full unit suite: 296 passed; focused bridge/quality/removal checks after the
+  final metadata-refresh fix: 40 passed.
+- Queue backend checks: 54 passed, including separate-process serialization,
+  persisted recovery, cancellation and uncertain-submission protection.
+- Queue UI: 4 component and 2 real-server integration cases passed.
+- Existing image/sheet/Edit/result workflows: 30 cases verified; two initial
+  failures corrected and targeted reruns passed. Inspector/history: 12 passed.
+- Syntax checks passed. No paid image generation was used for verification.
+
+ACTIVATED
+The idle desktop backend was restarted safely on http://127.0.0.1:48010.
+Health, authenticated queue status and eight served asset hashes were verified.
+The existing desktop window was left open to preserve unsaved work.
+Save your current project, then refresh the desktop window to load Job queue.
+Activation evidence: qa/generation-queue/activation.json

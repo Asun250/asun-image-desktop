@@ -1,0 +1,21 @@
+ASUN IMG DESKTOP 1.6.7 — LARGE REFERENCE SETS
+Implemented 2026-10-27.
+
+Desktop image and character/item-sheet generation accept more than 16 logical inputs. When needed, the app automatically groups references, their annotation guides and area masks into labeled PNG boards. The provider request remains within its 16-file limit. Composition, canvas annotation guide, primary sheet subject and explicitly selected blockout stay standalone. Requests with up to 16 physical sources retain their previous ordering, bytes, prompt format, model and quality.
+
+This is not unlimited individual files at the provider. Current official Images API documentation lists 16 images per edit, including GPT Image 2.5 Sunburst; Max quality does not change that limit:
+https://developers.openai.com/api/reference/resources/images/methods/edit
+https://developers.openai.com/api/docs/models/gpt-image-2.5-sunburst
+
+Every logical source appears exactly once in the layout. Input N on a tile is a logical source number, not an object number or provider-file index. The server rebuilds layout and role mappings from the project; rejects missing, duplicate or incorrectly sized boards; and never trusts client-supplied roles. Board content is rendered from preserved sources and guides in the browser, like the existing composition previews. Each tile contains the full image without cropping. Source hashes and dimensions are retained in the stored tile metadata; no references are silently omitted.
+
+Masks use their tile imageRect as the full-canvas coordinate space, not the surrounding white board. The prompt explains that distinction. The selected Blender blockout keeps its original bytes/hash in a standalone input. Astra receives the same mapped boards; correction retries reuse frozen image bytes and settings.
+
+History and result details show logical input count, physical input count, board count and the actual sent board previews, with expandable tile names and roles. Main Generate reports packing while uploading and after queueing. Full original photos, editable areas and reference instructions remain in the saved source project. Board tiles may appear smaller to the image model; very large inputs remain subject to file-size, prompt and readability bounds. Existing project/request (128 MB), logical/provider-image total (64 MB), provider prompt (32,000 characters), per-image and stored-history limits remain explicit. Layouts that would omit or make tiles unreadable fail before provider submission.
+
+No paid image generation or live reviewer call is required or used for implementation verification. Provider requests, rejection/retry and saved-history scenarios are verified with controlled provider responses. Existing saved jobs are not rewritten.
+
+VERIFICATION AND ACTIVATION
+97 focused request/service/queue/history/review tests passed. A separate browser/UI run passed 43 of48 scenarios, including all new overflow, layout, display and reference-pack/sketch/rotation checks. Five older UI scenarios failed: provider-error display, reload recovery and previous-result visibility. The two main provider-error/reload failures were independently reproduced with pre-turn frontend files; their evidence is in qa/reference-input-boards/baseline-legacy-ui. A read-only audit compared16 old/new small-input prepared requests and found exact parity, including prompts and fingerprints. Controlled tests cover20 references plus two annotation guides, two masks, composition/guide and original blockout, Sunburst Max unchanged, reject/accept review retry, frozen boards, source/history persistence, malformed input rejection and honest provider failures.
+
+The initial restart was blocked by automatic approval. The user explicitly approved restarting the server on2026-10-27. Activation then succeeded: serverPID244232 now serves48010 from the updated desktop source. Health and all updated browser modules were verified, server error output is empty, and all17 preexisting job metadata files retain their exact SHA-256 hashes (14 image jobs and3 sheet jobs, all completed). No queued/running work was interrupted and no generation was submitted. Save/refresh the desktop editor to load the new browser code.

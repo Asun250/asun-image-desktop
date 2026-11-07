@@ -1,0 +1,64 @@
+Asun IMG desktop 1.6.7 - Character / item sheets
+
+Click Character / item sheet beside Create in the desktop header.
+1. Choose your subject
+Add multiple photos of the same subject from your computer, drag them onto this
+section, or use Paste photos. Existing project photos can also be included.
+The main reference guides identity; the additional photos show the same subject
+from other angles. Make main changes that priority while keeping the other photos.
+Remove an additional subject from the sheet without deleting its project image.
+
+Search the web opens Google Images in a new tab. Drag an image into the subject
+section or copy the image and choose Paste photos. Public direct-image drops are
+imported locally. Websites that block importing may require Copy image or saving
+the photo first; dropping a page URL is not the same as dropping a photo.
+
+Click any photo to enlarge it. Pencil, Highlight, Text, Move, Pan, zoom, brush size,
+color and undo/redo remain available. Add photo-specific instructions, such as
+"Only use the circled building; exclude the surrounding buildings and scenery."
+Save and back retains your edits; Cancel or closing discards that photo draft.
+Markings and notes stay editable in the .asun project, separate from original
+photo bytes and separate from unrelated canvas/reference annotations.
+
+2. Pick your views
+Choose Character, Item / object, or Building. Seven distinct angles on white
+are selected by default. The existing nine-view option is still available.
+3. Add the details
+Add multiple detail references using upload, drag and drop, Paste photos or web
+search. Click a reference to enlarge and annotate it with the same tools. Check
+the photos you want included; unchecked references are not sent. General notes
+under Anything to keep in mind supplement the per-photo instructions.
+
+Generation receives clean selected photos plus separate annotated guide images.
+Guides map your circles, highlights and text to the matching photo. The requested
+output isolates the named/marked subject on white and omits the marks themselves.
+There is a 16-image total API limit including clean photos and guides, and a 64 MB
+combined input limit. Invalid or oversized requests stop before generation.
+Choose an available image model and Quality, then Generate sheet. Quality stays
+high by default. Sunburst and Flare support auto, low, medium, high, xhigh and max.
+Unsupported settings show an error rather than falling back to another value.
+
+The spinner remains visible while generation runs. The actual returned image
+appears in the panel. Save sheet image downloads a PNG. Add to references keeps
+it with the current project; use Save in the editor to save your editable project.
+Your original canvas, photos, labels, masks, notes and shared groups stay intact.
+Unseen angles are inferred by the image model and should be reviewed.
+
+Connection
+The local Node server uses the existing OPENAI_API_KEY environment setting.
+The key never enters the browser or project file. API charges apply when Generate
+sheet is pressed. The layout guide is not a generated result. If the API is
+unavailable, the panel explains the error; Download sheet pack remains optional.
+There is no automatic paid retry. Check generation retrieves the same request.
+The most recent result can be recovered after refreshing. Generation history
+opens a separate page for all saved image and sheet jobs. Each result shows its
+recorded prompt, requested settings, actual size and input photos/guides. Older
+results without those records say Not recorded. Each local history keeps up to
+2 GiB and 2,048 requests; a full history stops new generation and keeps old files.
+
+Download sheet pack includes all selected originals unchanged, annotated guide
+PNGs, their photo mappings and ready-to-use instructions. It is a request pack,
+not a generated sheet. Save the native project separately to retain editable marks.
+
+For a running desktop window, save your project before refreshing the page.
+The web/phone app and its launcher are separate and were not changed.

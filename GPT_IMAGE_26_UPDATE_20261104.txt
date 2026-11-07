@@ -1,0 +1,92 @@
+ASUN Image desktop 1.6.7 — GPT Image 2.6 update
+Verified 2026-11-04
+
+Source: .
+Backup: [local backup omitted from public source]
+
+IMPLEMENTED
+The main Image model menu and Character / item sheet model menu now include:
+  gpt-image-2.6-sunburst — detailed work
+  gpt-image-2.6-flare — faster iteration
+Both were confirmed available using the existing account's read-only model list.
+Existing 2.5 models remain available and keep their ordering/default behavior.
+Saved model and quality preferences are not migrated or replaced.
+
+Complexity is a separate Low / Medium / High control; default High. It controls
+planning before rendering, independently of quality. The UI explains that High
+can take longer and change more. Quality retains auto/low/medium/high/xhigh/max
+for 2.6 and 2.5; the app's existing quality default remains High.
+
+Requests use POST /v1/images/generations for text-only generation and multipart
+POST /v1/images/edits for reference-image and editing requests. Complexity is
+sent as its own request parameter, recorded with each result and included in
+immutable queued requests, request fingerprints, restart validation and history.
+It survives preferences, workflow tabs and Redo. Older models omit complexity.
+Invalid choices and provider rejections produce errors without substitutions.
+
+OUTPUT SIZES
+2.6 currently offers the sizes guaranteed by the current API size documentation:
+  1024 x 1536 — 2:3 portrait
+  1536 x 1024 — 3:2 landscape
+  1024 x 1024 — 1:1 square
+The custom-size prose explicitly names 2 and 2.5, but not 2.6. Exact 9:16 for
+2.6 is therefore unverified, not declared impossible. A remembered 9:16 choice
+is retained and blocks submission until the user explicitly chooses a verified
+size or switches back to 2.5. Existing 2.5 custom-size support is unchanged.
+
+Selected-area edits retain their exact canvas and mask alignment. A 2.6 edit
+outside the verified sizes is rejected, never silently resized. Raw returned
+PNG dimensions remain checked against the request; mismatches are reported.
+Downloads retain the original provider bytes. References, annotated guides,
+large-reference packing, editable source recovery and ZIP packs are preserved.
+
+EXTRA FEATURES REVIEWED, NOT ADDED
+Formal markup edits need a separate transparent PNG matching the first image;
+the current flattened guides are not that markup parameter. An overlay export
+and validation path would be a separate change.
+SVG and animated GIF are documented generation outputs, not edit outputs.
+They need separate output validation, preview and export handling. GIF limits
+also disagree between the guide and API reference, so none were guessed here.
+The existing still-image PNG workflow remains in use.
+
+VALIDATION
+580 unit/service tests passed; 32 distinct browser checks passed.
+Coverage includes new model IDs, all quality/complexity choices, exact outgoing
+JSON and multipart fields, invalid settings, queue recovery and request identity,
+history, saved preferences, workflow tabs, unsupported ratios, native edit-mask
+alignment, raw downloads, reference packs and image inspection.
+Long errors fit the controls at a 1024 x 768 desktop window. Screenshots checked.
+Seven stale test fixtures also failed against the untouched backup. They were
+corrected to explicitly select Match source and to use an active mock model;
+their original behavioral assertions were preserved.
+Syntax checks passed. The desktop service was started after verifying no queued
+or running jobs, and its served code was checked against the updated source.
+
+No paid generation or review calls were made. Model-list access was read-only.
+No key was printed or changed; billing and credits were untouched. Actual 2.6
+generated image quality and provider acceptance of a paid request await a live
+generation; mocked tests do not establish those outcomes.
+
+USAGE
+Save your project, then reopen or refresh desktop Asun Image. Select a 2.6 model
+beside the main prompt, choose a verified Aspect Ratio, then set Quality and
+Complexity. The same Complexity control appears below Quality in sheet creation.
+Each result's Generation details records the submitted settings.
+
+EVIDENCE
+qa/gpt-image-2.6/unit-tests.txt
+qa/gpt-image-2.6/regression-browser-tests.txt
+qa/gpt-image-2.6/ui-tests.txt
+qa/gpt-image-2.6/ui-report.json
+qa/gpt-image-2.6/activation.json
+qa/gpt-image-2.6/image26-controls.png
+qa/gpt-image-2.6/image26-unsupported-ratio.png
+qa/gpt-image-2.6/sheet26-controls.png
+
+OFFICIAL SOURCES CHECKED
+https://developers.openai.com/api/docs/models/gpt-image-2.6-sunburst
+https://developers.openai.com/api/docs/models/gpt-image-2.6-flare
+https://developers.openai.com/api/docs/guides/image-generation
+https://developers.openai.com/api/reference/resources/images/methods/generate
+https://developers.openai.com/api/reference/resources/images/methods/edit
+https://developers.openai.com/api/docs/changelog

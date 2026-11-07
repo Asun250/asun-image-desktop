@@ -1,0 +1,188 @@
+Create ONE finished image from the image request below. Return the finished image itself.
+
+The composition image is the CURRENT visible raster canvas, including placement, cropping, layer opacity, masking and color adjustments. Use it as the composition and appearance base. Preserve its arrangement and unrequested details unless the global prompt explicitly asks to change them.
+
+The working canvas is 1024 × 1536 pixels. Keep its aspect and framing where practical.
+
+Annotation guides are separate instructions. Their numbers, colored outlines, selection shading, arrows, highlights and drawn notes identify where to edit. Do not copy these marks into the result. Render text as part of the artwork only when the user explicitly requests that text.
+
+Each selection-mask image is aligned to the full working canvas: WHITE pixels are the selected area, BLACK pixels are outside it. Apply that area’s instruction and references only inside its selection. A group can contain disconnected objects: apply its shared instruction to every white component, not the gaps or the entire bounding rectangle. Masks are guidance to the image model, not a guarantee of pixel-identical preservation.
+
+Original reference images supply appearance details. A reference annotation preview is guidance for its matching original; do not reproduce its markings. Respect photo notes and apply area-linked references only to their matching labels. Global references guide the global prompt.
+
+Image order and roles:
+[
+  {
+    "image": 1,
+    "role": "current composition"
+  },
+  {
+    "image": 2,
+    "role": "canvas annotation guide",
+    "use": "Locate numbered areas and drawn instructions; do not copy marks."
+  },
+  {
+    "image": 3,
+    "role": "original reference photo",
+    "referenceId": "014cd95f-0739-44f1-a2d3-c925d2224421",
+    "filename": "images.jpg",
+    "labels": [
+      "1"
+    ],
+    "scope": "matching numbered areas only"
+  },
+  {
+    "image": 4,
+    "role": "original reference photo",
+    "referenceId": "e715c83a-98de-4f17-bc62-d7c3dea7bace",
+    "filename": "images.jpg",
+    "labels": [
+      "1"
+    ],
+    "scope": "matching numbered areas only"
+  },
+  {
+    "image": 5,
+    "role": "original reference photo",
+    "referenceId": "1ceaf3c8-35e1-4990-9ee2-38793a2c7aaa",
+    "filename": "images.jpg",
+    "labels": [
+      "1"
+    ],
+    "scope": "matching numbered areas only"
+  },
+  {
+    "image": 6,
+    "role": "original reference photo",
+    "referenceId": "69a6e634-ba12-49f2-8297-c5b5d583d3ed",
+    "filename": "images.jpg",
+    "labels": [
+      "1"
+    ],
+    "scope": "matching numbered areas only"
+  },
+  {
+    "image": 7,
+    "role": "original reference photo",
+    "referenceId": "d7430a03-0e24-4b0f-8d60-82c3709c44d6",
+    "filename": "images.jpg",
+    "labels": [
+      "1"
+    ],
+    "scope": "matching numbered areas only"
+  },
+  {
+    "image": 8,
+    "role": "original reference photo",
+    "referenceId": "369da6b7-34f0-42ac-8227-5a1504cbf7c1",
+    "filename": "images.jpg",
+    "labels": [
+      "1"
+    ],
+    "scope": "matching numbered areas only"
+  },
+  {
+    "image": 9,
+    "role": "area selection mask",
+    "areaId": "c20f1d54-2fd2-4df4-b408-edd360fa39fc",
+    "label": "1",
+    "groupAreaCount": 8,
+    "use": "WHITE selects pixels; BLACK excludes pixels; full-canvas coordinates."
+  }
+]
+
+User’s global image prompt:
+(No global change requested; follow the numbered area instructions.)
+
+Numbered area instructions and reference mapping:
+[
+  {
+    "id": "c20f1d54-2fd2-4df4-b408-edd360fa39fc",
+    "label": "1",
+    "instruction": "Apply the references and instructions to all 8 selected areas in this group.",
+    "referenceIds": [
+      "014cd95f-0739-44f1-a2d3-c925d2224421",
+      "e715c83a-98de-4f17-bc62-d7c3dea7bace",
+      "1ceaf3c8-35e1-4990-9ee2-38793a2c7aaa",
+      "69a6e634-ba12-49f2-8297-c5b5d583d3ed",
+      "d7430a03-0e24-4b0f-8d60-82c3709c44d6",
+      "369da6b7-34f0-42ac-8227-5a1504cbf7c1"
+    ],
+    "labelBounds": {
+      "x": 536.5,
+      "y": 1282.5,
+      "width": 62,
+      "height": 106
+    },
+    "selection": {
+      "bounds": {
+        "x": 0,
+        "y": 1155,
+        "width": 975,
+        "height": 296
+      },
+      "groupAreaCount": 8,
+      "shape": "Use this area’s white-on-black selection-mask image; its bounding rectangle is not the selection."
+    }
+  }
+]
+
+Reference photo notes:
+[
+  {
+    "id": "014cd95f-0739-44f1-a2d3-c925d2224421",
+    "filename": "images.jpg",
+    "scope": "matching numbered areas only",
+    "labels": [
+      "1"
+    ],
+    "notes": ""
+  },
+  {
+    "id": "e715c83a-98de-4f17-bc62-d7c3dea7bace",
+    "filename": "images.jpg",
+    "scope": "matching numbered areas only",
+    "labels": [
+      "1"
+    ],
+    "notes": ""
+  },
+  {
+    "id": "1ceaf3c8-35e1-4990-9ee2-38793a2c7aaa",
+    "filename": "images.jpg",
+    "scope": "matching numbered areas only",
+    "labels": [
+      "1"
+    ],
+    "notes": ""
+  },
+  {
+    "id": "69a6e634-ba12-49f2-8297-c5b5d583d3ed",
+    "filename": "images.jpg",
+    "scope": "matching numbered areas only",
+    "labels": [
+      "1"
+    ],
+    "notes": ""
+  },
+  {
+    "id": "d7430a03-0e24-4b0f-8d60-82c3709c44d6",
+    "filename": "images.jpg",
+    "scope": "matching numbered areas only",
+    "labels": [
+      "1"
+    ],
+    "notes": ""
+  },
+  {
+    "id": "369da6b7-34f0-42ac-8227-5a1504cbf7c1",
+    "filename": "images.jpg",
+    "scope": "matching numbered areas only",
+    "labels": [
+      "1"
+    ],
+    "notes": "all the selected vehicles are tesla cybercab. CHange them to tesla cyber cab. Use reference as the cars look, but keep the same car lenght, idstance , position as original image. Your are just changing the cars model to tesla cybercab. "
+  }
+]
+
+Return one finished image without editor UI, explanatory panels, or reference-guide marks.

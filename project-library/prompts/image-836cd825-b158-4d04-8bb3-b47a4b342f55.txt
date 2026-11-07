@@ -1,0 +1,88 @@
+Create ONE finished image from the image request below. Return the finished image itself.
+
+The composition image is the CURRENT visible raster canvas, including placement, cropping, layer opacity, masking and color adjustments. Use it as the composition and appearance base. Preserve its arrangement and unrequested details unless the global prompt explicitly asks to change them.
+
+The working canvas is 1024 × 1536 pixels. Keep its aspect and framing where practical.
+
+Annotation guides are separate instructions. Their numbers, colored outlines, selection shading, arrows, highlights and drawn notes identify where to edit. Do not copy these marks into the result. Render text as part of the artwork only when the user explicitly requests that text.
+
+Each selection-mask image is aligned to the full working canvas: WHITE pixels are the selected area, BLACK pixels are outside it. Apply that area’s instruction and references only inside its selection. A group can contain disconnected objects: apply its shared instruction to every white component, not the gaps or the entire bounding rectangle. Masks are guidance to the image model, not a guarantee of pixel-identical preservation.
+
+Original reference images supply appearance details. A reference annotation preview is guidance for its matching original; do not reproduce its markings. Respect photo notes and apply area-linked references only to their matching labels. Global references guide the global prompt.
+
+Image order and roles:
+[
+  {
+    "image": 1,
+    "role": "current composition"
+  },
+  {
+    "image": 2,
+    "role": "canvas annotation guide",
+    "use": "Locate numbered areas and drawn instructions; do not copy marks."
+  },
+  {
+    "image": 3,
+    "role": "original reference photo",
+    "referenceId": "aa68917b-0a76-433b-a637-cd9eed72b0c4",
+    "filename": "Paris_Eiffel_tower.png",
+    "labels": [],
+    "scope": "global prompt"
+  },
+  {
+    "image": 4,
+    "role": "area selection mask",
+    "areaId": "cbb141ff-6a50-4bca-99c3-d82a699344e4",
+    "label": "1",
+    "groupAreaCount": 1,
+    "use": "WHITE selects pixels; BLACK excludes pixels; full-canvas coordinates."
+  }
+]
+
+User’s global image prompt:
+Replace the selected blockout structure with a photorealistic close-up of the Paris Las Vegas Eiffel Tower replica. Replace the chunky solid surfaces with realistic open metal latticework, diagonal cross-bracing, riveted beams, and detailed structural connections. Let the existing background show naturally through the gaps.
+
+Preserve the tower’s position, scale, perspective, approximate outer silhouette, and right-edge cropping. Only recreate the portion visible from this camera angle. Do not add a full tower or change the composition.
+
+Match the image’s warm golden nighttime lighting, shadows, and depth of field. Make the metal look physically realistic and consistent with the surrounding scene.
+
+Change only the selected tower region. Preserve everything outside the selection, including Bellagio, the ANC card, trees, lake, city lights, and sky. Keep the same image dimensions and overall color grading.
+
+Numbered area instructions and reference mapping:
+[
+  {
+    "id": "cbb141ff-6a50-4bca-99c3-d82a699344e4",
+    "label": "1",
+    "instruction": "Replace the selected blockout structure with a photorealistic close-up of the Paris Las Vegas Eiffel Tower replica. Replace the chunky solid surfaces with realistic open metal latticework, diagonal cross-bracing, riveted beams, and detailed structural connections. Let the existing background show naturally through the gaps.\n\nPreserve the tower’s position, scale, perspective, approximate outer silhouette, and right-edge cropping. Only recreate the portion visible from this camera angle. Do not add a full tower or change the composition.\n\nMatch the image’s warm golden nighttime lighting, shadows, and depth of field. Make the metal look physically realistic and consistent with the surrounding scene.\n\nChange only the selected tower region. Preserve everything outside the selection, including Bellagio, the ANC card, trees, lake, city lights, and sky. Keep the same image dimensions and overall color grading.",
+    "referenceIds": [],
+    "labelBounds": {
+      "x": 911.294289897511,
+      "y": 1016.25,
+      "width": 44,
+      "height": 75
+    },
+    "selection": {
+      "bounds": {
+        "x": 860.5797950219619,
+        "y": 528,
+        "width": 163.4202049780381,
+        "height": 1008
+      },
+      "groupAreaCount": 1,
+      "shape": "Use this area’s white-on-black selection-mask image; its bounding rectangle is not the selection."
+    }
+  }
+]
+
+Reference photo notes:
+[
+  {
+    "id": "aa68917b-0a76-433b-a637-cd9eed72b0c4",
+    "filename": "Paris_Eiffel_tower.png",
+    "scope": "global prompt",
+    "labels": [],
+    "notes": ""
+  }
+]
+
+Return one finished image without editor UI, explanatory panels, or reference-guide marks.

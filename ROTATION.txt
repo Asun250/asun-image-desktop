@@ -1,0 +1,49 @@
+Asun IMG desktop 1.6.7 - view and image-layer rotation
+2026-10-23
+
+ROTATE THE WORKSPACE FOR MASKING
+Choose Rotate view beside Fit (rotation icon + angle on compact windows).
+Drag the angle slider, enter an angle, turn left/right 90 degrees or Reset 0 degrees.
+This rotates the workspace only. It does not change saved or exported image pixels.
+Mask, Restore, manual selections, highlights, detected areas and their guides remain aligned.
+Fit and zoom account for the view angle. Rulers are hidden until the view returns to 0 degrees.
+
+ROTATE AN IMAGE IN THE OUTPUT
+Select an image layer, then choose Properties > Rotate image layer.
+The slider, exact angle, 90-degree buttons and Reset rotate around the image's center.
+An adjustment previews continuously and commits as one Undo step.
+The layer angle is editable, saved in native projects/variants and used in exports and generation.
+Original photo bytes and masks remain intact. Bound number labels follow the image.
+Independent text/pencil/highlight layers keep their document positions.
+The white paper in Draw / sketch reference is fixed; placed photo layers can rotate.
+
+CANVAS SIZE
+Rotation does not resize the canvas. Image corners beyond the canvas are clipped.
+Fit photo includes the full rotated photo in a resized canvas.
+If restoring a stretched, rotated photo's native aspect would require shearing other layers,
+Fit photo reports that limitation rather than silently changing their shapes.
+
+LOADING THE UPDATE
+Save the project in the existing desktop window, then refresh that window.
+The update does not reload the user's window or change the phone/web app.
+
+VERIFICATION
+269 unit tests passed (qa/rotation-units.log).
+4 real-editor rotation UI scenarios passed (qa/rotation/report.json and qa/rotation-ui.log):
+- View rotation leaves exported image bytes unchanged; normal Mask/Restore hits source pixels.
+- Layer + view rotation, one-step Undo, saved project reopen and actual exported image angle.
+- Edit-page painting/subtraction/erase follows both rotations and preserves neighboring pixels.
+- Rotated resize handle/opposite-corner anchor, Fit, pan/zoom and compact 1024/1440 layouts.
+5 rotation-render browser checks include extreme nonuniform preview scaling.
+Selection/generation tests verify rotated raster/mask alignment without paid provider calls.
+Further regression and syntax logs are under qa/rotation-*.log.
+All 17 focused legacy UI cases passed across the initial and corrective runs:
+7 annotation, 6 canvas-fit and 4 Edit-image workflows. The five initial failures
+used the obsolete Create dialog selectors; corrected navigation retains all assertions.
+The desktop backend was activated while idle and 20 served assets hash-match the tested source.
+Activation and served-asset evidence: qa/rotation/activation.json and served-assets.json.
+No paid image generation was performed for this update.
+
+SOURCE / BACKUP
+Active source: .
+Pre-edit copies: [local backup omitted from public source]

@@ -1,0 +1,67 @@
+ASUN IMG DESKTOP 1.6.7 - WORKFLOW TABS
+2026-10-23
+
+GENERATE AND KEEP WORKING
+1. Prepare your image, areas, references, instructions and model settings.
+2. Click Generate. Once the short upload finishes, the tab shows Queued or
+   Generating while the local service processes the job.
+3. Click + New tab to start another project. Click any tab to resume its work.
+4. Generate again on a tab that already has a job to create a new submission tab
+   from that tab's latest edits. The previous job's submitted setup stays intact.
+5. Use the result arrow on a Ready tab or open Queue to inspect its output.
+
+Tabs stay accessible above the character/item sheet page. Main images, sheets,
+sketches and Remove & fill use the same background queue, one provider job at a
+time. Queued work can accumulate while you edit. The brief upload/photo-edit/
+detection operation must finish before switching tabs. Results never replace
+your active project or interrupt it with an automatic result window.
+
+WHAT EACH TAB KEEPS
+Original image bytes, editable layers and masks, numbered selections, grouped
+areas, reference photos and annotations, photo notes and comments, scene prompt,
+model and quality, selected tool, brush settings, Undo/Redo, zoom/pan/rotation,
+and independent main/sketch drafts. An open sheet page and its notes also return.
+
+OPEN, REDO AND EDIT OUTPUT
+Queue > Open workflow resumes the latest open draft, including changes made
+after submitting the job. If that tab was closed, its submitted native setup can
+reopen in a new tab. Reopen setup / Redo with all references explicitly opens
+the original submitted setup in a new tab. Edit output image opens the generated
+pixels in a new Edit image tab. Neither action starts another generation.
+Opening a project file creates another tab when the current tab contains work.
+
+CLOSING AND RECOVERY
+Close removes the current draft tab; unsaved changes require confirmation.
+Closing a tab does not cancel its jobs. Cancel queued job is a separate Queue
+action. Completed results and submitted setups remain in generation history.
+
+Open tabs are saved in this browser's local IndexedDB and restored on refresh,
+including Undo/Redo and original image bytes. Watch the strip for "Tabs saved on
+this PC". Keep .asun files as portable backups; clearing browser/app data removes
+local tab recovery. Jobs themselves are stored by the local service separately.
+The PC and local service must remain running to process jobs. Use the same
+desktop address/browser profile to recover the same tabs.
+
+Storage/quota errors are shown explicitly; no tabs or images are silently dropped.
+If another editor window writes to the same saved workspace, this window stops
+autosaving and reports the conflict instead of overwriting the other window.
+Save any unsaved .asun projects before reopening the latest saved workspace.
+
+IMPLEMENTATION
+Source: .
+Backup: [local backup omitted from public source]
+Verification: qa/workflow-tabs*, qa/workflow-generation*,
+qa/workflow-session-store-tests.log. Tests use isolated browser profiles and fake
+providers; they do not make paid generations or modify production jobs.
+
+VERIFIED
+346 unit checks passed. Storage, tab UI, scoped image/sheet previews, actual
+queued workflow switching/reload, concurrent upload boundaries, and Edit output
+isolation passed. Existing editor/masking/rotation/result actions were checked;
+failed-import handling was corrected and retested. No paid generations were used.
+
+The running desktop service serves all ten updated UI assets exactly as saved.
+No service restart or user-window reload was performed, preserving open work.
+Save your current project, then press Ctrl+R once to load the new tabs.
+Activation evidence: qa/workflow-tabs/activation.json
+Verification summary: qa/workflow-tabs/verification.json

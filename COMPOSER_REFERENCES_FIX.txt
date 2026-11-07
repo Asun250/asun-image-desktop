@@ -1,0 +1,37 @@
+ASUN IMG DESKTOP 1.6.7 — MULTIPLE GENERATION REFERENCES
+2026-10-28
+
+Fixed the bottom Add photos control remaining disabled after the first import.
+The import committed while busy, which disabled the button, but completion did
+not refresh that disabled state. Import controls now synchronize on start and
+completion, including failed imports.
+
+The bottom References area now has a wider scrolling tray, visible photo count,
+View all gallery, multiple-file drag/drop and explicit Paste controls. Photos
+append to the existing collection. The gallery can add and remove photos, and
+the project keeps original files. Detection and numbered regions are optional:
+add references, enter a prompt, and Generate.
+
+No generation API/model/quality settings changed. Verified two unlinked photos
+reach Sunburst as two individual inputs on a blank canvas, and all 22 references
+remain represented in a larger request. Existing packing uses labelled boards
+when logical inputs exceed the provider's 16 physical-file allowance. Existing
+explicit total-byte/readable-board limits still apply; references are not dropped
+silently. All original reference files remain in the editable project.
+
+VALIDATION
+- Original code fails the real Add photos button's second-import regression.
+- Five UI/integration checks pass: real sequential/multi-file picker, 22 photos,
+  drop, keyboard paste, both Paste buttons, gallery removal, and save/reopen.
+- Forty-three core/clipboard/import/search checks pass.
+- Twenty-six generation request/service/packing checks pass.
+- Layout inspected at desktop sizes, including 1280 and 1050 pixels wide.
+- No paid generation calls and no user projects changed during verification.
+
+Evidence: qa/global-references/report.json, baseline-test.txt,
+core-import-tests.txt, live-assets.json, and screenshots in the same folder.
+Source backup: [local backup omitted from public source]
+
+The running local server serves the updated files. No restart is required.
+Save the current project and press Ctrl+R once to load the updated interface.
+The user's open editor was not force-reloaded.

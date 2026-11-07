@@ -1,0 +1,46 @@
+ASUN IMG DESKTOP 1.6.7 — INDEPENDENT BLOCKOUT REVIEW
+Implemented 2026-10-26 for Desktop Generate. Complete reference packs gained portable receiving-agent instructions on 2026-10-27. Character/item-sheet generation remains separate from the fixed-camera review.
+
+USE
+Save your work and refresh the desktop editor (Ctrl+R). Beside Generate, choose Blockout review. Select the original Blender blockout explicitly, confirm the preview, optionally list allowed structural changes, and save. Generate normally. The review setting is project-local and starts off until an original is selected; existing ordinary generation behavior and the default image quality stay unchanged.
+
+Reviewer: gpt-6-astra, reasoning.effort=max. Ultra is a Codex host setting, not a supported public Responses API effort. The app does not substitute another reviewer. API model access was verified on this PC; no paid image generation or live vision review was performed for implementation testing.
+
+Each candidate is independently checked for framing, camera perspective, placement, projected scale, orientation, occlusion, content and reference appearance. An explicit rejection supplies corrections to the next generation using the same original inputs and image model/quality. Maximum: 3 total image attempts (configurable 1–3), each with a review. Calls use paid API billing. Only all eight passing checks yield Visual match passed. Inconclusive, failed or exhausted reviews stop with Needs review; the latest candidate can be inspected, saved or edited from Job queue / Generation history.
+
+SOURCE AND CAMERA
+The chosen original bytes/hash remain fixed across attempts, independently of canvas edits. Generation and review receive explicit input numbering and reference roles. Geometry exceptions come only from the dedicated exceptions field. The original edit setup (.asun), masks, references, source image and every attempt image/settings/verdict remain stored with the job. Output image files are immutable per attempt.
+
+For reviewed jobs, Sunburst/Flare/GPT Image 2 request a supported size with exactly the source aspect ratio, normally around a 1536-pixel long edge (1024 square). No crop/stretch/ratio rounding is used. Unsupported exact ratios stop before paid work; the user can re-export a standard-ratio Blender blockout or turn review off. Older models support only the existing square/3:2/2:3 shapes. Dimensions are shown before generation and in the result details. Non-reviewed job sizing is unchanged.
+
+This is a visual consistency review, not a proof of exact 3D measurements, lens parameters or pixel identity. True world-space dimensional verification requires Blender scene metadata or a render workflow that preserves the actual scene.
+
+RELIABILITY
+Image and review calls have exclusive on-disk submission claims. Unknown network outcomes, malformed/contradictory reviews, refusal, unavailable settings, server restart and timeouts never trigger automatic paid re-submission. Only a valid rejection authorizes a new corrective attempt. Source/settings integrity is checked before dispatch. Queue remains running through review, leaving other workflow tabs editable. Polling does not repeatedly send large pending-candidate image payloads.
+
+EVIDENCE
+qa/blockout-review-controls/verification.json and ui-tests.log
+qa/blockout-review-controls/unit-tests.log
+qa/blockout-review-display/ (review/queue screenshots and UI cases)
+Tests use fake providers; no image-generation billing was incurred.
+Live service: http://127.0.0.1:48010. Restarted only after verifying no queued/running generations; existing browser drafts were not reloaded.
+
+Official API contracts checked:
+https://developers.openai.com/api/docs/models/gpt-6-astra
+https://developers.openai.com/api/docs/guides/structured-outputs
+https://developers.openai.com/api/reference/resources/images/methods/edit
+https://developers.openai.com/api/docs/guides/image-generation
+
+VALIDATION RESULTS
+441 unit tests passed (qa/blockout-review-controls/unit-tests.log).
+13 targeted browser checks passed: review setup/save/reload/off, accepted/rejected/inconclusive display, queue inspection and authorization recovery (qa/blockout-review-controls/ui-tests.log).
+The broader legacy UI suites contain 6 existing timeouts: 3 quality-history and 3 desktop-image-generation cases. All 6 were reproduced with pre-task files served from backups, without changing production files. Evidence: qa/blockout-review-display/baseline-quality-history/ and baseline-main-image/. They depend on old completion-toast, immediate-reload, or mutable mock-job assumptions; they are not introduced by this review feature.
+Read-only live checks confirmed gpt-6-astra availability and matching served frontend files. The desktop backend was reloaded with zero queued/running jobs; 17 existing completed jobs remained intact.
+
+
+DOWNLOADABLE COMPLETE REFERENCE PACKS (2026-10-27)
+A fresh Complete reference pack includes START-HERE.txt, prominently linked from README.txt, and mapping.agentWorkflow. It requests a separate gpt-6-astra reviewer at max effort, up to three total generation attempts, correction only after an evidenced rejection, and an honest Needs review stop on uncertainty, unavailable settings, errors or exhausted attempts. The ZIP does not execute agents or certify approval; the receiving agent must read and perform the workflow. Existing ZIP files must be re-exported.
+
+The enabled desktop blockout choice, source file hash, geometry exceptions and attempt limit are included when available. Disabled desktop settings are not treated as authority: the receiving agent must identify the original MAIN and ask if ambiguous. Sketches use the clean drawing instead of blank paper; original bytes and the editable sketch master remain intact. The global scene prompt is now preserved in mapping.project.prompt and START-HERE.txt along with the existing numbered instructions and reference notes. The metadata always starts as requested / not-run. This portable workflow is included regardless of whether automatic desktop review is enabled; it does not change that saved setting. Board-only downloads and multi-angle character/item-sheet packs are unchanged.
+
+Pack verification: 17 focused unit/archive tests, 9 browser tests, and all 6 real download UI scenarios passed. The UI suite initially hit an outdated unscoped Pencil selector after the second reference editor was added; scoping it to the active reference editor made that scenario pass on rerun. The three complete-pack download routes, snapshot capture, save/reopen determinism, original byte/hash preservation, selected non-first blockout and sketch authority were checked. The live desktop server on port 48010 serves the updated module, export code, editor and index byte-for-byte. No paid generation or reviewer call was used for these checks.

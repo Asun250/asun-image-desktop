@@ -1,0 +1,76 @@
+Create ONE finished image from the image request below. Return the finished image itself.
+
+There is no base composition image. Create a new image from the global prompt and any explicitly mapped references.
+
+OUTPUT FRAME: Generate exactly 864 × 1536 pixels (9:16). This is the requested API output size. Preserve the intended full composition and camera framing. Do not crop, stretch, letterbox or add borders to force the aspect ratio. All reference images retain their original proportions.
+
+Annotation guides are separate instructions. Their numbers, colored outlines, selection shading, arrows, highlights and drawn notes identify where to edit. Do not copy these marks into the result. Render text as part of the artwork only when the user explicitly requests that text.
+
+Each selection-mask image is aligned to the full working canvas: WHITE pixels are the selected area, BLACK pixels are outside it. Apply that area’s instruction and references only inside its selection. A group can contain disconnected objects: apply its shared instruction to every white component, not the gaps or the entire bounding rectangle. Masks are guidance to the image model, not a guarantee of pixel-identical preservation.
+
+Original reference images supply appearance details. A reference annotation preview is guidance for its matching original; do not reproduce its markings. Respect photo notes and apply area-linked references only to their matching labels. Global references guide the global prompt.
+
+Image order and roles:
+[
+  {
+    "image": 1,
+    "role": "original reference photo",
+    "referenceId": "3dce65c4-ac36-4899-9969-a0a70b456990",
+    "filename": "4.png",
+    "labels": [],
+    "scope": "global prompt"
+  },
+  {
+    "image": 2,
+    "role": "original reference photo",
+    "referenceId": "2e174fbc-9053-49df-aa2d-52792d01849c",
+    "filename": "2.2_edit_1.png",
+    "labels": [],
+    "scope": "global prompt"
+  }
+]
+
+User’s global image prompt:
+Create one photorealistic Las Vegas nighttime scene master using these two references.
+
+IMAGE 1 — “4.png” — IS THE COMPOSITION AND CAMERA AUTHORITY.
+IMAGE 2 — “2.2_edit_1.png” — IS THE LIGHTING, MATERIALS, AND OVERALL LOOK REFERENCE ONLY.
+
+Rebuild the visible scene from Image 1 with the finished photographic appearance of Image 2. This must look like another shot from the same production, viewed through Image 1’s camera.
+
+Preserve Image 1’s screen-space composition: camera viewpoint, perspective, framing, building silhouettes, relative scale, object positions, rotations, overlaps, and frame-edge cropping. Keep the prominent foreground rooftop and façade occupying the same portion of the frame. Do not pull the camera back, reveal more of the street, or replace this close rooftop composition with Image 2’s wider city view.
+
+Keep every playing card shown in Image 1. Preserve each card’s individual location, apparent size, tilt, visible front or back, suit, rank, and overlap. Retain the two large red ANC card backs behind the foreground roof, the large angled spade card on the right, and the smaller scattered cards in their original positions. Preserve intentional upside-down and edge-on orientations. Do not duplicate, remove, merge, or reposition cards. Do not add Image 2’s dice.
+
+Apply Image 2’s deep navy night atmosphere, warm golden architectural illumination, luminous windows, restrained neon accents, realistic reflections, rich red card backs, and natural contrast. Cards should have believable printed surfaces, subtle thickness, and lighting consistent with their position in the scene.
+
+Replace unfinished blockout appearance with realistic building materials and coherent architectural detail. Repair stretched textures, accidental triangular shading, and broken photogrammetry surfaces while retaining the intended roof geometry, parapets, building outlines, and window placement. Do not mistake reconstruction artifacts for decorative geometry.
+
+Replace the black background and Blender grid with a believable nighttime sky and distant city continuation appropriate to Image 1’s viewpoint. Add background detail only where the blockout lacks finished scenery; preserve all existing foreground and building boundaries.
+
+Do not copy Image 2’s camera angle, object arrangement, skyline layout, or additional foreground features. If the references conflict, Image 1 determines structure and Image 2 determines appearance.
+
+Return ONE finished 9:16 portrait image with the full framing of Image 1. No editor interface, grid, selection marks, comparison panels, borders, or explanatory text.
+
+Numbered area instructions and reference mapping:
+[]
+
+Reference photo notes:
+[
+  {
+    "id": "3dce65c4-ac36-4899-9969-a0a70b456990",
+    "filename": "4.png",
+    "scope": "global prompt",
+    "labels": [],
+    "notes": ""
+  },
+  {
+    "id": "2e174fbc-9053-49df-aa2d-52792d01849c",
+    "filename": "2.2_edit_1.png",
+    "scope": "global prompt",
+    "labels": [],
+    "notes": ""
+  }
+]
+
+Return one finished image without editor UI, explanatory panels, or reference-guide marks.

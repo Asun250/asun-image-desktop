@@ -1,0 +1,45 @@
+Draw / sketch reference - Asun IMG desktop 1.6.7
+2026-10-23
+
+Open Draw / sketch reference in the top navigation or the Create menu.
+It opens a separate drawing workspace on a white page. The current photo
+project stays in memory. If the current canvas contains only drawing/text
+layers, its editable strokes are copied into the first sketch workspace.
+
+1. Use Draw / Pencil to sketch your scene. Brush size, colors, Text, Undo,
+   Redo, Move and Pan remain available. Strokes stay separate editable layers.
+2. Press Auto detect to find areas in the whole sketch, then click an area.
+   Or use Highlight to paint over a subject, then Detect marked area.
+   Highlight several subjects separately to share the same references.
+3. Check the proposed selection and number it. If detection is unavailable or
+   misses the intended subject, Use marked area keeps your manual selection.
+4. The original, complete References window opens: web search, file upload,
+   paste, drag/drop, existing project photos, multiple photos, expanded photo
+   editing, pencil, highlight, text, photo notes and area comments all remain.
+5. Describe the finished scene, choose the model and quality, then Generate.
+   The clean drawing is sent as the scene layout; highlights, numbers and
+   reference annotations are separate guides. White paper does not require
+   the generated scene to have a white background.
+
+Back to editor restores the main project's exact content and its Undo history.
+Opening Draw / sketch reference again restores the sketch and its own history.
+Each workflow tab keeps these separate drafts, including their Undo histories,
+and saves them locally for recovery after refresh. Save each project as .asun
+for a portable backup. Opening a saved sketch restores
+editable strokes, numbered regions, linked references and reference annotations.
+PNG export is a rendered image; Save preserves the editable master.
+
+The white drawing surface is protected from moving or deleting. Canvas size
+can resize a sketch before regions are numbered. Remove numbered selections
+before changing the page size so their masks cannot become misaligned.
+
+Automatic detection uses the existing local SAM 2.1 installation. Rough lines
+and open shapes can be ambiguous; inspect its suggestions or use the explicit
+manual-highlight option. Detection inputs exclude selection paint and labels.
+No new model download or additional cloud detection service is required.
+
+Reference-pack exports include the clean sketch composition and an editable
+sketch .asun master in addition to reference photos and instructions.
+
+Source: .
+Desktop URL: http://127.0.0.1:48010/?workspace=sketch

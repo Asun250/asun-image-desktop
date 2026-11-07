@@ -1,0 +1,66 @@
+ASUN IMG — SCENE CONSISTENCY
+
+Open Scene consistency beside Blockout review near Generate.
+
+1. Turn on saved scene rules and choose the clean original Blender / MAIN image.
+   MAIN controls the current camera, framing, positions, projected sizes and
+   overlaps. This is an explicit selection; the app does not guess from filenames.
+
+2. Choose Add my numbered areas. For each area choose its type, then Use this
+   type's preset. Car, card, text, architecture and prop presets fill in what to
+   keep from MAIN, borrow from references and ignore in references. Select the
+   intended reference variant when a photo contains several alternatives.
+
+3. For difficult areas, add individual objects. Several cars may share reference
+   number 2 while having IDs CAR-01, CAR-02, etc. Click Locate on MAIN to identify
+   each visible object. Set its front/travel direction separately from its visible
+   camera angle. Keep partial and cropped objects in the list. A physical-object
+   count is independent of the number of selected mask regions.
+
+4. Card ranks/suits, intentional wording, partly hidden objects, no extra objects
+   and sharp traffic without light trails are preserved by default. You can change
+   those settings for a project. Arrows guide direction and are excluded from the
+   finished artwork. Every object defaults to its individual MAIN view.
+
+5. Under Keyframe continuity, record shot, current frame, camera name and changes.
+   Add an approved previous image to the reference library, then select it here.
+   It supplies appearance continuity only. It cannot replace current MAIN geometry.
+
+6. Save scene rules. Generate and Complete reference pack include them
+   automatically, even if you leave the ordinary prompt empty. Original images,
+   editable selections, references, undo history and project variants are retained.
+
+Use Save as my default to reuse this setup on this PC. New projects load it as an
+unsaved draft when Scene consistency opens. Choose the new MAIN and save. Defaults
+retain object IDs and shared rules, but clear MAIN, point locations, current/previous
+frame, changes and previous-image bindings. Check names/directions for the new shot.
+Changing MAIN clears old object locations. Existing projects stay unchanged until
+you save their scene rules. Cancel discards the draft.
+
+Independent review is configured separately with Blockout review. It uses actual
+GPT-6 Astra with Max reasoning, up to three total generation attempts, no silent
+model substitution, and retained attempts/reviews. It is not enabled automatically
+by Scene consistency. Generation and review use paid API billing only when submitted.
+
+The ZIP includes START-HERE.txt, mapping.json, SCENE-CONSISTENCY.txt, original image
+files, annotation guides and full-canvas selection-mask PNGs when selections exist.
+Masks may be scaled; their dimensions and working-canvas size are recorded. White
+selects and black excludes. They are compositing aids and model guidance; there is
+no automatic pixel-preserving patch compositor in this feature. Always keep your
+approved master and use the masks to composite local corrections when necessary.
+
+Before-you-generate checks flag missing images, conflicting MAIN choices, duplicate
+IDs and incomplete mappings. These are setup checks, not visual-match approval.
+Image generation remains approximate. A point identifies an object; it does not
+measure Blender geometry or force exact camera/world dimensions. No Blender scene
+is changed by this feature. Keep the editable .blend as the source for exact renders.
+
+Implementation validation (2026-10-27): 509 unit tests, 15 focused browser tests,
+syntax checks. Tests used isolated fixtures and mocked generation; zero paid
+image or review calls. Existing desktop data and current draft were not edited.
+
+Source backup: [local backup omitted from public source]
+QA logs: qa/scene-consistency-unit-tests.log,
+         qa/scene-consistency-browser-tests.log,
+         qa/scene-consistency-syntax.log
+UI previews: qa/scene-consistency-controls/

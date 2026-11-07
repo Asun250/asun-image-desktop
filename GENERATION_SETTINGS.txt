@@ -1,0 +1,64 @@
+Asun IMG desktop 1.6.7 - Sunburst request audit and generation history
+2026-10-23
+
+Actual model ID: gpt-image-2.5-sunburst
+Previous quality: high, hardcoded in the shared backend.
+Current default: high, unchanged. A chosen value is sent verbatim in quality.
+Choices for Sunburst: auto, low, medium, high, xhigh, max.
+Official reference checked:
+https://developers.openai.com/api/reference/resources/images/methods/edit
+https://developers.openai.com/api/docs/models/gpt-image-2.5-sunburst
+
+Output settings, unchanged by this update:
+- One PNG image (n=1), opaque background.
+- Character/item sheets request 1536x1024.
+- Main image requests use the working canvas aspect ratio: wider than 1.2
+  requests 1536x1024; narrower than 1/1.2 requests 1024x1536; otherwise 1024x1024.
+- Requested size and actual dimensions decoded from the returned PNG are shown
+  separately. Auto quality is recorded as auto; a resolved quality is shown only
+  if the provider reports one. No resolution or quality is silently substituted.
+
+API and exact prompt:
+- Requests with input images use https://api.openai.com/v1/images/edits and
+  multipart image[] files in the recorded order. Prompt-only requests use
+  https://api.openai.com/v1/images/generations with JSON.
+- Main prompts combine the user's prompt, visible numbered-area instructions,
+  mapped reference notes, image-role mapping, and composition-preservation rules.
+  The current visible raster canvas is rendered as a clean composition. Separate
+  annotation guides and white-on-black selection masks locate requested edits.
+- Sheet prompts request seven or nine distinct angles of the same selected
+  subject on white, with subject and detail photo notes and annotation mappings.
+  Sheet requests exclude the unrelated ordinary image-edit prompt.
+- Reference originals stay byte-identical. Rendered composition, guides and
+  selection masks are capped at a 2600-pixel longest side. All uploaded inputs
+  are recorded with exact bytes, dimensions, MIME type, role and SHA-256 hash.
+- Input limits remain 16 images total and 64 MB combined. Original/guide image
+  limits and prompt validation run before generation.
+
+Existing job audit:
+The four saved outputs inspected comprise two ordinary Sunburst images at
+1024x1536 and two Sunburst sheets at 1536x1024. Their PNG hashes match their
+recorded metadata. Those older records do not contain quality, requested size,
+exact prompts or uploaded input images. The previous code's high default is
+known, but it is not presented as independently recorded historical metadata.
+See qa/desktop-quality-history/existing-jobs-audit.json.
+
+New result records:
+Exact request options, prompt, roles and input image snapshots are saved before
+the provider call. Provider-reported settings remain separate from requested
+settings. API keys and authorization headers are never included. No failed or
+uncertain paid request is automatically retried or downgraded.
+
+Generation history:
+Use Generation history beside the main Generate controls or in the sheet
+creator. The separate page preserves the open editor's unsaved work. It shows
+saved image/sheet jobs, including failed or interrupted requests and older jobs.
+Open a result for its settings, full prompt, input previews and download action.
+Old missing fields are labelled Not recorded, not reconstructed from today's
+project or current settings. New outputs are never silently evicted at 12 jobs.
+Each history directory allows 2 GiB and 2,048 requests; capacity errors stop new
+generation while preserving existing files.
+
+Source: .
+Local data: data/image-jobs and data/sheet-jobs inside that source folder.
+Save your current project before refreshing a running desktop window.

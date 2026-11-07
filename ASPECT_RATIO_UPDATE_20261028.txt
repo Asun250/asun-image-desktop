@@ -1,0 +1,101 @@
+ASUN IMG Desktop 1.6.7 — Aspect Ratio update
+Completed: 2026-10-28 (America/Los_Angeles)
+Source: .
+Backup: [local backup omitted from public source]
+
+CAUSE AND HISTORICAL EVIDENCE
+The two audited problem jobs used an empty 1600 x 1000 workspace and three
+global reference images. Asun selected size=1536x1024 from that unused canvas,
+despite the user's 9:16 prompt and a 2160x3840 portrait Blender reference.
+The generated instruction wrapper also told the model to keep that canvas's
+aspect. The wrong orientation was already in the actual outgoing API request.
+The saved PNGs are 1536x1024 (3:2 landscape, not 16:9). Input reference bytes
+and dimensions were intact; no output crop/stretch or download conversion
+caused this issue. Evidence: qa/portrait-output/history-audit.json.
+
+IMPLEMENTED
+- Aspect Ratio sits beside Quality under Image model. The initial preferred
+  ratio is 9:16, remembered locally after an explicit choice. Saved projects,
+  variants, workflow tabs and frozen job snapshots keep their own setting.
+- Only verified, currently valid model/source choices are selectable. Switching
+  to a model that cannot support the saved ratio leaves an explicit unsupported
+  marker and blocks Generate until a supported choice is made. No substitution.
+- The resolved size is sent through the OpenAI Images API size parameter in
+  both JSON /images/generations and multipart /images/edits requests. Width,
+  height or aspect_ratio fields unsupported by this integration are not sent.
+- References cannot silently override an explicit generation ratio. An explicit
+  MAIN/blockout lock with a conflicting ratio produces a visible error instead.
+  Match source is a deliberate choice, and only appears when exactly supported.
+- Requested pixels and ratio are shown before generation. Result details and
+  history show actual encoded image dimensions and the calculated ratio.
+- Saved output bytes are inspected and compared to the requested size. Wrong
+  orientation, same-aspect wrong resolution, and one-pixel differences are
+  flagged clearly. Current provider docs specify no output-rounding allowance;
+  the multiple-of-16 input rule is not treated as an output tolerance.
+- Previews retain proportions, including full-resolution zoom/inspection.
+  Downloads preserve the original returned file bytes. There is no automatic
+  crop, stretch, padding, upscaling, or retry to disguise an output mismatch.
+- Selected-area edits override the general generation preference visibly with
+  Keep edit canvas. Composition, annotation guide and selection masks use the
+  same exact native canvas grid. The preferred generation ratio is unchanged.
+  Masks stay standalone when many appearance references are packed into boards.
+- If native edit dimensions are unsupported, generation stops with an explicit
+  explanation. For example, 1080x1920 cannot be sent unchanged to Sunburst
+  because 1080 is not a multiple of 16. No silent rounding or resizing occurs.
+  Larger supported sizes above 3,686,400 pixels are marked experimental.
+- Existing quality defaults and explicit user quality settings are unchanged.
+  Retired GPT Image 1 is unavailable rather than silently replaced.
+
+VERIFIED CAPABILITIES IN THE CURRENT DESKTOP OPENAI INTEGRATION
+Sunburst (gpt-image-2.5-sunburst), Flare (gpt-image-2.5-flare), GPT Image 2:
+  9:16 = 864x1536; 16:9 = 1536x864; 1:1 = 1024x1024;
+  2:3 = 1024x1536; 3:2 = 1536x1024.
+  Match source can use other exact legal ratios. Custom dimensions require
+  multiples of 16, each side at most 3840, aspect from 1:3 through 3:1,
+  and 655,360 through 8,294,400 total pixels.
+GPT Image 1.5 and GPT Image 1 Mini:
+  1:1 = 1024x1024; 2:3 = 1024x1536; 3:2 = 1536x1024.
+  No exact 9:16 or 16:9. Their 2:3 portrait output is labelled honestly.
+No other provider's capabilities are inferred from these OpenAI model rules.
+
+Official documentation checked:
+https://developers.openai.com/api/reference/resources/images/methods/edit
+https://developers.openai.com/api/reference/resources/images/methods/generate
+https://developers.openai.com/api/docs/guides/image-generation
+
+VERIFICATION — 210 PASSING CHECKS; ZERO PAID GENERATION CALLS THIS UPDATE
+175 unit/service/integration checks:
+  qa/aspect-ratio/final-unit-tests.txt
+10 Aspect Ratio UI checks:
+  qa/aspect-ratio/full-ui-tests.txt and qa/aspect-ratio/report.json
+8 real-browser pixel/mask/rotation/reference-packing checks:
+  qa/aspect-ratio/final-mask-browser-tests.txt
+11 reference-pack and history/sheet-preview browser checks:
+  qa/aspect-ratio/final-pack-preview-tests.txt
+6 original-pixel output-inspection checks:
+  qa/aspect-ratio/output-inspection-updated-tests.txt
+
+Coverage includes portrait/landscape JSON and multipart requests, model
+switching, stored preferences, saved projects and variants, unsupported ratios,
+immutable input references, raw downloaded PNG bytes and actual dimensions,
+strict mismatches, native 2160x3840 selections, rotated/disconnected masks,
+reference ZIPs, queue/workflow state, zoom/pan/pinch and unchanged downloads.
+Legacy tests were updated only where fixtures assumed the former Match source
+default, used retired models or unsupported tiny edit canvases, or waited for
+transient status text instead of current queue/workflow readiness. Their core
+behavior assertions were retained. The final runs above all pass.
+
+ACTIVATION AND REMAINING LIVE VERIFICATION
+Restarted only the verified local desktop server at http://127.0.0.1:48010,
+after confirming zero queued/running jobs. All 29 completed queue entries
+remained. Existing editor windows were not forcibly refreshed. Activation and
+current available model IDs: qa/aspect-ratio/activation.json.
+Save your current project, then refresh the desktop editor to load the controls.
+
+No paid live generation was run for this update. Actual API request mapping,
+encoded outputs and downloaded files were tested with mocked provider responses.
+A new end-to-end generation on this build remains untested against the live
+provider and requires the user's permission. Existing earlier live-generation
+artifacts are not counted as live testing of this update.
+Selection masks remain model guidance, as before; pixel alignment is verified,
+but the generative model is not claimed to guarantee identical untouched pixels.

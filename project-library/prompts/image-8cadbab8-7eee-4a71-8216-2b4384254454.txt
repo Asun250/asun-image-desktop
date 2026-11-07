@@ -1,0 +1,102 @@
+Create ONE finished image from the image request below. Return the finished image itself.
+
+The composition image is the CURRENT visible raster canvas, including placement, cropping, layer opacity, masking and color adjustments. Use it as the composition and appearance base. Preserve its arrangement and unrequested details unless the global prompt explicitly asks to change them.
+
+OUTPUT FRAME: Generate exactly 864 × 1536 pixels (9:16). This is the requested API output size. Preserve the intended full composition and camera framing. Do not crop, stretch, letterbox or add borders to force the aspect ratio. All reference images retain their original proportions.
+
+Annotation guides are separate instructions. Their numbers, colored outlines, selection shading, arrows, highlights and drawn notes identify where to edit. Do not copy these marks into the result. Render text as part of the artwork only when the user explicitly requests that text.
+
+Each selection-mask image is aligned to the full working canvas: WHITE pixels are the selected area, BLACK pixels are outside it. Apply that area’s instruction and references only inside its selection. A group can contain disconnected objects: apply its shared instruction to every white component, not the gaps or the entire bounding rectangle. Masks are guidance to the image model, not a guarantee of pixel-identical preservation.
+
+Original reference images supply appearance details. A reference annotation preview is guidance for its matching original; do not reproduce its markings. Respect photo notes and apply area-linked references only to their matching labels. Global references guide the global prompt.
+
+Image order and roles:
+[
+  {
+    "image": 1,
+    "role": "current composition"
+  },
+  {
+    "image": 2,
+    "role": "canvas annotation guide",
+    "use": "Locate numbered areas and drawn instructions; do not copy marks."
+  },
+  {
+    "image": 3,
+    "role": "original reference photo",
+    "referenceId": "25279d05-e35e-476d-be8e-47bde82a4239",
+    "filename": "bellagio_sign.jpg",
+    "labels": [
+      "1"
+    ],
+    "scope": "matching numbered areas only"
+  },
+  {
+    "image": 4,
+    "role": "reference annotation guide",
+    "referenceId": "25279d05-e35e-476d-be8e-47bde82a4239",
+    "use": "Instructions for this reference; not replacement original bytes."
+  },
+  {
+    "image": 5,
+    "role": "area selection mask",
+    "areaId": "671c6133-7ce4-4c17-866f-8f0b708326ba",
+    "label": "1",
+    "groupAreaCount": 1,
+    "use": "WHITE selects pixels; BLACK excludes pixels; full-canvas coordinates."
+  }
+]
+
+User’s global image prompt:
+Edit only the selected Bellagio sign area in Image 1. Use Image 2 as the reference for the BELLAGIO lettering, illuminated appearance, and placement on the curved architectural band directly beneath the rooftop cupola.
+
+Treat the sign as the complete word BELLAGIO mounted on the building, but render only the beginning that is visible within Image 1’s existing frame. The rest of the word must continue naturally beyond the right image edge. Show only the first few letters that physically fit at the correct architectural scale. Allow a letter to be partially cut off by the edge if necessary.
+
+Match the reference’s ornate uppercase serif lettering, proportions, spacing, and warm illumination. Follow the curved sign band and the building’s perspective. Keep the lettering realistically sized relative to the cupola and windows.
+
+Do not shrink, compress, reposition, or wrap the full word to make it fit. Do not place the sign across the long roof or on the window facade. Do not move the building, widen the frame, or zoom out to reveal the rest of the sign. Preserve any foreground overlap from the ANC chip.
+
+Change only the selected sign area. Preserve all other architecture, cards, chips, Eiffel Tower, lighting, water, and background. Keep the exact existing image dimensions and framing.
+
+Numbered area instructions and reference mapping:
+[
+  {
+    "id": "671c6133-7ce4-4c17-866f-8f0b708326ba",
+    "label": "1",
+    "instruction": "Edit only the selected Bellagio sign area in Image 1. Use Image 2 as the reference for the BELLAGIO lettering, illuminated appearance, and placement on the curved architectural band directly beneath the rooftop cupola.\n\nTreat the sign as the complete word BELLAGIO mounted on the building, but render only the beginning that is visible within Image 1’s existing frame. The rest of the word must continue naturally beyond the right image edge. Show only the first few letters that physically fit at the correct architectural scale. Allow a letter to be partially cut off by the edge if necessary.\n\nMatch the reference’s ornate uppercase serif lettering, proportions, spacing, and warm illumination. Follow the curved sign band and the building’s perspective. Keep the lettering realistically sized relative to the cupola and windows.\n\nDo not shrink, compress, reposition, or wrap the full word to make it fit. Do not place the sign across the long roof or on the window facade. Do not move the building, widen the frame, or zoom out to reveal the rest of the sign. Preserve any foreground overlap from the ANC chip.\n\nChange only the selected sign area. Preserve all other architecture, cards, chips, Eiffel Tower, lighting, water, and background. Keep the exact existing image dimensions and framing.",
+    "referenceIds": [
+      "25279d05-e35e-476d-be8e-47bde82a4239"
+    ],
+    "labelBounds": {
+      "x": 820,
+      "y": 221.98362445414847,
+      "width": 44,
+      "height": 75
+    },
+    "selection": {
+      "bounds": {
+        "x": 831,
+        "y": 243,
+        "width": 33,
+        "height": 34.5
+      },
+      "groupAreaCount": 1,
+      "shape": "Use this area’s white-on-black selection-mask image; its bounding rectangle is not the selection."
+    }
+  }
+]
+
+Reference photo notes:
+[
+  {
+    "id": "25279d05-e35e-476d-be8e-47bde82a4239",
+    "filename": "bellagio_sign.jpg",
+    "scope": "matching numbered areas only",
+    "labels": [
+      "1"
+    ],
+    "notes": "apply only the bellagio sign in the circled area. "
+  }
+]
+
+Return one finished image without editor UI, explanatory panels, or reference-guide marks.

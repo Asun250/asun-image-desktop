@@ -1,0 +1,52 @@
+ASUN IMG 1.6.7 DESKTOP - EDIT IMAGE
+
+Open Edit image in the top navigation, or Create > Edit image. A generated
+result's Edit output image action opens the same workspace.
+
+1. Open a photo. Paint over the object you want to select, or run Auto detect
+   and click a detected object. More paint strokes refine the selected area.
+   Subtract removes unwanted parts. New selection starts another area while
+   retaining existing areas; click an area in the list to return to it.
+2. Adjust Brush size with its slider, the mouse wheel over the canvas while
+   painting/subtracting, or [ and ]. B selects Paint; E selects Subtract.
+   Ctrl+wheel zooms. Space+drag pans. The brush outline shows its diameter.
+3. Choose the operation:
+   - Erase selected immediately hides the selected image pixels, leaving
+     transparency. It does not invent a background. PNG preserves the hole;
+     JPEG export uses the existing flattening behavior.
+   - Remove & fill explicitly submits an image generation using the selected
+     model and quality. It sends the current composition, selected-area guide
+     and mask, asking the model to rebuild the background. API charges apply.
+     This uses the existing image-generation workflow and is AI guidance,
+     not a guarantee that every unselected pixel remains identical.
+4. The AI result opens in the existing inspection/result dialog. Enlarge it,
+   save it, use Edit output image, or Redo with all references to restore the
+   complete source setup. Restoring a setup never generates automatically.
+
+Remove & fill intentionally excludes unrelated appearance references and edit
+instructions from the provider request. Those remain in the saved source for
+Redo. For replacement or appearance changes, use References / instructions
+and the ordinary Generate button below the canvas.
+
+Before / after and Undo remain available. Local erasure is an ordered native
+mask; original image bytes, references and selections are retained. Undo
+restores the object. Back to editor keeps the project and its Undo history.
+The regular Restore brush can also recover masked pixels there. Save an .asun
+project to preserve editable layers and masks after closing the app.
+
+Draw / sketch reference stays a separate editable draft. Generate the sketch
+and choose Edit output image to remove objects from its raster result. The
+original drawing remains available in the sketch workspace.
+
+Updating an already open desktop window: save its project, then refresh it.
+The update does not reload or discard the user's current browser session.
+
+Validation evidence:
+  qa/edit-page/unit-tests-serial.log - 251 unit checks passed.
+  qa/image-edit-workspace/report.json - complete isolated UI workflows.
+  qa/edit-page/object-erase-tests.log - exact pixels, holes and PNG alpha.
+  qa/edit-page/workspace-regression.log and focused rechecks - existing result
+    and sketch workflows. Initial output-tools expectation updated for the
+    new Edit page; compact shared-header overflow corrected.
+  qa/edit-page/activation.json - local service activation and served files.
+All provider tests use fixtures. No paid image generation was run for QA.

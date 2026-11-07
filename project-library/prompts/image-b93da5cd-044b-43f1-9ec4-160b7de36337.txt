@@ -1,0 +1,248 @@
+Create ONE finished image from the image request below. Return the finished image itself.
+
+The composition image is the user’s DRAWN SCENE REFERENCE. Its pencil strokes, shapes and included content express the subjects, placement, poses, relative scale, perspective and framing of the intended scene. Turn that sketch into one finished image following the user’s prompt and mapped appearance references. Preserve the intended scene arrangement. The white sketch surface is drawing paper, not a required final white background. Do not discard the drawn subjects as annotation marks or reproduce rough construction lines unless the user requests a sketch style.
+
+The working canvas is 1600 × 1000 pixels. Keep its aspect and framing where practical.
+
+The annotation guide repeats the clean sketch composition with added selection marks. Only its additional numbers, colored outlines, selection shading and highlights are editing instructions; do not copy these marks into the result. Subjects and scene lines already present in the clean sketch composition remain the scene reference. Written notes describe intent; render text in the finished artwork only when the user explicitly requests that text.
+
+Each selection-mask image is aligned to the full working canvas: WHITE pixels are the selected area, BLACK pixels are outside it. Apply that area’s instruction and references only inside its selection. A group can contain disconnected objects: apply its shared instruction to every white component, not the gaps or the entire bounding rectangle. Masks are guidance to the image model, not a guarantee of pixel-identical preservation.
+
+Original reference images supply appearance details. A reference annotation preview is guidance for its matching original; do not reproduce its markings. Respect photo notes and apply area-linked references only to their matching labels. Global references guide the global prompt.
+
+Image order and roles:
+[
+  {
+    "image": 1,
+    "role": "drawn scene composition",
+    "use": "Pencil content describes scene subjects, layout, pose and framing; transform it into the finished scene."
+  },
+  {
+    "image": 2,
+    "role": "canvas annotation guide",
+    "use": "Locate numbered areas and drawn instructions; do not copy marks."
+  },
+  {
+    "image": 3,
+    "role": "original reference photo",
+    "referenceId": "9646bda6-0ffb-49fc-8548-f86387835dab",
+    "filename": "images.jpg",
+    "labels": [
+      "1"
+    ],
+    "scope": "matching numbered areas only"
+  },
+  {
+    "image": 4,
+    "role": "original reference photo",
+    "referenceId": "9c2bc6d4-0cda-4cc4-94f0-6bffa13054be",
+    "filename": "images.jpg",
+    "labels": [
+      "2"
+    ],
+    "scope": "matching numbered areas only"
+  },
+  {
+    "image": 5,
+    "role": "original reference photo",
+    "referenceId": "8219fef3-afe6-431a-863a-b4632fe8c962",
+    "filename": "images.jpg",
+    "labels": [
+      "3"
+    ],
+    "scope": "matching numbered areas only"
+  },
+  {
+    "image": 6,
+    "role": "original reference photo",
+    "referenceId": "084748ae-376b-4667-9a73-01fd0f50e5bd",
+    "filename": "images.jpg",
+    "labels": [
+      "4"
+    ],
+    "scope": "matching numbered areas only"
+  },
+  {
+    "image": 7,
+    "role": "reference annotation guide",
+    "referenceId": "084748ae-376b-4667-9a73-01fd0f50e5bd",
+    "use": "Instructions for this reference; not replacement original bytes."
+  },
+  {
+    "image": 8,
+    "role": "area selection mask",
+    "areaId": "a63956ab-42f4-40d2-ab31-d49f2b19b46c",
+    "label": "1",
+    "groupAreaCount": 1,
+    "use": "WHITE selects pixels; BLACK excludes pixels; full-canvas coordinates."
+  },
+  {
+    "image": 9,
+    "role": "area selection mask",
+    "areaId": "d0d9b26e-8e37-4e29-a782-1eea59d137a1",
+    "label": "2",
+    "groupAreaCount": 1,
+    "use": "WHITE selects pixels; BLACK excludes pixels; full-canvas coordinates."
+  },
+  {
+    "image": 10,
+    "role": "area selection mask",
+    "areaId": "54f16cff-a88d-4883-9644-bc293430dbe9",
+    "label": "3",
+    "groupAreaCount": 1,
+    "use": "WHITE selects pixels; BLACK excludes pixels; full-canvas coordinates."
+  },
+  {
+    "image": 11,
+    "role": "area selection mask",
+    "areaId": "6c9fe311-ffcd-48c9-aca7-582289eb144c",
+    "label": "4",
+    "groupAreaCount": 1,
+    "use": "WHITE selects pixels; BLACK excludes pixels; full-canvas coordinates."
+  }
+]
+
+User’s global image prompt:
+Make the whole theme afternoon sunny, clear skies. helicooper view
+
+Numbered area instructions and reference mapping:
+[
+  {
+    "id": "a63956ab-42f4-40d2-ab31-d49f2b19b46c",
+    "label": "1",
+    "instruction": "",
+    "referenceIds": [
+      "9646bda6-0ffb-49fc-8548-f86387835dab"
+    ],
+    "labelBounds": {
+      "x": 716.5,
+      "y": 375.5,
+      "width": 173,
+      "height": 297
+    },
+    "selection": {
+      "bounds": {
+        "x": 6,
+        "y": 52,
+        "width": 1594,
+        "height": 944
+      },
+      "groupAreaCount": 1,
+      "shape": "Use this area’s white-on-black selection-mask image; its bounding rectangle is not the selection."
+    }
+  },
+  {
+    "id": "d0d9b26e-8e37-4e29-a782-1eea59d137a1",
+    "label": "2",
+    "instruction": "",
+    "referenceIds": [
+      "9c2bc6d4-0cda-4cc4-94f0-6bffa13054be"
+    ],
+    "labelBounds": {
+      "x": 289.5,
+      "y": 238,
+      "width": 173,
+      "height": 297
+    },
+    "selection": {
+      "bounds": {
+        "x": 198,
+        "y": 253,
+        "width": 356,
+        "height": 267
+      },
+      "groupAreaCount": 1,
+      "shape": "Use this area’s white-on-black selection-mask image; its bounding rectangle is not the selection."
+    }
+  },
+  {
+    "id": "54f16cff-a88d-4883-9644-bc293430dbe9",
+    "label": "3",
+    "instruction": "",
+    "referenceIds": [
+      "8219fef3-afe6-431a-863a-b4632fe8c962"
+    ],
+    "labelBounds": {
+      "x": 1040,
+      "y": 128,
+      "width": 173,
+      "height": 297
+    },
+    "selection": {
+      "bounds": {
+        "x": 1029,
+        "y": 199,
+        "width": 195,
+        "height": 155
+      },
+      "groupAreaCount": 1,
+      "shape": "Use this area’s white-on-black selection-mask image; its bounding rectangle is not the selection."
+    }
+  },
+  {
+    "id": "6c9fe311-ffcd-48c9-aca7-582289eb144c",
+    "label": "4",
+    "instruction": "",
+    "referenceIds": [
+      "084748ae-376b-4667-9a73-01fd0f50e5bd"
+    ],
+    "labelBounds": {
+      "x": 713.5,
+      "y": 351.5,
+      "width": 173,
+      "height": 297
+    },
+    "selection": {
+      "bounds": {
+        "x": 0,
+        "y": 4,
+        "width": 1600,
+        "height": 992
+      },
+      "groupAreaCount": 1,
+      "shape": "Use this area’s white-on-black selection-mask image; its bounding rectangle is not the selection."
+    }
+  }
+]
+
+Reference photo notes:
+[
+  {
+    "id": "9646bda6-0ffb-49fc-8548-f86387835dab",
+    "filename": "images.jpg",
+    "scope": "matching numbered areas only",
+    "labels": [
+      "1"
+    ],
+    "notes": "top view of bellagio hotel. "
+  },
+  {
+    "id": "9c2bc6d4-0cda-4cc4-94f0-6bffa13054be",
+    "filename": "images.jpg",
+    "scope": "matching numbered areas only",
+    "labels": [
+      "2"
+    ],
+    "notes": "man on roof of hotel, waving at camera"
+  },
+  {
+    "id": "8219fef3-afe6-431a-863a-b4632fe8c962",
+    "filename": "images.jpg",
+    "scope": "matching numbered areas only",
+    "labels": [
+      "3"
+    ],
+    "notes": "man sits on buildling looking at camera"
+  },
+  {
+    "id": "084748ae-376b-4667-9a73-01fd0f50e5bd",
+    "filename": "images.jpg",
+    "scope": "matching numbered areas only",
+    "labels": [
+      "4"
+    ],
+    "notes": "city background "
+  }
+]
+
+Return one finished image without editor UI, explanatory panels, or reference-guide marks.

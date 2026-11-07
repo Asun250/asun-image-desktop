@@ -1,0 +1,49 @@
+CONTINUE EDITING A GENERATED IMAGE
+Asun IMG desktop 1.6.7
+
+In Your image is ready:
+
+Enlarge / inspect
+Click the output preview or its Enlarge / inspect label to open a large viewer.
+This shows the full-resolution generated image. Fit shows the whole picture;
+100% shows its actual pixel size. Use + / - or scroll to zoom and drag to pan.
+Save image downloads the original output directly from this view.
+Back to result or Esc returns to the ready-image screen without changing your
+project or generating anything. Sheet results and history offer the same viewer.
+
+Edit output image
+Opens the completed image in a new workflow tab at its real output dimensions.
+Use Auto detect, Highlight, Pencil and the full References editor as usual.
+The old selection masks are not applied to new pixels. Use Redo instead when
+you want the original image and its existing selections.
+Your previous workflow remains in its original tab. Undo applies to edits inside
+the selected tab. Your files are not overwritten.
+
+Redo with all references
+Opens another workflow tab with the exact project saved for this generation:
+original images, masks and detected areas, grouped selections, reference photos,
+reference annotations and notes, area comments, prompt, sketch layers and variants.
+The saved model and quality are selected again. Unavailable settings remain visible
+and must be resolved explicitly rather than silently replaced.
+Add or change your edits, then press Generate when ready. Redo itself does not
+submit an API request. Your current draft stays in its previous tab. Use the queue's
+Open workflow action to resume the latest live draft instead of the submitted setup.
+
+Character / item sheets and Generation history have the same actions.
+History opens a new editor tab, preserving the editor you already have open.
+
+Draw / sketch reference
+Editing a generated output opens a new Edit image tab. Your original tab retains
+its independent main and sketch drafts. Redo of a sketch generation opens its
+original sketch workspace and editable strokes in another tab. Each tab and its
+main/sketch workspaces retain their own Undo histories.
+
+Availability
+Native source setups are saved locally for new generations after this update.
+Older generations, or results whose source files are missing/corrupt, show an
+explanation instead of pretending to restore an incomplete setup. Their output
+remains editable. Open a previously saved .asun project to revise a legacy setup.
+Save .asun projects to retain your subsequent edits and independent sketch drafts.
+
+Neither result action starts a generation. Generating again always requires your
+explicit Generate action and uses the connected API account as before.

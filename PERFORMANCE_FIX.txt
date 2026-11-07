@@ -1,0 +1,51 @@
+ASUN IMG DESKTOP 1.6.7 - PERFORMANCE FIX
+2026-10-23
+
+The lag came primarily from repeatedly copying full image data and Undo/Redo
+history while autosaving workflow tabs, plus repeated full-canvas rendering and
+sheet project copies during queue updates.
+
+CHANGES
+- Workspace storage shares unchanged image strings across tabs and history.
+  Saves write only changed graph segments and new image data, atomically.
+- Tab snapshots detach editable state while reusing immutable image strings.
+  Original images, masks, references and the complete Undo/Redo history remain.
+- Autosave waits for a pause and skips unchanged state. Active brush strokes and
+  other unfinished gestures are not saved halfway through.
+- Rendering keeps only the newest requested frame and caches unchanged raster
+  pixels within a 64 MiB limit. Masking and final exports retain native pixels.
+- The sheet page reuses its display snapshot until the actual project changes.
+  Queue updates no longer recopy its images. Generation captures remain exact.
+- Pan and zoom metadata updates settle before running tab persistence checks.
+
+SAVED WORKSPACE COMPATIBILITY
+The existing browser database upgrades from version 1 to version 2 atomically.
+Failed migration leaves the old workspace intact. Invalid data, quota problems
+and competing editor windows report errors instead of overwriting saved work.
+Portable .asun project format is unchanged.
+
+MEASURED RESULTS
+In the same isolated three-tab storage test, saving a prompt edit dropped from
+464 ms to 15 ms. The fixture contains 156 MiB of logically repeated image data
+across full history snapshots; originals and history are preserved.
+
+In a real editor fixture with a 2048 x 1536 image, 13 layers and six references,
+the final check reduced total long-task time from 17.90 seconds to 1.75 seconds
+across nudging, idle, panning and masking. Longest pause fell from 727 ms to
+97 ms. All six mask strokes retained every point; the displayed
+native canvas exactly matched a fresh native render. These are fixture results,
+not a guarantee of identical speed on every project or machine.
+
+VERIFICATION
+354 unit checks passed. Additional checks cover browser storage and migration,
+pixel-equivalent rendering, masking/Undo/Redo, rotation, sheet workflows,
+workflow switching/reload, immutable queued jobs and concurrent upload guards.
+Evidence and final measured results: qa/workflow-performance/
+Storage measurements: qa/workflow-storage-benchmark-before.json and -after.json
+Backing source: .
+Backup: [local backup omitted from public source]
+
+ACTIVATION
+Save your current project, then press Ctrl+R once in the desktop editor.
+The running local service serves these changes without a restart. The user's
+open window was not reloaded, and no paid image generation was used for tests.

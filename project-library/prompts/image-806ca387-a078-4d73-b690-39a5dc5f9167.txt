@@ -1,0 +1,86 @@
+Create ONE finished image from the image request below. Return the finished image itself.
+
+There is no base composition image. Create a new image from the global prompt and any explicitly mapped references.
+
+The working canvas is 1600 × 1000 pixels. Keep its aspect and framing where practical.
+
+Annotation guides are separate instructions. Their numbers, colored outlines, selection shading, arrows, highlights and drawn notes identify where to edit. Do not copy these marks into the result. Render text as part of the artwork only when the user explicitly requests that text.
+
+Each selection-mask image is aligned to the full working canvas: WHITE pixels are the selected area, BLACK pixels are outside it. Apply that area’s instruction and references only inside its selection. A group can contain disconnected objects: apply its shared instruction to every white component, not the gaps or the entire bounding rectangle. Masks are guidance to the image model, not a guarantee of pixel-identical preservation.
+
+Original reference images supply appearance details. A reference annotation preview is guidance for its matching original; do not reproduce its markings. Respect photo notes and apply area-linked references only to their matching labels. Global references guide the global prompt.
+
+Image order and roles:
+[
+  {
+    "image": 1,
+    "role": "original reference photo",
+    "referenceId": "9387a0bd-7825-4471-ad1c-22a0933a2eff",
+    "filename": "2.png",
+    "labels": [],
+    "scope": "global prompt"
+  },
+  {
+    "image": 2,
+    "role": "original reference photo",
+    "referenceId": "b67b5eca-2fa2-4802-842b-3ba4c44dc869",
+    "filename": "1 - generated image (3).png",
+    "labels": [],
+    "scope": "global prompt"
+  },
+  {
+    "image": 3,
+    "role": "original reference photo",
+    "referenceId": "2ebe67e1-c3ac-4201-b320-c0cea272d30a",
+    "filename": "Paris_Eiffel_tower.png",
+    "labels": [],
+    "scope": "global prompt"
+  }
+]
+
+User’s global image prompt:
+Create ONE photorealistic image in 9:16 VERTICAL PORTRAIT format, width:height = 9:16. Do not output 16:9 landscape or a square image. Compose the image natively in portrait; do not crop a landscape result, stretch it, or add borders.
+
+Image 1 is the new Blender blockout and controls the composition. Preserve its vertical framing, camera angle, perspective, object positions, sizes, rotations, cropping, and overlap order. Keep the foreground Eiffel Tower on the left, Bellagio behind it, and every playing card and casino chip in its corresponding location. Preserve objects intentionally cropped by the original frame. Do not copy Image 2’s camera or object arrangement.
+
+Image 2 is the approved appearance master. Match its warm golden nighttime lighting, cream-colored Bellagio architecture, realistic windows and roofs, natural trees, dark blue sky, city lights, and reflective lake. This is the next frame of the same scene, with consistent materials and lighting viewed from a new camera position.
+
+Replace the foreground tower’s solid, faceted placeholder construction with a photorealistic Paris Las Vegas Eiffel Tower replica. Add open metal latticework, diagonal cross-bracing, riveted beams, detailed platforms, and warm illumination. Preserve its placement, overall height, perspective, and approximate outer silhouette from Image 1. Show the appropriate background and cards through the lattice openings. Do not retain the blockout’s solid triangular surfaces.
+
+Finish Bellagio with clean, realistic architectural detail consistent with the master. Replace smeared textures and low-poly faceting without changing its overall form or placement. Make the vegetation natural while preserving its location and approximate scale.
+
+Preserve all cards and chips from Image 1: their count, designs, suits, values, colors, ANC branding, angles, and overlap order. Use realistic coated cardstock and casino-chip materials. Do not add, remove, merge, or rearrange them. Do not import extra objects from Image 2.
+
+Use photographic realism, believable shadows and reflections, crisp material detail, and restrained highlights. Preserve the lake and fountain layout; do not invent a new fountain show.
+
+Final check: the image must be taller than it is wide, exactly 9:16 portrait, with Image 1’s composition and Image 2’s appearance. Output only the finished image.
+
+Numbered area instructions and reference mapping:
+[]
+
+Reference photo notes:
+[
+  {
+    "id": "9387a0bd-7825-4471-ad1c-22a0933a2eff",
+    "filename": "2.png",
+    "scope": "global prompt",
+    "labels": [],
+    "notes": ""
+  },
+  {
+    "id": "b67b5eca-2fa2-4802-842b-3ba4c44dc869",
+    "filename": "1 - generated image (3).png",
+    "scope": "global prompt",
+    "labels": [],
+    "notes": ""
+  },
+  {
+    "id": "2ebe67e1-c3ac-4201-b320-c0cea272d30a",
+    "filename": "Paris_Eiffel_tower.png",
+    "scope": "global prompt",
+    "labels": [],
+    "notes": ""
+  }
+]
+
+Return one finished image without editor UI, explanatory panels, or reference-guide marks.

@@ -1,0 +1,29 @@
+Main-page image search - desktop Asun IMG 1.6.7
+
+Start with a web photo
+1. Enter a subject in Search the web for an image on the empty main canvas.
+   Once a photo is open, use Search images above the canvas to find another.
+2. Search images shows Wikimedia Commons photos inside Asun IMG. View more
+   continues through available results. Use the source link for original
+   publication and license information. Search Google Images opens broader
+   results in your browser; copy/paste or drag the photo back into Asun IMG.
+3. Choose Use image to import the original photo as a regular editable layer.
+   The first photo sets the canvas dimensions; later photos add layers.
+4. Click Auto detect, then click an area to number it and open References.
+   Alternatively, Highlight each subject, choose Detect marked area / Detect
+   highlights, and choose a result or Use marked area manually.
+5. Add photos, annotations and instructions using the original References
+   dialog. Existing generation options use these photos and selected areas.
+
+Other starting points
+- Choose a photo opens the local image picker.
+- Paste image or Ctrl+V accepts a copied PNG, JPEG or WebP image.
+- Drop supported files or a web image into the search window or canvas.
+- Use an image link accepts a direct public PNG, JPEG or WebP address.
+
+Existing layers and original image bytes are preserved. Image batches import
+together and can be undone. Closing the search window cancels pending work.
+Websites that block direct import produce a visible error; use Copy image and
+Paste image instead. Search results depend on the provider's available images;
+View more has no fixed application page limit. Auto detection depends on the
+installed local detector. Manual marked-area selection remains available.

@@ -1,0 +1,36 @@
+Asun IMG desktop 1.6.7 - automatic local connection renewal
+2026-10-23
+
+FIX
+The editor previously retained a local authorization token after the background
+service restarted. A generation then failed with "Refresh Asun IMG to authorize
+image generation", even though the provider connection was configured.
+
+The editor now renews local authorization automatically and retries once with
+exactly the same saved request ID, image, references, selected areas, prompt,
+model and quality. Concurrent job checks share the connection renewal. Job queue,
+history and saved input previews use the same narrow error classification.
+
+Provider/account errors and unrelated permission failures are not automatically
+retried. An interrupted submission still uses the existing same-ID recovery;
+it does not create a replacement paid job. Local session checks occur before a
+job is admitted to the queue. Model and quality defaults are unchanged.
+
+LOADING THE FIX
+Save the current project, then refresh the desktop window once to load the update.
+Later local-service restarts should reconnect without reloading that window.
+
+SOURCE AND BACKUP
+Source: .
+Backup: [local backup omitted from public source]
+All verification uses isolated storage and simulated providers; no paid calls.
+Evidence: qa/generation-auth-*.log and qa/generation-auth-reconnect/
+
+VERIFIED AND ACTIVATED
+63 bridge/quality/removal checks, 7 server authorization checks, 2 live browser
+restart cases, 3 input-preview cases, 4 queue UI cases and 7 quality/history UI
+cases passed. Earlier obsolete automatic-result test expectations were updated
+to explicit View result; all original quality and saved-metadata checks remain.
+The idle desktop service was restarted safely; local token classification and
+five served asset hashes verified. Existing desktop windows were left open.
+Activation details: qa/generation-auth-reconnect/activation.json

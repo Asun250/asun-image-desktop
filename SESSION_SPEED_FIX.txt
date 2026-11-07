@@ -1,0 +1,66 @@
+ASUN IMG DESKTOP 1.6.7 — SESSION SPEED AND MEMORY
+2026-10-27
+
+Source: .
+Backup: [local backup omitted from public source]
+
+WHAT CHANGED
+- Editing and Undo snapshots share immutable original image strings, while
+  editable objects, points, masks, metadata and references remain detached.
+- History compares state without serializing every photo twice per edit.
+- Autosave reuses unchanged detached tab sessions and old Undo entries, so
+  clearing a project or working in another tab does not keep reprocessing
+  the previous drawing history. Mutable storage callers retain exact captures.
+- Identical background job polls no longer rewrite storage and refresh every
+  subscribed editor view. Real queue transitions and results still update.
+- Decoded image, erased-mask, expanded-region and thumbnail caches have limits.
+  Starting/resetting a workspace clears derived data. In-flight decode callers
+  still receive their own image without repopulating retired caches.
+- Private rendering canvases are released immediately after use. Closing
+  Before/after releases its hidden full-size comparison canvas.
+- Immutable source validation is reused within a bounded cache. Changed bytes,
+  dimensions, metadata and invalid input are still checked; reset clears it.
+
+PRESERVED
+Original source bytes, references, exact masks, Undo/Redo, editable projects,
+tabs, saved history, queued submissions, generation model/quality/prompt and
+reference mappings. No saved projects or production jobs were deleted, and no
+paid generation or reviewer request was made for these tests.
+
+MEASURED IN ISOLATED BROWSER FIXTURES
+60 Undo entries with 4 strokes of 1500 points per entry:
+- Save after clearing the project: about 818–1108 ms before, 22–23 ms after
+  (totals include a 20 ms measurement wait).
+- Worst event-loop pause in that fixture: 1022 ms before, 5.8 ms after.
+
+2048x1536 photo, 12 references, 8 labels, mask and 30 repeated edits:
+- Editing long tasks: 31 before, 2 after; total 3792 ms before, 123 ms after.
+- Browser JavaScript heap after clearing: about 488 MB before, 27 MB after.
+  Heap readings depend on garbage collection and are not total computer RAM.
+- Exact original/reference strings and masks recovered through tab switching,
+  Undo and Redo. Blank idle and typing had no long tasks in this fixture.
+- Final isolated pan/drag/mask check: longest pointer-move handlers were
+  2.1/2.5/0.8 ms. Full-resolution rendering still occasionally produced roughly
+  100 ms tasks while masking. All six 16-point strokes survived reset/recovery.
+
+These measurements describe the fixtures, not guaranteed frame rates for every
+image size, layer count, machine or paid provider generation time.
+
+EVIDENCE
+qa/session-speed/workflow-benchmark.json
+qa/performance-reset-20261027/comparison.json
+qa/performance-reset-20261027/final-interactions.json
+qa/session-speed/final-unit-tests.txt (504 passed with final source validation)
+qa/session-speed/final-core-tests.txt (39 focused core/validation checks passed)
+qa/session-speed/cache-before.txt and cache-after.txt
+qa/session-speed/private-buffer-cleanup.txt
+qa/session-speed/source-validation-review.txt
+qa/session-speed/workflow-reload-diagnostic/report.json (sheet and main/sketch
+workflow switching, save/reload, settings, references and Undo/Redo passed)
+qa/session-speed/live-assets.json
+
+ACTIVATION
+All eleven changed/new frontend modules are served by the running desktop
+server at http://127.0.0.1:48010. No server restart is needed.
+Save the current project, then press Ctrl+R once to load the update.
+The user's open window has not been force-reloaded or closed.

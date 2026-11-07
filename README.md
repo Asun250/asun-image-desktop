@@ -2,7 +2,7 @@
 
 ASUN IMG is a local desktop image editor with reference-guided image generation, editable projects, object selections, sketching, character/item sheets, and a background job queue. The desktop window uses Microsoft Edge or Google Chrome and a Node.js service bound to `127.0.0.1`.
 
-This is a **code-only** repository for the current 1.6.7 desktop application. It is separate from the hosted phone app and ChatGPT plugin. Images, branding artwork, personal prompts, reference packs and saved projects are not included. Generic prompt-building functions and synthetic test fixtures are application code; no user prompt history is published.
+This repository contains the current 1.6.7 desktop application, its artwork, and the owner's authorized project library: images, references, recorded prompts, editable projects and generated results. It is separate from the hosted phone app and ChatGPT plugin. Credentials and private account/runtime records are excluded.
 
 ## Run on Windows
 
@@ -27,7 +27,7 @@ $env:ASUN_PORT = '48020'
 npm start
 ```
 
-There are no production npm dependencies. `npm ci` installs the development/test dependencies only. Windows is the supported desktop target; native branding and the optional detection worker are Windows-specific. Private logos, startup animation and taskbar artwork are intentionally absent. The editor supports a missing startup image; native branding and artwork-specific tests require separately supplied local assets, which must remain untracked.
+There are no production npm dependencies. `npm ci` installs the development/test dependencies only. Windows is the supported desktop target; native branding and the optional detection worker are Windows-specific. The app branding, startup animation and taskbar artwork are included.
 
 ## Image generation
 
@@ -42,7 +42,7 @@ The existing model selector includes GPT Image 2.6 Sunburst and Flare, the 2.5 m
 - **Aspect Ratio** controls the request parameters. Unsupported remembered preferences require an explicit supported selection. Selected-area edits retain their source canvas by default.
 - Results show the exact prompt, input images, requested settings and actual returned dimensions. Downloads retain the original generated file.
 
-This publication adds no new paid generation tests. Personal prompt records and historical reports containing example instructions are excluded.
+This publication adds no paid generation tests. Existing recorded prompts and results are available in the [project library](project-library/README.md). Older jobs without saved prompts are labeled accordingly.
 
 ## Workflows included
 
@@ -64,7 +64,7 @@ Follow [Local detection setup](docs/LOCAL_DETECTION.md). The opt-in setup downlo
 
 Save portable editable projects as `.asun` files. These files can contain original photos, references, prompts and annotations. Browser draft recovery is local to that browser profile. Generated jobs, inputs and results are stored in the local `data/` directory; logs go in `logs/`.
 
-Personal saved projects, generation history, logs, API credentials, all image/media files, machine-specific activation records, Python environments and downloaded models are excluded from this repository. Do not expose this local service directly to the internet. Review the contents of an image project or reference pack before sharing it elsewhere.
+Authorized saved projects, original/reference images, prompts and generated results are published as a [project-library release](https://github.com/Asun250/asun-image-desktop/releases/tag/project-library-2026-11-06). The repository contains its browsable catalog and prompt files. The release preserves original image and editable-project bytes. Credentials, private account data, operational queue markers, local logs, Python environments and downloaded models are excluded. Do not expose this local service directly to the internet.
 
 ## Development
 
@@ -77,9 +77,9 @@ npm run test:browser
 npm run check:public
 ```
 
-Unit/service tests use mocked provider responses. GPU/native-window checks require explicit opt-in and local prerequisites. Artwork-dependent checks skip when private artwork is absent. See [Development and verification](docs/DEVELOPMENT.md).
+Unit/service tests use mocked provider responses. GPU/native-window checks require explicit opt-in and local prerequisites. Artwork-dependent checks skip if optional artwork is absent. See [Development and verification](docs/DEVELOPMENT.md).
 
-After each completed iteration, test and commit the intended code changes, run `npm run check:public`, and push to this repository. Inspect the staged diff for private content as well; a file-type check cannot identify every personal prompt embedded in text. Keep the existing repository visibility and exclude images, personal prompts, saved projects, credentials and runtime data from every future commit.
+After each completed iteration, test and commit the intended code and authorized material changes, run `npm run check:public`, and push to this repository. Use the sanitized snapshot exporter for saved project collections. Inspect staged content for credentials and unrelated private data; automated checks are an aid, not a substitute for review. Preserve the repository visibility.
 
 Application modules live in `public/`, the loopback service in `server.mjs`, generation integrations in `desktop-*.mjs`, the local detection bridge in `local-sam.mjs` / `local-sam-worker.py`, and native desktop helpers in `windows/`.
 

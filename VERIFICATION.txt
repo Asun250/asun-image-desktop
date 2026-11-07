@@ -1,0 +1,12 @@
+Asun IMG1.6.7 — Windows taskbar icon repair
+
+36 native checks passed: unchanged existing HWNDs/projects, both native small/large icon pixels match the supplied husky, explicit taskbar ID/icon/relaunch metadata, unchanged unrelated ASUN Board window, native helper alive.
+4 fresh-launch checks passed in a disposable Edge profile, including browser reload restoring icons. Only the disposable profile was closed.
+7 browser branding/project compatibility checks passed.25 production modules passed syntax validation.
+All production editor modules, source handling, references, exports, themes, animations and local SAM files match1.6.6 byte-for-byte. Only the HTML release footer and compatibility ICO aliases changed in public/.
+Independent code review corrected HWND-lifetime ownership and verified property assignment order and exact window selection.
+The permitted native screenshot helper timed out; taskbar verification uses read-back shell properties and exact native HICON pixels, not a captured taskbar screenshot.
+
+Current user windows were not closed or reloaded. Old releases and original user artwork are retained.
+
+Activation verified: both root launchers select1.6.7, desktop shortcut ID Asun.IMG matches the two open window IDs, desktop/root icons contain husky bytes, single-helper mutex prevents duplicate icon owners, disposable QA browser closed.

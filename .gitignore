@@ -11,7 +11,6 @@ data/
 logs/
 qa/
 backups/
-*.asun
 *.blend
 *.blend1
 *.log
@@ -36,29 +35,7 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Code-only publication: never upload image assets or project/prompt content
-*.png
-*.jpg
-*.jpeg
-*.webp
-*.gif
-*.ico
-*.svg
-*.bmp
-*.tif
-*.tiff
-*.avif
-*.heic
-*.exr
-*.hdr
-*.mp4
-*.mov
-*.webm
-*.zip
-branding/
-prompts/
-references/
-outputs/
-exports/
-projects/
-*.prompt
+
+# Publish authorized materials through the sanitized project-library export.
+release-build/
+*.partial

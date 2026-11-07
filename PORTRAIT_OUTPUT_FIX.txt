@@ -1,0 +1,79 @@
+ASUN IMG DESKTOP — PORTRAIT OUTPUT FIX — 2026-10-28
+
+Confirmed cause
+The latest two image jobs, 806ca387-a078-4d73-b690-39a5dc5f9167 and
+da3e6d49 (full ID in qa/portrait-output/history-audit.json), had no canvas
+layers. Their first reference was a 2160 x 3840 portrait Blender image.
+The old request builder selected 1536x1024 from the empty 1600x1000 working
+canvas and also told the model to retain that canvas aspect. Prompt text
+requesting 9:16 did not change the API size parameter.
+
+The actual saved PNGs were 1536 x 1024 (3:2 landscape, not 16:9). Their
+original reference pixels and hashes were intact. The application did not
+crop or resize provider outputs; it saved decoded PNG bytes directly.
+
+Fix
+- Output format beside Quality exposes Match source, 9:16, 16:9, 2:3, 3:2
+  and 1:1, with the exact requested pixels and framing source visible.
+- Match source uses an explicitly locked original MAIN/blockout first,
+  otherwise the actual composition canvas, otherwise the first unlinked
+  global reference. An empty default canvas no longer overrides that photo.
+- The output choice is project-local and survives Save/Open, Undo/Redo,
+  variants, workflow tabs and the saved source used by Redo.
+- Sunburst, Flare and GPT Image 2 use supported exact-aspect dimensions.
+  Exact 9:16 requests 864x1536. A portrait 2:3 requests 1024x1536.
+  Unsupported sizes fail visibly with supported alternatives; no substitution.
+- The API receives size=WIDTHxHEIGHT. No separate width/height/aspect_ratio
+  parameter is sent. Selected model and quality are preserved.
+- Generated framing instructions state the actual API output dimensions.
+  The empty-canvas framing instruction is removed for reference-only work.
+- Encoded output pixels are checked against the requested size. A mismatch
+  is shown in the result/history/queue and the raw output remains untouched.
+  Reviewed generations stop before a paid Astra call on a known mismatch.
+  Neither cropping/stretching nor an automatic size-correction retry is used.
+
+Reference image handling
+Original reference images remain original bytes. Optional canvas, annotation
+and mask previews retain proportions with a 2600px maximum long edge (integer
+pixel rounding). Existing labeled reference-board packing for large sets is
+unchanged. It does not determine the output size.
+
+Real verification
+One real Sunburst Max job reused the last saved prompt and all three original
+references unchanged, with explicit 9:16. No additional review/retry loop.
+Job: c764282e-020e-4c5c-bd27-662373cb4526
+Endpoint: https://api.openai.com/v1/images/edits
+Sent: model=gpt-image-2.5-sunburst, quality=max, size=864x1536,
+      n=1, output_format=png, background=opaque.
+Reference dimensions: 2160x3840, 1024x1536, 1448x1086; all hashes unchanged.
+Provider returned size: 864x1536.
+Saved PNG IHDR: 864 x 1536, exact 9:16, 2,507,960 bytes.
+SHA-256: e8fda4f2bdca5215705d0b7827fb6bac1c7fb215fae352ed12d7f0a7cd26f037
+Output: data/image-jobs/c764282e-020e-4c5c-bd27-662373cb4526.png
+Audit: qa/portrait-output/live-verification.json
+This verifies dimensions and unchanged file handling, not exact 3D geometry.
+
+Use
+Save your open project, then refresh the desktop editor (Ctrl+R).
+For the portrait reference-only setup, Match source now shows 864 x 1536.
+You can also explicitly choose 9:16 portrait. The verification result is in
+Job queue / Generation history, alongside the preserved earlier results.
+
+Official size contract
+https://developers.openai.com/api/reference/resources/images/methods/edit
+
+Validation
+- 121 targeted unit/integration checks passed; 9 focused output/review UI
+  checks passed. The five global-reference UI checks also passed.
+- Real downloaded output matches the saved PNG byte-for-byte. All 10 changed
+  public assets match the live desktop server. Server restarted with no
+  queued/running jobs; open editor state was not forcibly reloaded.
+- Six older workflow/quality UI tests still fail, and all six reproduce with
+  the pre-update UI/bridge/core/details files. They concern legacy notification,
+  reload and previous-result expectations; they are not reported as passing.
+  Evidence: qa/portrait-output/ui-baseline-audit.txt.
+- Logs: qa/portrait-output/regression-tests.txt, final-ui-tests.txt,
+  live-activation.json, live-verification.json, history-audit.json.
+
+Backup
+[local backup omitted from public source]

@@ -1,0 +1,298 @@
+Create ONE finished image from the image request below. Return the finished image itself.
+
+The composition image is the CURRENT visible raster canvas, including placement, cropping, layer opacity, masking and color adjustments. Use it as the composition and appearance base. Preserve its arrangement and unrequested details unless the global prompt explicitly asks to change them.
+
+The working canvas is 2160 × 3840 pixels. Keep its aspect and framing where practical.
+
+Annotation guides are separate instructions. Their numbers, colored outlines, selection shading, arrows, highlights and drawn notes identify where to edit. Do not copy these marks into the result. Render text as part of the artwork only when the user explicitly requests that text.
+
+Each selection-mask image is aligned to the full working canvas: WHITE pixels are the selected area, BLACK pixels are outside it. Apply that area’s instruction and references only inside its selection. A group can contain disconnected objects: apply its shared instruction to every white component, not the gaps or the entire bounding rectangle. Masks are guidance to the image model, not a guarantee of pixel-identical preservation.
+
+Original reference images supply appearance details. A reference annotation preview is guidance for its matching original; do not reproduce its markings. Respect photo notes and apply area-linked references only to their matching labels. Global references guide the global prompt.
+
+Image order and roles:
+[
+  {
+    "image": 1,
+    "role": "current composition"
+  },
+  {
+    "image": 2,
+    "role": "canvas annotation guide",
+    "use": "Locate numbered areas and drawn instructions; do not copy marks."
+  },
+  {
+    "image": 3,
+    "role": "original reference photo",
+    "referenceId": "6563bc21-74bc-4ef5-8988-92bf3dd7458f",
+    "filename": "cards.png",
+    "labels": [
+      "1"
+    ],
+    "scope": "matching numbered areas only"
+  },
+  {
+    "image": 4,
+    "role": "original reference photo",
+    "referenceId": "295736a0-8a7b-4ff2-bdee-ec1cf00ba5a2",
+    "filename": "images - 7-view sheet.png",
+    "labels": [
+      "2"
+    ],
+    "scope": "matching numbered areas only"
+  },
+  {
+    "image": 5,
+    "role": "original reference photo",
+    "referenceId": "77910994-1541-43fd-b1c5-c67e59804c1d",
+    "filename": "casino_chips.png",
+    "labels": [
+      "3"
+    ],
+    "scope": "matching numbered areas only"
+  },
+  {
+    "image": 6,
+    "role": "original reference photo",
+    "referenceId": "8eecbbcd-1310-4545-aa57-8112535af1da",
+    "filename": "IMG_4525.jpg",
+    "labels": [
+      "4"
+    ],
+    "scope": "matching numbered areas only"
+  },
+  {
+    "image": 7,
+    "role": "original reference photo",
+    "referenceId": "4cce7977-f98f-4182-a3ea-535a4f7d968e",
+    "filename": "1 - generated image - generated image (1).png",
+    "labels": [
+      "5"
+    ],
+    "scope": "matching numbered areas only"
+  },
+  {
+    "image": 8,
+    "role": "reference annotation guide",
+    "referenceId": "4cce7977-f98f-4182-a3ea-535a4f7d968e",
+    "use": "Instructions for this reference; not replacement original bytes."
+  },
+  {
+    "image": 9,
+    "role": "area selection mask",
+    "areaId": "cca38954-9bf2-4cdd-8302-1dba59ff936d",
+    "label": "1",
+    "groupAreaCount": 5,
+    "use": "WHITE selects pixels; BLACK excludes pixels; full-canvas coordinates."
+  },
+  {
+    "image": 10,
+    "role": "area selection mask",
+    "areaId": "3cc19496-eeef-4493-b9d6-47be7d16b4b5",
+    "label": "2",
+    "groupAreaCount": 1,
+    "use": "WHITE selects pixels; BLACK excludes pixels; full-canvas coordinates."
+  },
+  {
+    "image": 11,
+    "role": "area selection mask",
+    "areaId": "50462b76-40b6-45c5-9448-961b921fb061",
+    "label": "3",
+    "groupAreaCount": 2,
+    "use": "WHITE selects pixels; BLACK excludes pixels; full-canvas coordinates."
+  },
+  {
+    "image": 12,
+    "role": "area selection mask",
+    "areaId": "15e0d20c-f9fa-44fc-8e9e-873b660e90e2",
+    "label": "4",
+    "groupAreaCount": 2,
+    "use": "WHITE selects pixels; BLACK excludes pixels; full-canvas coordinates."
+  },
+  {
+    "image": 13,
+    "role": "area selection mask",
+    "areaId": "e2b0a69b-5466-482a-ac4e-f510b5d22725",
+    "label": "5",
+    "groupAreaCount": 1,
+    "use": "WHITE selects pixels; BLACK excludes pixels; full-canvas coordinates."
+  }
+]
+
+User’s global image prompt:
+(No global change requested; follow the numbered area instructions.)
+
+Numbered area instructions and reference mapping:
+[
+  {
+    "id": "cca38954-9bf2-4cdd-8302-1dba59ff936d",
+    "label": "1",
+    "instruction": "Apply the references and instructions to all 5 selected areas in this group.",
+    "referenceIds": [
+      "6563bc21-74bc-4ef5-8988-92bf3dd7458f"
+    ],
+    "labelBounds": {
+      "x": 1131.8,
+      "y": 1292.2,
+      "width": 62,
+      "height": 106
+    },
+    "selection": {
+      "bounds": {
+        "x": 192,
+        "y": 0,
+        "width": 1485.6,
+        "height": 3199.2
+      },
+      "groupAreaCount": 5,
+      "shape": "Use this area’s white-on-black selection-mask image; its bounding rectangle is not the selection."
+    }
+  },
+  {
+    "id": "3cc19496-eeef-4493-b9d6-47be7d16b4b5",
+    "label": "2",
+    "instruction": "",
+    "referenceIds": [
+      "295736a0-8a7b-4ff2-bdee-ec1cf00ba5a2"
+    ],
+    "labelBounds": {
+      "x": 613.1,
+      "y": 1973.1,
+      "width": 173,
+      "height": 297
+    },
+    "selection": {
+      "bounds": {
+        "x": 146.4,
+        "y": 403.2,
+        "width": 1106.4,
+        "height": 3436.8
+      },
+      "groupAreaCount": 1,
+      "shape": "Use this area’s white-on-black selection-mask image; its bounding rectangle is not the selection."
+    }
+  },
+  {
+    "id": "50462b76-40b6-45c5-9448-961b921fb061",
+    "label": "3",
+    "instruction": "Apply the references and instructions to all 2 selected areas in this group.",
+    "referenceIds": [
+      "77910994-1541-43fd-b1c5-c67e59804c1d"
+    ],
+    "labelBounds": {
+      "x": 1779.8,
+      "y": 2444.2,
+      "width": 62,
+      "height": 106
+    },
+    "selection": {
+      "bounds": {
+        "x": 1504.8,
+        "y": 0,
+        "width": 645.6,
+        "height": 3141.6
+      },
+      "groupAreaCount": 2,
+      "shape": "Use this area’s white-on-black selection-mask image; its bounding rectangle is not the selection."
+    }
+  },
+  {
+    "id": "15e0d20c-f9fa-44fc-8e9e-873b660e90e2",
+    "label": "4",
+    "instruction": "Apply the references and instructions to all 2 selected areas in this group.",
+    "referenceIds": [
+      "8eecbbcd-1310-4545-aa57-8112535af1da"
+    ],
+    "labelBounds": {
+      "x": 1112.6,
+      "y": 2513.8,
+      "width": 62,
+      "height": 106
+    },
+    "selection": {
+      "bounds": {
+        "x": 0,
+        "y": 417.6,
+        "width": 2160,
+        "height": 3422.4
+      },
+      "groupAreaCount": 2,
+      "shape": "Use this area’s white-on-black selection-mask image; its bounding rectangle is not the selection."
+    }
+  },
+  {
+    "id": "e2b0a69b-5466-482a-ac4e-f510b5d22725",
+    "label": "5",
+    "instruction": "Apply the references and instructions to all 1 selected areas in this group.",
+    "referenceIds": [
+      "4cce7977-f98f-4182-a3ea-535a4f7d968e"
+    ],
+    "labelBounds": {
+      "x": 601.4,
+      "y": 363.4,
+      "width": 62,
+      "height": 106
+    },
+    "selection": {
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 2155.2,
+        "height": 1224
+      },
+      "groupAreaCount": 1,
+      "shape": "Use this area’s white-on-black selection-mask image; its bounding rectangle is not the selection."
+    }
+  }
+]
+
+Reference photo notes:
+[
+  {
+    "id": "6563bc21-74bc-4ef5-8988-92bf3dd7458f",
+    "filename": "cards.png",
+    "scope": "matching numbered areas only",
+    "labels": [
+      "1"
+    ],
+    "notes": "use card as realistic reference. "
+  },
+  {
+    "id": "295736a0-8a7b-4ff2-bdee-ec1cf00ba5a2",
+    "filename": "images - 7-view sheet.png",
+    "scope": "matching numbered areas only",
+    "labels": [
+      "2"
+    ],
+    "notes": "paris hotel eiffel tower "
+  },
+  {
+    "id": "77910994-1541-43fd-b1c5-c67e59804c1d",
+    "filename": "casino_chips.png",
+    "scope": "matching numbered areas only",
+    "labels": [
+      "3"
+    ],
+    "notes": ""
+  },
+  {
+    "id": "8eecbbcd-1310-4545-aa57-8112535af1da",
+    "filename": "IMG_4525.jpg",
+    "scope": "matching numbered areas only",
+    "labels": [
+      "4"
+    ],
+    "notes": "bellagio las vegas "
+  },
+  {
+    "id": "4cce7977-f98f-4182-a3ea-535a4f7d968e",
+    "filename": "1 - generated image - generated image (1).png",
+    "scope": "matching numbered areas only",
+    "labels": [
+      "5"
+    ],
+    "notes": "use the city background and sky only for this reference"
+  }
+]
+
+Return one finished image without editor UI, explanatory panels, or reference-guide marks.
